@@ -1,16 +1,39 @@
 package com.revature.roomrequests.roomrequesttable;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.revature.roomrequests.R;
 
+import java.util.ArrayList;
+
 public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTableAdapter.RequestRoomViewHolder> {
+
+    ArrayList<String> batches;
+    ArrayList<String> rooms;
+    ArrayList<String> trainers;
+    ArrayList<String> dates;
+
+    Context context;
+
+    public RoomRequestTableAdapter(){
+        super();
+    }
+
+    public RoomRequestTableAdapter(Context context, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
+        this.context = context;
+        this.batches = batches;
+        this.rooms = rooms;
+        this.trainers = trainers;
+        this.dates = dates;
+    }
 
     @NonNull
     @Override
@@ -23,13 +46,24 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, final int position) {
 
+        holder.tvBatch.setText(batches.get(position));
+        holder.tvRoom.setText(rooms.get(position));
+        holder.tvTrainer.setText(trainers.get(position));
+        holder.tvDates.setText(dates.get(position));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"You chose room: " + rooms.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return rooms.size();
     }
 
     public class RequestRoomViewHolder extends RecyclerView.ViewHolder {

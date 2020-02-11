@@ -4,6 +4,7 @@ package com.revature.roomrequests.roomrequesttable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -31,6 +32,14 @@ public class RoomRequestTableFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_room_request_table, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycle_room_requests_table);
+
+        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext());
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        RoomRequestTableAdapter adapter = new RoomRequestTableAdapter();
+
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
