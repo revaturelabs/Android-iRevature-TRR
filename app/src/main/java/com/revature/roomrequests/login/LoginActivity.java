@@ -1,4 +1,4 @@
-package com.revature.roomrequests;
+package com.revature.roomrequests.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.revature.roomrequests.MainActivity;
+import com.revature.roomrequests.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });

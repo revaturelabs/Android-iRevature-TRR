@@ -1,4 +1,4 @@
-package com.revature.roomrequests;
+package com.revature.roomrequests.login;
 
 
 import android.app.Dialog;
@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.revature.roomrequests.R;
 
 /**
  * A simple {@link Fragment} subclass.

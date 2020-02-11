@@ -1,8 +1,10 @@
-package com.revature.roomrequests;
+package com.revature.roomrequests.locationselector;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.revature.roomrequests.R;
 
 public class LocationSelectorActivity extends AppCompatActivity {
 
