@@ -1,13 +1,18 @@
 package com.revature.roomrequests;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.revature.roomrequests.locationselector.LocationSelectorActivity;
+
 public class MainActivity extends AppCompatActivity {
 
+    final private int LOCATION_SELECTOR_RESULT_CODE = 1;
     TextView tvLocation;
 
     @Override
@@ -22,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
+                Intent intent = new Intent(getParent().getBaseContext(), LocationSelectorActivity.class);
+
+                startActivityForResult(intent, LOCATION_SELECTOR_RESULT_CODE);
+
                 return false;
             }
         });
