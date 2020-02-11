@@ -4,28 +4,28 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvRowBatch"
+        android:id="@+id/tv_row_batch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/batch_ex" />
 
     <TextView
-        android:id="@+id/tvRowRoom"
+        android:id="@+id/tv_row_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/room_number" />
 
     <TextView
-        android:id="@+id/tvRowTrainer"
+        android:id="@+id/tv_row_trainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/trainer" />
 
     <TextView
-        android:id="@+id/tvRowDates"
+        android:id="@+id/tv_row_dates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

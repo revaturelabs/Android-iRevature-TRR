@@ -34,12 +34,12 @@ public class ForgotPasswordFragment extends DialogFragment {
         builder.setMessage(R.string.forgot_password_dialog)
                 .setPositiveButton(R.string.send, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+
                     }
                 });
         // Create the AlertDialog object and return it
