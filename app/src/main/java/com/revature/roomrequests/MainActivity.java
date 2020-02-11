@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                Intent intent = new Intent(getParent().getBaseContext(), LocationSelectorActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LocationSelectorActivity.class);
 
                 startActivityForResult(intent, LOCATION_SELECTOR_RESULT_CODE);
 

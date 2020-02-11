@@ -32,7 +32,7 @@ public class LocationViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new LocationFragment(new ArrayList(Arrays.asList("Florida","Texas")));
             default:
-                return  new LocationFragment();
+                return  new LocationFragment(new ArrayList<String>());
         }
 
     }
