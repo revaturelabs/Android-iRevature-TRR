@@ -1,4 +1,4 @@
-package com.example.roomrequests;
+package com.revature.roomrequests;
 
 import org.junit.Test;
 

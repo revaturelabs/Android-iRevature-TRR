@@ -1,4 +1,4 @@
-package com.example.roomrequests;
+package com.revature.roomrequests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
