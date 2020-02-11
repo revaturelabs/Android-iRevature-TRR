@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvLocation = findViewById(R.id.tv_main_location);
-        
+
+        tvLocation.setText("Location Selector");
 
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
             @Override
