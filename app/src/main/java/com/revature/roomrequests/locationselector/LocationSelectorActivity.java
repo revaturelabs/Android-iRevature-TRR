@@ -4,14 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.login.LoginActivity;
 import com.revature.roomrequests.pojo.Location;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class LocationSelectorActivity extends AppCompatActivity implements LocationFragment.LocationCollector {
 
@@ -156,6 +162,7 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
         LocationFragment buildingFragment = (LocationFragment) getSupportFragmentManager().findFragmentByTag(tag2);
 
         switch (tag) {
+
             case STATE:
                 Toast.makeText(getApplicationContext(),"clicked on a state",Toast.LENGTH_SHORT).show();
                 selectedState = update;
@@ -166,17 +173,33 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
                     // this try/catch is only to reset the locations of the building fragment on state change
                     // if the fragment has not been made yet, then we don't need to reset it
                 }
+                viewPager.setCurrentItem(1);
                 break;
             case CAMPUS:
                 Toast.makeText(getApplicationContext(),"clicked on a campus",Toast.LENGTH_SHORT).show();
                 selectedCampus = update;
                 buildingFragment.updateLocations(getBuildingsByStateAndCampus(locations, selectedState, selectedCampus));
+                viewPager.setCurrentItem(2);
                 break;
             case BUILDING:
-                Location selected = new Location(selectedState, selectedCampus, update);
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("Location", selected);
-                startActivity(intent);
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("location_state", selectedState);
+                editor.putString("location_campus", selectedCampus);
+                editor.putString("location_building", update);
+                editor.commit();
+
+                String className = getIntent().getStringExtra("calling_activity");
+                String loginActivityName = LoginActivity.class.toString();
+
+                if (loginActivityName.equals(className)) {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
+
                 break;
         }
     }

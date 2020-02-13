@@ -5,7 +5,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -22,23 +24,18 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements RoomRequestFragment.SendRoom {
 
-    final private int LOCATION_SELECTOR_RESULT_CODE = 1;
     TextView tvLocation,tvPickRoom;
     FrameLayout mainFragment;
+    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Location location = (Location) getIntent().getSerializableExtra("Location");
-
         tvPickRoom = findViewById(R.id.tv_main_pickRoom);
 
         tvLocation = findViewById(R.id.tv_main_location);
-
-        tvLocation.setText(location.toString());
 
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -68,7 +65,32 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String state = preferences.getString("location_state", null);
+        String campus = preferences.getString("location_campus", null);
+        String building = preferences.getString("location_building", null);
+
+        if (state != null && campus != null && building != null) {
+            location = new Location(state, campus, building);
+
+            tvLocation.setText(location.toString());
+        } else {
+            Intent intent = new Intent(this, LocationSelectorActivity.class);
+            startActivity(intent);
+        }
+        Toast.makeText(this, "on start", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void sendRoomForRequest(Room room) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
     }
 
     @Override
@@ -76,15 +98,4 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Toast.makeText(getApplicationContext(), "got result", Toast.LENGTH_SHORT).show();
-
-        if(requestCode == LOCATION_SELECTOR_RESULT_CODE) {
-            Location location = (Location) data.getSerializableExtra("Location");
-            tvLocation.setText(location.toString());
-        }
-    }
 }

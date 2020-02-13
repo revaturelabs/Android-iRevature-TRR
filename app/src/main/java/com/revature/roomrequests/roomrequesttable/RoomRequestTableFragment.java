@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
 
@@ -60,7 +61,7 @@ public class RoomRequestTableFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(),batches,rooms,trainers,dates);
+        RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(),(MainActivity)getActivity(),batches,rooms,trainers,dates);
 
         recyclerView.setAdapter(adapter);
 

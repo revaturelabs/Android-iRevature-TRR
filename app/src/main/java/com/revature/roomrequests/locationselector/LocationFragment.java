@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Location;
@@ -40,10 +41,12 @@ public class LocationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
 
         View view = inflater.inflate(R.layout.fragment_location, container, false);
+
+        TextView tvSelectStatement = view.findViewById(R.id.tv_locationfragment_selectstatement);
+
+        tvSelectStatement.setText(String.format("Select %s...", tag));
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_locationselector_locations);
 
