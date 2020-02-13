@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.pojo.Room;
+
+import java.util.ArrayList;
 
 
 /**
@@ -19,11 +22,31 @@ import com.revature.roomrequests.R;
  */
 public class RoomRequestTableFragment extends Fragment {
 
+    ArrayList<String> batches;
+    ArrayList<String> rooms;
+    ArrayList<String> trainers;
+    ArrayList<String> dates;
+
 
     public RoomRequestTableFragment() {
         // Required empty public constructor
     }
 
+    public RoomRequestTableFragment(ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
+        this.batches = batches;
+        this.rooms = rooms;
+        this.trainers = trainers;
+        this.dates = dates;
+    }
+
+    public RoomRequestTableFragment(ArrayList<Room> rooms) {
+        for(int i = 0; i<rooms.size() ; i++) {
+            batches.add(rooms.get(i).getBatch());
+            this.rooms.add(rooms.get(i).getRoom());
+            trainers.add(rooms.get(i).getTrainer());
+            dates.add(rooms.get(i).getDates());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +60,7 @@ public class RoomRequestTableFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        RoomRequestTableAdapter adapter = new RoomRequestTableAdapter();
+        RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(),batches,rooms,trainers,dates);
 
         recyclerView.setAdapter(adapter);
 
