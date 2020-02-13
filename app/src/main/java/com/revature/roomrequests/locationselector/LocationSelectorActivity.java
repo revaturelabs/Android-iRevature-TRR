@@ -162,6 +162,7 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
         LocationFragment buildingFragment = (LocationFragment) getSupportFragmentManager().findFragmentByTag(tag2);
 
         switch (tag) {
+
             case STATE:
                 Toast.makeText(getApplicationContext(),"clicked on a state",Toast.LENGTH_SHORT).show();
                 selectedState = update;
