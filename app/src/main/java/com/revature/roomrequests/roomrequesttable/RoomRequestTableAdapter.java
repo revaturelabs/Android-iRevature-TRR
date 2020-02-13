@@ -9,11 +9,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
+import com.revature.roomrequests.roomrequest.RoomRequestFragment;
 
 import java.util.ArrayList;
 
@@ -25,15 +28,15 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     ArrayList<String> dates;
 
     Context context;
-    AppCompatActivity activity;
+    FragmentManager fm;
 
     public RoomRequestTableAdapter(){
         super();
     }
 
-    public RoomRequestTableAdapter(Context context,AppCompatActivity activity, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
+    public RoomRequestTableAdapter(Context context, FragmentManager fm, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
         this.context = context;
-        this.activity = activity;
+        this.fm = fm;
         this.batches = batches;
         this.rooms = rooms;
         this.trainers = trainers;
@@ -75,11 +78,15 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                 if(batches.get(position)==null){
                     Room room = new Room();
                     room.setRoom(rooms.get(position));
-                    ((MainActivity)activity).sendRoomForRequest(room);
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.commit();
                 }
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

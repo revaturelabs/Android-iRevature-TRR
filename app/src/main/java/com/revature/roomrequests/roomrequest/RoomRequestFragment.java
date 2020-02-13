@@ -125,9 +125,4 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public interface SendRoom {
-        void sendRoomForRequest(Room room);
-        void sendRoomsForSwap(Room room1, Room room2);
-    }
-
 }
