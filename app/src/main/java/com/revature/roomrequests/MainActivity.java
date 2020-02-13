@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Room;
+import com.revature.roomrequests.roomrequest.RoomRequestFragment;
 import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
 
 import java.util.ArrayList;
@@ -21,15 +22,13 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity implements RoomRequestFragment.SendRoom {
 
     final private int LOCATION_SELECTOR_RESULT_CODE = 1;
-    TextView tvLocation,tvPickRoom;
+    TextView tvLocation;
     FrameLayout mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        tvPickRoom = findViewById(R.id.tv_main_pickRoom);
 
         tvLocation = findViewById(R.id.tv_main_location);
 
@@ -46,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
                 return false;
             }
         });
-
-        tvPickRoom.setText(R.string.select_first_room);
 
         mainFragment = findViewById(R.id.frame_main_fragment_container);
 

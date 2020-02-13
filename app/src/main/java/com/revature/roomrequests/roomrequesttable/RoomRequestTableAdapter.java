@@ -1,29 +1,21 @@
 package com.revature.roomrequests.roomrequesttable;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
-import com.revature.roomrequests.RoomRequestFragment;
 import com.revature.roomrequests.pojo.Room;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTableAdapter.RequestRoomViewHolder> {
 
