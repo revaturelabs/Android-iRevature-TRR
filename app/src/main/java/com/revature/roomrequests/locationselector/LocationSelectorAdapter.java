@@ -16,12 +16,15 @@ import java.util.ArrayList;
 public class LocationSelectorAdapter extends RecyclerView.Adapter<LocationSelectorAdapter.LocationViewHolder> {
 
     ArrayList<String> locations;
-
     Context context;
+    String tag;
+    LocationFragment.LocationCollector locationCollector;
 
-    public LocationSelectorAdapter(ArrayList<String> locations, Context context) {
+    public LocationSelectorAdapter(ArrayList<String> locations, Context context, String tag, LocationFragment.LocationCollector locationCollector) {
         this.locations = locations;
         this.context = context;
+        this.tag = tag;
+        this.locationCollector = locationCollector;
     }
 
     @NonNull
@@ -33,8 +36,15 @@ public class LocationSelectorAdapter extends RecyclerView.Adapter<LocationSelect
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final LocationViewHolder holder, int position) {
         holder.location.setText(locations.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            locationCollector.locationUpdate(tag, holder.location.getText().toString());
+            }
+        });
+
     }
 
     @Override
@@ -50,5 +60,9 @@ public class LocationSelectorAdapter extends RecyclerView.Adapter<LocationSelect
             super(itemView);
             location = itemView.findViewById(R.id.tv_locationselector_locationrow);
         }
+    }
+
+    public void updateLocations(ArrayList<String> locations) {
+        this.locations = locations;
     }
 }

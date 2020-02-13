@@ -29,6 +29,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
 
     Context context;
     FragmentManager fm;
+    Room room1,room2;
 
     public RoomRequestTableAdapter(){
         super();
@@ -82,6 +83,9 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.commit();
+                } else if(room1==null) {
+                    room1 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
+
                 }
             }
         });
