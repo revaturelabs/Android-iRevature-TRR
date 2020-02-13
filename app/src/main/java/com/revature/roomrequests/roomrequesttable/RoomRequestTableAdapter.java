@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,13 +33,13 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     ArrayList<String> dates;
 
     Context context;
-    ActivityCompat activity;
+    AppCompatActivity activity;
 
     public RoomRequestTableAdapter(){
         super();
     }
 
-    public RoomRequestTableAdapter(Context context,ActivityCompat activity, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
+    public RoomRequestTableAdapter(Context context,AppCompatActivity activity, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
         this.context = context;
         this.activity = activity;
         this.batches = batches;
@@ -82,6 +83,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                 if(batches.get(position)==null){
                     Room room = new Room();
                     room.setRoom(rooms.get(position));
+                    ((MainActivity)activity).sendRoomForRequest(room);
                 }
             }
         });
