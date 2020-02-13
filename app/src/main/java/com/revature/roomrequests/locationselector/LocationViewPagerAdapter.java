@@ -5,23 +5,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.revature.roomrequests.pojo.Location;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LocationViewPagerAdapter extends FragmentPagerAdapter {
 
-    ArrayList<Location> locations;
+    ArrayList<String> states;
+    final private String STATE = "state";
+    final private String CAMPUS = "campus";
+    final private String BUILDING = "building";
 
-    public LocationViewPagerAdapter(@NonNull FragmentManager fm, int behavior, ArrayList<Location> locations) {
+    public LocationViewPagerAdapter(@NonNull FragmentManager fm, int behavior, ArrayList<String> states) {
         super(fm, behavior);
-        this.locations = locations;
+        this.states = states;
     }
 
-    public LocationViewPagerAdapter(@NonNull FragmentManager fm, ArrayList<Location> locations) {
+    public LocationViewPagerAdapter(@NonNull FragmentManager fm, ArrayList<String> states) {
         super(fm);
-        this.locations = locations;
+        this.states = states;
     }
 
     @NonNull
@@ -30,9 +30,13 @@ public class LocationViewPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new LocationFragment(new ArrayList(Arrays.asList("Florida","Texas")));
+                return new LocationFragment(states, STATE);
+            case 1:
+                return  new LocationFragment(new ArrayList<String>(), CAMPUS);
+            case 2:
+                return new LocationFragment(new ArrayList<String>(), BUILDING);
             default:
-                return  new LocationFragment(new ArrayList<String>());
+                return null;
         }
 
     }

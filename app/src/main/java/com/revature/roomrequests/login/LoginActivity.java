@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LocationSelectorActivity.class);
                 startActivity(intent);
             }
         });
