@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), LocationSelectorActivity.class);
+                intent.putExtra("calling_activity",LoginActivity.class.toString());
                 startActivity(intent);
             }
         });

@@ -33,24 +33,9 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        String state = preferences.getString("location_state", null);
-        String campus = preferences.getString("location_campus", null);
-        String building = preferences.getString("location_building", null);
-
-        if (state != null && campus != null && building != null) {
-            location = new Location(state, campus, building);
-        } else {
-            Intent intent = new Intent(this, LocationSelectorActivity.class);
-            startActivity(intent);
-        }
-
         tvPickRoom = findViewById(R.id.tv_main_pickRoom);
 
         tvLocation = findViewById(R.id.tv_main_location);
-
-        tvLocation.setText(location.toString());
 
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -77,6 +62,26 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String state = preferences.getString("location_state", null);
+        String campus = preferences.getString("location_campus", null);
+        String building = preferences.getString("location_building", null);
+
+        if (state != null && campus != null && building != null) {
+            location = new Location(state, campus, building);
+
+            tvLocation.setText(location.toString());
+        } else {
+            Intent intent = new Intent(this, LocationSelectorActivity.class);
+            startActivity(intent);
+        }
+        Toast.makeText(this, "on start", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -172,11 +172,13 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
                     // this try/catch is only to reset the locations of the building fragment on state change
                     // if the fragment has not been made yet, then we don't need to reset it
                 }
+                viewPager.setCurrentItem(1);
                 break;
             case CAMPUS:
                 Toast.makeText(getApplicationContext(),"clicked on a campus",Toast.LENGTH_SHORT).show();
                 selectedCampus = update;
                 buildingFragment.updateLocations(getBuildingsByStateAndCampus(locations, selectedState, selectedCampus));
+                viewPager.setCurrentItem(2);
                 break;
             case BUILDING:
 
@@ -185,8 +187,12 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
                 editor.putString("location_state", selectedState);
                 editor.putString("location_campus", selectedCampus);
                 editor.putString("location_building", update);
+                editor.commit();
 
-                if (getCallingActivity().getClassName().equals("LoginActivity")) {
+                String className = getIntent().getStringExtra("calling_activity");
+                String loginActivityName = LoginActivity.class.toString();
+
+                if (loginActivityName.equals(className)) {
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
