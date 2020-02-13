@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
 
     @Override
     public void sendRoomForRequest(Room room) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
     }
 
     @Override
