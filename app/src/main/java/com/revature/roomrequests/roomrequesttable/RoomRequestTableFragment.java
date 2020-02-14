@@ -16,6 +16,7 @@ import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -61,11 +62,38 @@ public class RoomRequestTableFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        getRooms();
+
         RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(),(MainActivity)getActivity(),batches,rooms,trainers,dates);
 
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    public void getRooms() {
+
+        ArrayList<Room> rooms = new ArrayList<>(Arrays.asList(
+                new Room("2001-Mobile-iOS","200","Uday","2/21-3/21"),
+                new Room("2001-Mobile-And","300","Mayur","2/21-3/21"),
+                new Room(null,"400",null,null)));
+
+        batches = new ArrayList<>();
+        this.rooms = new ArrayList<>();
+        trainers = new ArrayList<>();
+        dates = new ArrayList<>();
+
+        for(int i = 0; i<rooms.size() ; i++) {
+            batches.add(rooms.get(i).getBatch());
+            this.rooms.add(rooms.get(i).getRoom());
+            trainers.add(rooms.get(i).getTrainer());
+            dates.add(rooms.get(i).getDates());
+        }
     }
 
 }

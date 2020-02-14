@@ -1,6 +1,8 @@
 package com.revature.roomrequests;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -8,11 +10,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Location;
@@ -27,14 +39,17 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
     TextView tvLocation,tvPickRoom;
     FrameLayout mainFragment;
     Location location;
+    AppBarConfiguration appBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvPickRoom = findViewById(R.id.tv_main_pickRoom);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        tvPickRoom = findViewById(R.id.tv_main_pickRoom);
         tvLocation = findViewById(R.id.tv_main_location);
 
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
@@ -51,17 +66,39 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
 
         tvPickRoom.setText(R.string.select_first_room);
 
-        mainFragment = findViewById(R.id.frame_main_fragment_container);
+//        mainFragment = findViewById(R.id.host_main_fragment_container);
+//
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction ft = fragmentManager.beginTransaction();
+//
+//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//        ft.commit();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.frame_main_fragment_container,new RoomRequestTableFragment(new ArrayList<>(Arrays.asList("2001-Mobile-iOS","2001-Mobile-And",null)),
-                new ArrayList<>(Arrays.asList("200","300","400")),
-                new ArrayList<>(Arrays.asList("Uday","Mayur",null)),
-                new ArrayList<>(Arrays.asList("2/21-3/21","2/21-3/21",null))));
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.commit();
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.roomRequestTableFragment)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 
     @Override
@@ -88,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
     public void sendRoomForRequest(Room room) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
+        ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room));
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
     }
