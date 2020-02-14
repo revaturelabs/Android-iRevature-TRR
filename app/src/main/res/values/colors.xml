@@ -6,4 +6,7 @@
     <color name="revature_orange">#F26925</color>
     <color name="revature_orange_faded">#FF9B69</color>
     <color name="blue">#00aaFF</color>
+    <color name="selected_color">#b6d7a8</color>
+    <color name="pressed_color">#b6d7a8</color>
+    <color name="focused_color">#b6d7a8</color>
 </resources>
