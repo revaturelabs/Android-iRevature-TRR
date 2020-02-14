@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (state != null && campus != null && building != null) {
             location = new Location(state, campus, building);
-
             tvLocation.setText(location.toString());
         } else {
             Intent intent = new Intent(this, LocationSelectorActivity.class);
