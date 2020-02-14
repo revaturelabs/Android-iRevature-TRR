@@ -34,6 +34,12 @@
 
     <string name="location_selector_title">Location Selector</string>
 
+    <string name="pending_requests_titlle">Pending room requests</string>
+    <string name="accepted_requests_titlle">Accepted room requests</string>
+    <string name="rejected_requests_titlle">Rejected room requests</string>
+
+    <string name="down_arrow">down arrow</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
