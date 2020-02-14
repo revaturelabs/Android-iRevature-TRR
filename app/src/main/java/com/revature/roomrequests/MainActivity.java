@@ -3,8 +3,6 @@ package com.revature.roomrequests;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,9 +11,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,24 +20,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Location;
-import com.revature.roomrequests.pojo.Room;
-import com.revature.roomrequests.roomrequest.RoomRequestFragment;
-import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-
 
     TextView tvLocation;
     TextView tvUsername;
     TextView tvUserRole;
-    NavigationView navigationView;
     Location location;
     AppBarConfiguration appBarConfiguration;
 
@@ -73,18 +60,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mainFragment = findViewById(R.id.host_main_fragment_container);
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction ft = fragmentManager.beginTransaction();
-//
-//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//        ft.commit();
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_room_requests,R.id.nav_pending_requests)
                 .setDrawerLayout(drawer)
@@ -96,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -124,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LocationSelectorActivity.class);
             startActivity(intent);
         }
-        Toast.makeText(this, "on start", Toast.LENGTH_SHORT).show();
     }
 
 }

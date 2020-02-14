@@ -6,15 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.roomrequest.RoomRequestFragment;
@@ -81,7 +78,6 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"You chose room: " + rooms.get(position),Toast.LENGTH_SHORT).show();
                 Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
                 if(batches.get(position)==null){
                     Room room = new Room();

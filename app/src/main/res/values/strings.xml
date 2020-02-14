@@ -1,13 +1,15 @@
 <resources>
-    <string name="app_name">Room Requests</string>
+    <string name="app_name">RevatureTrainingRoomRequests</string>
     <string name="username">Username: </string>
-    <string name="username_hint">Enter your username</string>
+    <string name="username_hint">Enter username</string>
     <string name="password">Password: </string>
-    <string name="password_hint">Enter your password</string>
-    <string name="remember">Remember me</string>
+    <string name="password_hint">Enter password</string>
+    <string name="keep_logged_in">Keep me logged in</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="logo_description">Revature Logo</string>
+    <string name="username_icon_description">Username Icon</string>
+    <string name="password_icon_description">Password Icon</string>
     <string name="forgot_password_dialog">Enter your e-mail to receive the reset instructions.</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
