@@ -87,7 +87,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     Room room = new Room();
                     room.setRoom(rooms.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
+                    ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
@@ -105,7 +105,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                 } else {
                     room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.frame_main_fragment_container,new RoomSwapFragment(room1,room2));
+                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room1,room2));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
