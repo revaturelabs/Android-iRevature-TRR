@@ -38,9 +38,10 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
 
-    final private int LOCATION_SELECTOR_RESULT_CODE = 1;
     TextView tvLocation;
-    FrameLayout mainFragment;
+    TextView tvUsername;
+    TextView tvUserRole;
+    NavigationView navigationView;
     Location location;
     AppBarConfiguration appBarConfiguration;
 
@@ -52,7 +53,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        tvUsername = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_username);
+        tvUserRole = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_userrole);
         tvLocation = findViewById(R.id.tv_main_location);
+
+        tvUsername.setText("This will display the user's username");
+        tvUserRole.setText("This will display the user's role");
 
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
             @Override

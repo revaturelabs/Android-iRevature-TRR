@@ -32,7 +32,7 @@
 
     <string name="location_selector_title">Location Selector</string>
 
-    <string name="room_request_menu_title">Room Request</string>
+    <string name="room_request_title">Room Request</string>
     <string name="settings_menu_title">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->

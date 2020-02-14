@@ -66,7 +66,6 @@ public class RoomRequestTableFragment extends Fragment {
 
         RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(), getFragmentManager(),batches,rooms,trainers,dates);
 
-
         recyclerView.setAdapter(adapter);
 
         return view;

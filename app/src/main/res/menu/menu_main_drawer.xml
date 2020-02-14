@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_room_requests"
-            android:title="@string/room_request_menu_title" />
+            android:title="@string/room_request_title" />
 
     </group>
 

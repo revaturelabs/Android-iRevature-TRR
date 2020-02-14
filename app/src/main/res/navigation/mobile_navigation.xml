@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/roomRequestTableFragment"
         android:name="com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment"
-        android:label="fragment_room_request_table"
+        android:label="@string/room_request_title"
         tools:layout="@layout/fragment_room_request_table" />
 </navigation>
