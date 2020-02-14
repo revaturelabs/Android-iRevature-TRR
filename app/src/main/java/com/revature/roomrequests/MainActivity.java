@@ -17,14 +17,17 @@ import android.widget.Toast;
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Location;
 import com.revature.roomrequests.pojo.Room;
+import com.revature.roomrequests.roomrequest.RoomRequestFragment;
 import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements RoomRequestFragment.SendRoom {
+public class MainActivity extends AppCompatActivity {
 
-    TextView tvLocation,tvPickRoom;
+
+    final private int LOCATION_SELECTOR_RESULT_CODE = 1;
+    TextView tvLocation;
     FrameLayout mainFragment;
     Location location;
 
@@ -32,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        tvPickRoom = findViewById(R.id.tv_main_pickRoom);
 
         tvLocation = findViewById(R.id.tv_main_location);
 
@@ -49,16 +50,14 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
             }
         });
 
-        tvPickRoom.setText(R.string.select_first_room);
-
         mainFragment = findViewById(R.id.frame_main_fragment_container);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.frame_main_fragment_container,new RoomRequestTableFragment(new ArrayList<>(Arrays.asList("2001-Mobile-iOS","2001-Mobile-And",null)),
-                new ArrayList<>(Arrays.asList("200","300","400")),
-                new ArrayList<>(Arrays.asList("Uday","Mayur",null)),
-                new ArrayList<>(Arrays.asList("2/21-3/21","2/21-3/21",null))));
+        ft.replace(R.id.frame_main_fragment_container,new RoomRequestTableFragment(new ArrayList<>(Arrays.asList("2001-Mobile-iOS","2001-Mobile-And",null,null)),
+                new ArrayList<>(Arrays.asList("200","300","400","500")),
+                new ArrayList<>(Arrays.asList("Uday","Mayur",null,null)),
+                new ArrayList<>(Arrays.asList("2/21-3/21","2/21-3/21",null,null))));
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
 
@@ -82,20 +81,6 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
             startActivity(intent);
         }
         Toast.makeText(this, "on start", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void sendRoomForRequest(Room room) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.commit();
-    }
-
-    @Override
-    public void sendRoomsForSwap(Room room1, Room room2) {
-
     }
 
 }
