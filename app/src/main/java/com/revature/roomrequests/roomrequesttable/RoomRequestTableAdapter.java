@@ -1,6 +1,7 @@
 package com.revature.roomrequests.roomrequesttable;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.roomrequest.RoomRequestFragment;
+import com.revature.roomrequests.roomswap.RoomSwapFragment;
 
 import java.util.ArrayList;
 
@@ -29,7 +31,10 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
 
     Context context;
     FragmentManager fm;
-    Room room1,room2;
+    Room room1=null;
+    Room room2=null;
+    int room1Pos=RecyclerView.NO_POSITION;
+    int room2Pos = RecyclerView.NO_POSITION;
 
     public RoomRequestTableAdapter(){
         super();
@@ -56,6 +61,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
 
     @Override
     public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, final int position) {
+        holder.itemView.setSelected(room1Pos==position);
         if(batches.get(position)!=null) {
             holder.tvBatch.setText(batches.get(position));
         } else {
@@ -76,16 +82,33 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,"You chose room: " + rooms.get(position),Toast.LENGTH_SHORT).show();
+                Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
                 if(batches.get(position)==null){
                     Room room = new Room();
                     room.setRoom(rooms.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.addToBackStack(null);
                     ft.commit();
                 } else if(room1==null) {
+                    Log.d("Room","We got here");
                     room1 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
-
+                    notifyItemChanged(room1Pos);
+                    room1Pos = position;
+                    notifyItemChanged(room1Pos);
+                } else if(position==room1Pos) {
+                    room1Pos = RecyclerView.NO_POSITION;
+                    room1=null;
+                    v.setSelected(false);
+                    Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
+                } else {
+                    room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.frame_main_fragment_container,new RoomSwapFragment(room1,room2));
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.addToBackStack(null);
+                    ft.commit();
                 }
             }
         });
@@ -107,6 +130,16 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             tvRoom = itemView.findViewById(R.id.tv_room_row_room);
             tvTrainer = itemView.findViewById(R.id.tv_room_row_trainer);
             tvDates = itemView.findViewById(R.id.tv_room_row_dates);
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // Redraw the old selection and the new
+//                    notifyItemChanged(room1Pos);
+//                    room1Pos = getLayoutPosition();
+//                    notifyItemChanged(room1Pos);
+//                }
+//            });
         }
     }
 }
