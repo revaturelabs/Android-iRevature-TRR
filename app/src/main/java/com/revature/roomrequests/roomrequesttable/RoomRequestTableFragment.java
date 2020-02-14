@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
@@ -22,12 +23,14 @@ import java.util.Arrays;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RoomRequestTableFragment extends Fragment {
+public class RoomRequestTableFragment extends Fragment implements RoomRequestTableAdapter.ItemsChangedListener {
 
     ArrayList<String> batches;
     ArrayList<String> rooms;
     ArrayList<String> trainers;
     ArrayList<String> dates;
+
+    TextView tvPick;
 
 
     public RoomRequestTableFragment() {
@@ -56,6 +59,9 @@ public class RoomRequestTableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_request_table, container, false);
 
+        tvPick = view.findViewById(R.id.tv_room_request_choice);
+        tvPick.setText(R.string.select_first_room);
+
         RecyclerView recyclerView = view.findViewById(R.id.recycle_room_requests_table);
 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext());
@@ -65,6 +71,8 @@ public class RoomRequestTableFragment extends Fragment {
         getRooms();
 
         RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(), getFragmentManager(),batches,rooms,trainers,dates);
+
+        adapter.setItemsChangedListener(this);
 
         recyclerView.setAdapter(adapter);
 
@@ -96,4 +104,12 @@ public class RoomRequestTableFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onItemsChanged(int choice) {
+        if(choice == 1) {
+            tvPick.setText(R.string.select_first_room);
+        } else {
+            tvPick.setText(R.string.select_second_room);
+        }
+    }
 }

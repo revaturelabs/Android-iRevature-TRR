@@ -36,6 +36,8 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     int room1Pos=RecyclerView.NO_POSITION;
     int room2Pos = RecyclerView.NO_POSITION;
 
+    ItemsChangedListener itemsChangedListener;
+
     public RoomRequestTableAdapter(){
         super();
     }
@@ -97,10 +99,12 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     notifyItemChanged(room1Pos);
                     room1Pos = position;
                     notifyItemChanged(room1Pos);
+                    itemsChangedListener.onItemsChanged(2);
                 } else if(position==room1Pos) {
                     room1Pos = RecyclerView.NO_POSITION;
                     room1=null;
                     v.setSelected(false);
+                    itemsChangedListener.onItemsChanged(1);
                     Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
                 } else {
                     room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
@@ -112,6 +116,16 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                 }
             }
         });
+    }
+
+    public interface ItemsChangedListener {
+        void onItemsChanged(int choice);
+
+    }
+
+    public void setItemsChangedListener(ItemsChangedListener listener) {
+        this.itemsChangedListener = listener;
+
     }
 
 
