@@ -42,46 +42,50 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
 
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, final int position) {
-        if(requests.get(position).getRoom1().getBatch()==null) {
-            holder.tvRoom1Batch.setText(R.string.no_string);
-        } else {
-            holder.tvRoom1Batch.setText(requests.get(position).getRoom1().getBatch());
+        if(requests.get(position).getRoom1()!=null) {
+            if (requests.get(position).getRoom1().getBatch() == null) {
+                holder.tvRoom1Batch.setText(R.string.no_string);
+            } else {
+                holder.tvRoom1Batch.setText(requests.get(position).getRoom1().getBatch());
+            }
+            if (requests.get(position).getRoom1().getRoom() == null) {
+                holder.tvRoom1Room.setText(R.string.no_string);
+            } else {
+                holder.tvRoom1Room.setText(requests.get(position).getRoom1().getRoom());
+            }
+            if (requests.get(position).getRoom1().getTrainer() == null) {
+                holder.tvRoom1Trainer.setText(R.string.no_string);
+            } else {
+                holder.tvRoom1Trainer.setText(requests.get(position).getRoom1().getTrainer());
+            }
+            if (requests.get(position).getRoom1().getDates() == null) {
+                holder.tvRoom1Dates.setText(R.string.no_string);
+            } else {
+                holder.tvRoom1Dates.setText(requests.get(position).getRoom1().getDates());
+            }
         }
-        if(requests.get(position).getRoom1().getRoom()==null) {
-            holder.tvRoom1Room.setText(R.string.no_string);
-        } else {
-            holder.tvRoom1Room.setText(requests.get(position).getRoom1().getRoom());
-        }
-        if(requests.get(position).getRoom1().getTrainer()==null) {
-            holder.tvRoom1Trainer.setText(R.string.no_string);
-        } else {
-            holder.tvRoom1Trainer.setText(requests.get(position).getRoom1().getTrainer());
-        }
-        if(requests.get(position).getRoom1().getDates()==null) {
-            holder.tvRoom1Dates.setText(R.string.no_string);
-        } else {
-            holder.tvRoom1Dates.setText(requests.get(position).getRoom1().getDates());
-        }
-
-        if(requests.get(position).getRoom2().getBatch()==null) {
-            holder.tvRoom2Batch.setText(R.string.no_string);
-        } else {
-            holder.tvRoom2Batch.setText(requests.get(position).getRoom2().getBatch());
-        }
-        if(requests.get(position).getRoom2().getRoom()==null) {
-            holder.tvRoom2Room.setText(R.string.no_string);
-        } else {
-            holder.tvRoom2Room.setText(requests.get(position).getRoom2().getRoom());
-        }
-        if(requests.get(position).getRoom2().getTrainer()==null) {
-            holder.tvRoom2Trainer.setText(R.string.no_string);
-        } else {
-            holder.tvRoom2Trainer.setText(requests.get(position).getRoom2().getTrainer());
-        }
-        if(requests.get(position).getRoom2().getDates()==null) {
-            holder.tvRoom2Dates.setText(R.string.no_string);
-        } else {
-            holder.tvRoom2Dates.setText(requests.get(position).getRoom2().getDates());
+        
+        if(requests.get(position).getRoom2()!=null) {
+            if (requests.get(position).getRoom2().getBatch() == null) {
+                holder.tvRoom2Batch.setText(R.string.no_string);
+            } else {
+                holder.tvRoom2Batch.setText(requests.get(position).getRoom2().getBatch());
+            }
+            if (requests.get(position).getRoom2().getRoom() == null) {
+                holder.tvRoom2Room.setText(R.string.no_string);
+            } else {
+                holder.tvRoom2Room.setText(requests.get(position).getRoom2().getRoom());
+            }
+            if (requests.get(position).getRoom2().getTrainer() == null) {
+                holder.tvRoom2Trainer.setText(R.string.no_string);
+            } else {
+                holder.tvRoom2Trainer.setText(requests.get(position).getRoom2().getTrainer());
+            }
+            if (requests.get(position).getRoom2().getDates() == null) {
+                holder.tvRoom2Dates.setText(R.string.no_string);
+            } else {
+                holder.tvRoom2Dates.setText(requests.get(position).getRoom2().getDates());
+            }
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

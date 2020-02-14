@@ -40,11 +40,13 @@ public class PendingRequestFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pending_request, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycle_room_requests_table);
+        RecyclerView recyclerView = view.findViewById(R.id.recycle_pending_requests);
 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(view.getContext());
 
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        getPendingRequests();
 
         PendingRequestAdapter adapter = new PendingRequestAdapter(getActivity().getApplicationContext(), getFragmentManager(),requests);
 
