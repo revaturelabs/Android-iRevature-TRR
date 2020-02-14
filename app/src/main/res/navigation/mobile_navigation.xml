@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/roomRequestTableFragment">
+    app:startDestination="@id/nav_room_requests">
 
     <fragment
-        android:id="@+id/roomRequestTableFragment"
+        android:id="@+id/nav_room_requests"
         android:name="com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment"
         android:label="@string/room_request_title"
         tools:layout="@layout/fragment_room_request_table" />
+    <fragment
+        android:id="@+id/nav_pending_requests"
+        android:name="com.revature.roomrequests.pendingrequest.PendingRequestFragment"
+        android:label="@string/pending_requests_title"
+        tools:layout="@layout/fragment_pending_request" />
 </navigation>

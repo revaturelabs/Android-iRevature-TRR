@@ -131,15 +131,6 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             tvTrainer = itemView.findViewById(R.id.tv_room_row_trainer);
             tvDates = itemView.findViewById(R.id.tv_room_row_dates);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // Redraw the old selection and the new
-//                    notifyItemChanged(room1Pos);
-//                    room1Pos = getLayoutPosition();
-//                    notifyItemChanged(room1Pos);
-//                }
-//            });
         }
     }
 }

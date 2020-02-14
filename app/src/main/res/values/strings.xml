@@ -32,6 +32,11 @@
 
     <string name="location_selector_title">Location Selector</string>
 
+    <string name="pending_requests_title">Pending Requests</string>
+    <string name="accepted_requests_title">Accepted Requests</string>
+    <string name="rejected_requests_title">Rejected Requests</string>
+
+    <string name="down_arrow">down arrow</string>
     <string name="room_request_title">Room Request</string>
     <string name="settings_menu_title">Settings</string>
 

@@ -7,6 +7,8 @@
         <item
             android:id="@+id/nav_room_requests"
             android:title="@string/room_request_title" />
+        <item android:id="@+id/nav_pending_requests"
+            android:title="@string/pending_requests_title"/>
 
     </group>
 
