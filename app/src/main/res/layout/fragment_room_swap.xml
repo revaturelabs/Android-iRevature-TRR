@@ -95,6 +95,8 @@
             android:id="@+id/et_room_swap_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
             android:layout_weight="3"
             android:background="@android:drawable/editbox_background"
             android:gravity="top|left"
@@ -130,6 +132,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="3"
+            android:gravity="center"
             android:text="@string/batch_ex"
             android:textSize="16sp" />
 
@@ -140,6 +143,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/room_number"
             android:textSize="16sp" />
 
@@ -149,6 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/trainer"
             android:textSize="16sp" />
 
@@ -159,6 +164,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="2"
+            android:gravity="center"
             android:text="@string/start_end"
             android:textSize="16sp" />
     </LinearLayout>
@@ -181,6 +187,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="3"
+            android:gravity="center"
             android:text="@string/batch_ex"
             android:textSize="16sp" />
 
@@ -191,6 +198,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/room_number"
             android:textSize="16sp" />
 
@@ -200,6 +208,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/trainer"
             android:textSize="16sp" />
 
@@ -210,6 +219,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="2"
+            android:gravity="center"
             android:text="@string/start_end"
             android:textSize="16sp" />
     </LinearLayout>

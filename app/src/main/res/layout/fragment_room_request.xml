@@ -54,12 +54,10 @@
         android:id="@+id/btn_room_request_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="47dp"
         android:text="@string/submit"
-        app:layout_constraintEnd_toEndOf="@+id/tv_room_request_end_date"
-        app:layout_constraintStart_toEndOf="@+id/et_room_request_start_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_room_request_comments" />
 
     <ImageButton
@@ -89,7 +87,7 @@
         android:gravity="top|left"
         android:hint="@string/comments"
         android:inputType="textMultiLine"
-        android:lines="4"
+        android:lines="6"
         android:scrollbars="vertical"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_room_request_end_date"
@@ -114,6 +112,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="3"
+            android:gravity="center"
             android:text="@string/batch_ex"
             android:textSize="16sp" />
 
@@ -124,6 +123,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/room_number"
             android:textSize="16sp" />
 
@@ -133,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/trainer"
             android:textSize="16sp" />
 
@@ -143,6 +144,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="2"
+            android:gravity="center"
             android:text="@string/start_end"
             android:textSize="16sp" />
     </LinearLayout>

@@ -36,6 +36,8 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     int room1Pos=RecyclerView.NO_POSITION;
     int room2Pos = RecyclerView.NO_POSITION;
 
+    ItemsChangedListener itemsChangedListener;
+
     public RoomRequestTableAdapter(){
         super();
     }
@@ -87,7 +89,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     Room room = new Room();
                     room.setRoom(rooms.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment(room));
+                    ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
@@ -97,21 +99,33 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     notifyItemChanged(room1Pos);
                     room1Pos = position;
                     notifyItemChanged(room1Pos);
+                    itemsChangedListener.onItemsChanged(2);
                 } else if(position==room1Pos) {
                     room1Pos = RecyclerView.NO_POSITION;
                     room1=null;
                     v.setSelected(false);
+                    itemsChangedListener.onItemsChanged(1);
                     Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
                 } else {
                     room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.frame_main_fragment_container,new RoomSwapFragment(room1,room2));
+                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room1,room2));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
                 }
             }
         });
+    }
+
+    public interface ItemsChangedListener {
+        void onItemsChanged(int choice);
+
+    }
+
+    public void setItemsChangedListener(ItemsChangedListener listener) {
+        this.itemsChangedListener = listener;
+
     }
 
 
@@ -131,15 +145,6 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             tvTrainer = itemView.findViewById(R.id.tv_room_row_trainer);
             tvDates = itemView.findViewById(R.id.tv_room_row_dates);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // Redraw the old selection and the new
-//                    notifyItemChanged(room1Pos);
-//                    room1Pos = getLayoutPosition();
-//                    notifyItemChanged(room1Pos);
-//                }
-//            });
         }
     }
 }
