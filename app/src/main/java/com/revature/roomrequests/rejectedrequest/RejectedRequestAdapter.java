@@ -1,16 +1,13 @@
-package com.revature.roomrequests.pendingrequest;
+package com.revature.roomrequests.rejectedrequest;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.revature.roomrequests.R;
@@ -18,25 +15,26 @@ import com.revature.roomrequests.pojo.Request;
 
 import java.util.ArrayList;
 
-public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAdapter.RequestViewHolder> {
+public class RejectedRequestAdapter extends RecyclerView.Adapter<RejectedRequestAdapter.RequestViewHolder> {
 
     ArrayList<Request> requests;
 
     Context context;
     FragmentManager fm;
 
-    public PendingRequestAdapter(){}
+    public RejectedRequestAdapter() {
+    }
 
-    public PendingRequestAdapter(Context context, FragmentManager fm,ArrayList<Request> requests) {
-        this.context=context;
+    public RejectedRequestAdapter(Context context, FragmentManager fm, ArrayList<Request> requests) {
+        this.context = context;
         this.fm = fm;
-        this.requests=requests;
+        this.requests = requests;
     }
 
     @NonNull
     @Override
     public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_request,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_request, parent, false);
         //set the view's size, margins, paddings, and layout paramters
         RequestViewHolder vh = new RequestViewHolder(v);
         return vh;
@@ -44,7 +42,7 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
 
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, final int position) {
-        if(requests.get(position).getRoom1()!=null) {
+        if (requests.get(position).getRoom1() != null) {
             if (requests.get(position).getRoom1().getBatch() == null) {
                 holder.tvRoom1Batch.setText(R.string.no_string);
             } else {
@@ -65,14 +63,14 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
             } else {
                 holder.tvRoom1Dates.setText(requests.get(position).getRoom1().getDates());
             }
-        } else if(requests.get(position).getRoom2()!=null){
+        } else if (requests.get(position).getRoom2() != null) {
             holder.tvRoom1Batch.setText(R.string.no_string);
             holder.tvRoom1Room.setText(requests.get(position).getRoom2().getRoom());
             holder.tvRoom1Trainer.setText(R.string.no_string);
             holder.tvRoom1Dates.setText(R.string.no_string);
         }
 
-        if(requests.get(position).getRoom2()!=null) {
+        if (requests.get(position).getRoom2() != null) {
             if (requests.get(position).getRoom2().getBatch() == null) {
                 holder.tvRoom2Batch.setText(R.string.no_string);
             } else {
@@ -93,24 +91,12 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
             } else {
                 holder.tvRoom2Dates.setText(requests.get(position).getRoom2().getDates());
             }
-        } else if(requests.get(position).getRoom1()!=null) {
+        } else if (requests.get(position).getRoom1() != null) {
             holder.tvRoom2Batch.setText(R.string.no_string);
             holder.tvRoom2Room.setText(requests.get(position).getRoom1().getRoom());
             holder.tvRoom2Trainer.setText(R.string.no_string);
             holder.tvRoom2Dates.setText(R.string.no_string);
         }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Request: "+position+" was clicked",Toast.LENGTH_SHORT).show();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.host_main_fragment_container,new AcceptRejectRequestFragment(requests.get(position)));
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
     }
 
     @Override
@@ -119,9 +105,9 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
     }
 
     public class RequestViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRoom1Batch,tvRoom1Room,tvRoom1Trainer,tvRoom1Dates;
-        TextView tvRoom2Batch,tvRoom2Room,tvRoom2Trainer,tvRoom2Dates;
-        
+        TextView tvRoom1Batch, tvRoom1Room, tvRoom1Trainer, tvRoom1Dates;
+        TextView tvRoom2Batch, tvRoom2Room, tvRoom2Trainer, tvRoom2Dates;
+
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRoom1Batch = itemView.findViewById(R.id.tv_request_room1_batch);

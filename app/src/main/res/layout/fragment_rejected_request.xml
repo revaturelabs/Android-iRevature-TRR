@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.revature.roomrequests.pendingrequest.PendingRequestFragment" >
+    tools:context="com.revature.roomrequests.rejectedrequest.RejectedRequestFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_pending_requests"
+        android:id="@+id/recycle_rejected_requests"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
