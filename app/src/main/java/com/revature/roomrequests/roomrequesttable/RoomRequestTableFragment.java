@@ -29,6 +29,8 @@ public class RoomRequestTableFragment extends Fragment implements RoomRequestTab
     ArrayList<String> rooms;
     ArrayList<String> trainers;
     ArrayList<String> dates;
+    ArrayList<String> seats;
+    ArrayList<Boolean> availabilities;
 
     TextView tvPick;
 
@@ -70,7 +72,7 @@ public class RoomRequestTableFragment extends Fragment implements RoomRequestTab
 
         getRooms();
 
-        RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(), getFragmentManager(),batches,rooms,trainers,dates);
+        RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(), getFragmentManager(),batches,rooms,trainers,dates,seats,availabilities);
 
         adapter.setItemsChangedListener(this);
 
@@ -87,20 +89,24 @@ public class RoomRequestTableFragment extends Fragment implements RoomRequestTab
     public void getRooms() {
 
         ArrayList<Room> rooms = new ArrayList<>(Arrays.asList(
-                new Room("2001-Mobile-iOS","200","Uday","2/21-3/21"),
-                new Room("2001-Mobile-And","300","Mayur","2/21-3/21"),
-                new Room(null,"400",null,null)));
+                new Room("2001-Mobile-iOS","200","Uday","2/21-3/21","30",false),
+                new Room("2001-Mobile-And","300","Mayur","2/21-3/21","25",false),
+                new Room(null,"400",null,null,"20",true)));
 
         batches = new ArrayList<>();
         this.rooms = new ArrayList<>();
         trainers = new ArrayList<>();
         dates = new ArrayList<>();
+        seats = new ArrayList<>();
+        availabilities = new ArrayList<>();
 
         for(int i = 0; i<rooms.size() ; i++) {
             batches.add(rooms.get(i).getBatch());
             this.rooms.add(rooms.get(i).getRoom());
             trainers.add(rooms.get(i).getTrainer());
             dates.add(rooms.get(i).getDates());
+            seats.add(rooms.get(i).getSeats());
+            availabilities.add(rooms.get(i).isAvailable());
         }
     }
 

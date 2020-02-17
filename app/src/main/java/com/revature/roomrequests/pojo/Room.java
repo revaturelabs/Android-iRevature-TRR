@@ -5,15 +5,19 @@ public class Room {
     private String room;
     private String trainer;
     private String dates;
+    private String seats;
+    private boolean available;
 
     public Room() {
     }
 
-    public Room(String batch, String room, String trainer, String dates) {
+    public Room(String batch, String room, String trainer, String dates, String seats, boolean available) {
         this.batch = batch;
         this.room = room;
         this.trainer = trainer;
         this.dates = dates;
+        this.seats = seats;
+        this.available = available;
     }
 
     public String getBatch() {
@@ -47,4 +51,12 @@ public class Room {
     public void setDates(String dates) {
         this.dates = dates;
     }
+
+    public String getSeats() { return seats; }
+
+    public void setSeats(String seats) { this.seats = seats; }
+
+    public boolean isAvailable() { return available; }
+
+    public void setAvailable(boolean available) { this.available = available; }
 }

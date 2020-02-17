@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,10 +22,14 @@ import java.util.ArrayList;
 
 public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTableAdapter.RequestRoomViewHolder> {
 
+    final String NO_STRING = "N/A";
+
     ArrayList<String> batches;
     ArrayList<String> rooms;
     ArrayList<String> trainers;
     ArrayList<String> dates;
+    ArrayList<String> seats;
+    ArrayList<Boolean> availabilities;
 
     Context context;
     FragmentManager fm;
@@ -39,13 +44,15 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         super();
     }
 
-    public RoomRequestTableAdapter(Context context, FragmentManager fm, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
+    public RoomRequestTableAdapter(Context context, FragmentManager fm, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates, ArrayList<String> seats, ArrayList<Boolean> availabilities) {
         this.context = context;
         this.fm = fm;
         this.batches = batches;
         this.rooms = rooms;
         this.trainers = trainers;
         this.dates = dates;
+        this.seats = seats;
+        this.availabilities = availabilities;
     }
 
     @NonNull
@@ -62,20 +69,30 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, final int position) {
         holder.itemView.setSelected(room1Pos==position);
         if(batches.get(position)!=null) {
-            holder.tvBatch.setText(batches.get(position));
+            holder.tvBatch.append(" " + batches.get(position));
         } else {
-            holder.tvBatch.setText(R.string.no_string);
+            holder.tvBatch.append(" " + NO_STRING);
         }
-        holder.tvRoom.setText(rooms.get(position));
+        holder.tvRoom.append(" " + rooms.get(position));
         if(batches.get(position)!=null) {
-            holder.tvTrainer.setText(trainers.get(position));
+            holder.tvTrainer.append(" " + trainers.get(position));
         } else {
-            holder.tvTrainer.setText(R.string.no_string);
+            holder.tvTrainer.append(" " + NO_STRING);
         }
         if(batches.get(position)!=null) {
-            holder.tvDates.setText(dates.get(position));
+            holder.tvDates.append(" " + dates.get(position));
         } else {
-            holder.tvDates.setText(R.string.no_string);
+            holder.tvDates.append(" " + NO_STRING);
+        }
+        if(seats.get(position)!=null) {
+            holder.tvSeats.append(" " + seats.get(position));
+        } else {
+            holder.tvSeats.append(" " + NO_STRING);
+        }
+        if(availabilities.get(position)){
+            holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_available));
+        } else {
+            holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_unavailable));
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +108,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     ft.commit();
                 } else if(room1==null) {
                     Log.d("Room","We got here");
-                    room1 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
+                    room1 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
                     notifyItemChanged(room1Pos);
                     room1Pos = position;
                     notifyItemChanged(room1Pos);
@@ -103,7 +120,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     itemsChangedListener.onItemsChanged(1);
                     Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
                 } else {
-                    room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
+                    room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room1,room2));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -131,7 +148,8 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     }
 
     public class RequestRoomViewHolder extends RecyclerView.ViewHolder {
-        TextView tvBatch,tvRoom,tvTrainer,tvDates;
+        TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats;
+        CardView cvRoom;
 
         public RequestRoomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,6 +158,8 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             tvRoom = itemView.findViewById(R.id.tv_room_row_room);
             tvTrainer = itemView.findViewById(R.id.tv_room_row_trainer);
             tvDates = itemView.findViewById(R.id.tv_room_row_dates);
+            tvSeats = itemView.findViewById(R.id.tv_room_row_seats);
+            cvRoom = itemView.findViewById(R.id.cv_room);
 
         }
     }
