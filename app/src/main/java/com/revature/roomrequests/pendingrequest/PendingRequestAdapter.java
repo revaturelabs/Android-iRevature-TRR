@@ -1,6 +1,7 @@
 package com.revature.roomrequests.pendingrequest;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -24,6 +26,8 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
 
     Context context;
     FragmentManager fm;
+
+    private String noString="N/A";
 
     public PendingRequestAdapter(){}
 
@@ -46,58 +50,60 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
     public void onBindViewHolder(@NonNull RequestViewHolder holder, final int position) {
         if(requests.get(position).getRoom1()!=null) {
             if (requests.get(position).getRoom1().getBatch() == null) {
-                holder.tvRoom1Batch.setText(R.string.no_string);
+                holder.tvRoom1Batch.append(" "+noString);
             } else {
-                holder.tvRoom1Batch.setText(requests.get(position).getRoom1().getBatch());
+                holder.tvRoom1Batch.append(" "+requests.get(position).getRoom1().getBatch());
             }
             if (requests.get(position).getRoom1().getRoom() == null) {
-                holder.tvRoom1Room.setText(R.string.no_string);
+                holder.tvRoom1Room.append(" "+noString);
             } else {
-                holder.tvRoom1Room.setText(requests.get(position).getRoom1().getRoom());
+                holder.tvRoom1Room.append(" "+requests.get(position).getRoom1().getRoom());
             }
             if (requests.get(position).getRoom1().getTrainer() == null) {
-                holder.tvRoom1Trainer.setText(R.string.no_string);
+                holder.tvRoom1Trainer.append(" "+noString);
             } else {
-                holder.tvRoom1Trainer.setText(requests.get(position).getRoom1().getTrainer());
+                holder.tvRoom1Trainer.append(" "+requests.get(position).getRoom1().getTrainer());
             }
             if (requests.get(position).getRoom1().getDates() == null) {
-                holder.tvRoom1Dates.setText(R.string.no_string);
+                holder.tvRoom1Dates.append(" "+noString);
             } else {
-                holder.tvRoom1Dates.setText(requests.get(position).getRoom1().getDates());
+                holder.tvRoom1Dates.append(" "+requests.get(position).getRoom1().getDates());
             }
         } else if(requests.get(position).getRoom2()!=null){
-            holder.tvRoom1Batch.setText(R.string.no_string);
-            holder.tvRoom1Room.setText(requests.get(position).getRoom2().getRoom());
-            holder.tvRoom1Trainer.setText(R.string.no_string);
-            holder.tvRoom1Dates.setText(R.string.no_string);
+            holder.cvRoom1.setVisibility(CardView.GONE);
+//            holder.tvRoom1Batch.append(" "+noString);
+//            holder.tvRoom1Room.append(" "+requests.get(position).getRoom2().getRoom());
+//            holder.tvRoom1Trainer.append(" "+noString);
+//            holder.tvRoom1Dates.append(" "+noString);
         }
 
         if(requests.get(position).getRoom2()!=null) {
             if (requests.get(position).getRoom2().getBatch() == null) {
-                holder.tvRoom2Batch.setText(R.string.no_string);
+                holder.tvRoom2Batch.append(" "+noString);
             } else {
-                holder.tvRoom2Batch.setText(requests.get(position).getRoom2().getBatch());
+                holder.tvRoom2Batch.append(" "+requests.get(position).getRoom2().getBatch());
             }
             if (requests.get(position).getRoom2().getRoom() == null) {
-                holder.tvRoom2Room.setText(R.string.no_string);
+                holder.tvRoom2Room.append(" "+noString);
             } else {
-                holder.tvRoom2Room.setText(requests.get(position).getRoom2().getRoom());
+                holder.tvRoom2Room.append(" "+requests.get(position).getRoom2().getRoom());
             }
             if (requests.get(position).getRoom2().getTrainer() == null) {
-                holder.tvRoom2Trainer.setText(R.string.no_string);
+                holder.tvRoom2Trainer.append(" "+noString);
             } else {
-                holder.tvRoom2Trainer.setText(requests.get(position).getRoom2().getTrainer());
+                holder.tvRoom2Trainer.append(" "+requests.get(position).getRoom2().getTrainer());
             }
             if (requests.get(position).getRoom2().getDates() == null) {
-                holder.tvRoom2Dates.setText(R.string.no_string);
+                holder.tvRoom2Dates.append(" "+noString);
             } else {
-                holder.tvRoom2Dates.setText(requests.get(position).getRoom2().getDates());
+                holder.tvRoom2Dates.append(" "+requests.get(position).getRoom2().getDates());
             }
         } else if(requests.get(position).getRoom1()!=null) {
-            holder.tvRoom2Batch.setText(R.string.no_string);
-            holder.tvRoom2Room.setText(requests.get(position).getRoom1().getRoom());
-            holder.tvRoom2Trainer.setText(R.string.no_string);
-            holder.tvRoom2Dates.setText(R.string.no_string);
+            holder.cvRoom2.setVisibility(CardView.GONE);
+//            holder.tvRoom2Batch.append(" "+noString);
+//            holder.tvRoom2Room.append(" "+requests.get(position).getRoom1().getRoom());
+//            holder.tvRoom2Trainer.append(" "+noString);
+//            holder.tvRoom2Dates.append(" "+noString);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +127,8 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
     public class RequestViewHolder extends RecyclerView.ViewHolder {
         TextView tvRoom1Batch,tvRoom1Room,tvRoom1Trainer,tvRoom1Dates;
         TextView tvRoom2Batch,tvRoom2Room,tvRoom2Trainer,tvRoom2Dates;
-        
+        CardView cvRoom1,cvRoom2;
+
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRoom1Batch = itemView.findViewById(R.id.tv_request_room1_batch);
@@ -133,6 +140,10 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
             tvRoom2Room = itemView.findViewById(R.id.tv_request_room2_room);
             tvRoom2Trainer = itemView.findViewById(R.id.tv_request_room2_trainer);
             tvRoom2Dates = itemView.findViewById(R.id.tv_request_room2_dates);
+
+            cvRoom2 = itemView.findViewById(R.id.card_room2);
+            cvRoom1 = itemView.findViewById(R.id.card_room1);
+
         }
     }
 }
