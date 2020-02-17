@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
@@ -15,13 +14,9 @@ import com.revature.roomrequests.login.LoginActivity;
 import com.revature.roomrequests.pojo.Location;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class LocationSelectorActivity extends AppCompatActivity implements LocationFragment.LocationCollector {
 
-    final private int LOCATION_SELECTOR_RESULT_CODE = 1;
     final private String STATE = "state";
     final private String CAMPUS = "campus";
     final private String BUILDING = "building";
@@ -164,7 +159,6 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
         switch (tag) {
 
             case STATE:
-                Toast.makeText(getApplicationContext(),"clicked on a state",Toast.LENGTH_SHORT).show();
                 selectedState = update;
                 campusFragment.updateLocations(getUniqueCampusesByState(locations, selectedState));
                 try {
@@ -176,7 +170,6 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
                 viewPager.setCurrentItem(1);
                 break;
             case CAMPUS:
-                Toast.makeText(getApplicationContext(),"clicked on a campus",Toast.LENGTH_SHORT).show();
                 selectedCampus = update;
                 buildingFragment.updateLocations(getBuildingsByStateAndCampus(locations, selectedState, selectedCampus));
                 viewPager.setCurrentItem(2);

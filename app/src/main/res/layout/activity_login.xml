@@ -6,77 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".login.LoginActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout_login_form"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.333">
-
-        <EditText
-            android:id="@+id/et_login_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/username_hint"
-            android:inputType="textPersonName"
-            android:autofillHints="" />
-
-        <EditText
-            android:id="@+id/et_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/password_hint"
-            android:inputType="textPassword"
-            android:autofillHints="" />
-
-        <CheckBox
-            android:id="@+id/chk_login_remember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-            android:buttonTint="@color/blue"
-            android:text="@string/remember" />
-
-        <Button
-            android:id="@+id/btn_login_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="0"
-            android:background="#F26925"
-            android:text="@string/login"
-            android:textColor="#FFF" />
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/img_login_logo"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/logo_description"
         android:scaleType="fitCenter"
-        android:src="@drawable/revature_logo"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout_login_form"
+        android:src="@drawable/rev_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531"
-        tools:src="@drawable/revature_logo"
-        tools:srcCompat="@drawable/revature_logo" />
+        tools:src="@drawable/rev_logo"
+        tools:srcCompat="@drawable/rev_logo" />
+
+    <EditText
+        android:id="@+id/et_login_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="30dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/username_hint"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/hint_and_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_login_logo" />
+
+    <EditText
+        android:id="@+id/et_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="30dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:textColorHint="@color/hint_and_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_username" />
+
+    <CheckBox
+        android:id="@+id/chk_login_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:buttonTint="@color/blue"
+        android:text="@string/keep_logged_in"
+        android:textColor="@color/hint_and_placeholder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/et_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_password" />
+
+    <Button
+        android:id="@+id/btn_login_submit"
+        android:layout_width="228dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="0"
+        android:background="#F26925"
+        android:text="@string/login"
+        android:textColor="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chk_login_remember" />
+
+    <ImageView
+        android:id="@+id/img_login_usericon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/username_icon_description"
+        app:layout_constraintBottom_toBottomOf="@+id/et_login_username"
+        app:layout_constraintEnd_toStartOf="@+id/et_login_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_login_username"
+        app:srcCompat="@drawable/human" />
+
+    <ImageView
+        android:id="@+id/img_login_passwordicon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/password_icon_description"
+        app:layout_constraintBottom_toBottomOf="@+id/et_login_password"
+        app:layout_constraintEnd_toStartOf="@+id/et_login_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_username"
+        app:srcCompat="@drawable/lock" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
