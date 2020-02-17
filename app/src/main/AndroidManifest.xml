@@ -20,7 +20,8 @@
         </activity>
         <activity
             android:name=".locationselector.LocationSelectorActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".MainActivity"
