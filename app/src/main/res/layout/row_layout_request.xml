@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -22,8 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/card_margin"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
+                app:cardCornerRadius="@dimen/card_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,8 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/card_margin"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
+                app:cardCornerRadius="@dimen/card_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,30 +165,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="right"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_request_accept"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_request_reject"
+                    android:layout_width="@dimen/action_button_width"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
                     android:background="@color/revature_orange"
-                    android:text="@string/accept"
+                    android:text="@string/reject"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/btn_request_reject"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_request_accept"
+                    android:layout_width="@dimen/action_button_width"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
                     android:background="@color/revature_orange"
-                    android:text="@string/reject"
+                    android:text="@string/accept"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
