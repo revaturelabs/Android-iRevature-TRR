@@ -57,7 +57,7 @@ public class PendingRequestFragment extends Fragment {
 
     private void getPendingRequests(){
         ArrayList<Request> requests = new ArrayList<>(Arrays.asList(
-                new Request("swap",new Room("2001-Mobile-iOS","300","Uday","2/2-3/13"),new Room("2001-Mobile-And","200","Mayur","2/2-3/13")),
+                new Request("swap",new Room("2001-Mobile-iOS","300","Uday","2/2-3/13"),new Room("2001-Mobile-Android-is-long","200","Mayur","2/2-3/13")),
                 new Request("request",new Room("2001-Mobile-And","200","Mayur","2/2-3/13"),null)
         ));
 
