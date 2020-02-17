@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -91,10 +92,12 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         }
         if(availabilities.get(position)){
             holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_available));
+            holder.btnAction.setText("Request");
         } else {
             holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_unavailable));
+            holder.btnAction.setText("Swap");
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
@@ -150,6 +153,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     public class RequestRoomViewHolder extends RecyclerView.ViewHolder {
         TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats;
         CardView cvRoom;
+        Button btnAction;
 
         public RequestRoomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -160,7 +164,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             tvDates = itemView.findViewById(R.id.tv_room_row_dates);
             tvSeats = itemView.findViewById(R.id.tv_room_row_seats);
             cvRoom = itemView.findViewById(R.id.cv_room);
-
+            btnAction = itemView.findViewById(R.id.btn_room_row_action);
         }
     }
 }
