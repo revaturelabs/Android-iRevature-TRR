@@ -55,7 +55,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/revature_orange"
         android:text="@string/submit"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_room_request_comments" />
@@ -172,5 +174,13 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_room_request_comment_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/comment_label"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="276dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

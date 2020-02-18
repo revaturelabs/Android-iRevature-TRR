@@ -6,7 +6,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
     Room room;
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
     private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+
+    TextWatcher textWatcher;
     
     private String noString = "N/A";
 
@@ -106,7 +110,38 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
                 etEndDate.setText(date);
             }
         };
+
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // check Fields For Empty Values
+                checkFieldsForValidValues();
+            }
+        };
+
+        etComments.addTextChangedListener(textWatcher);
+
+        checkFieldsForValidValues();
+
         return view;
+    }
+
+    void checkFieldsForValidValues() {
+        if(etComments.getText().toString().equals("")){
+            btnSubmit.setEnabled(false);
+            btnSubmit.setBackgroundColor(getResources().getColor(R.color.revature_orange_faded));
+        } else {
+            btnSubmit.setEnabled(true);
+            btnSubmit.setBackgroundColor(getResources().getColor(R.color.revature_orange));
+        }
     }
 
     @Override
