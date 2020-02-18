@@ -54,10 +54,10 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
             } else {
                 holder.tvRoom1Batch.append(" "+requests.get(position).getRoom1().getBatch());
             }
-            if (requests.get(position).getRoom1().getRoom() == null) {
+            if (requests.get(position).getRoom1().getRoomNumber() == null) {
                 holder.tvRoom1Room.append(" "+noString);
             } else {
-                holder.tvRoom1Room.append(" "+requests.get(position).getRoom1().getRoom());
+                holder.tvRoom1Room.append(" "+requests.get(position).getRoom1().getRoomNumber());
             }
             if (requests.get(position).getRoom1().getTrainer() == null) {
                 holder.tvRoom1Trainer.append(" "+noString);
@@ -83,10 +83,10 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
             } else {
                 holder.tvRoom2Batch.append(" "+requests.get(position).getRoom2().getBatch());
             }
-            if (requests.get(position).getRoom2().getRoom() == null) {
+            if (requests.get(position).getRoom2().getRoomNumber() == null) {
                 holder.tvRoom2Room.append(" "+noString);
             } else {
-                holder.tvRoom2Room.append(" "+requests.get(position).getRoom2().getRoom());
+                holder.tvRoom2Room.append(" "+requests.get(position).getRoom2().getRoomNumber());
             }
             if (requests.get(position).getRoom2().getTrainer() == null) {
                 holder.tvRoom2Trainer.append(" "+noString);

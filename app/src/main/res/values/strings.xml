@@ -1,5 +1,14 @@
 <resources>
+
+    <!--  common  -->
     <string name="app_name">RevatureTrainingRoomRequests</string>
+    <string name="submit">Submit</string>
+    <string name="location_selector_title">Location Selector</string>
+
+    <!--  api  -->
+    <string name="api_url">https://private-f0f69-roomrequests.apiary-mock.com/</string>
+
+    <!--  login  -->
     <string name="username">Username: </string>
     <string name="username_hint">Enter username</string>
     <string name="password">Password: </string>
@@ -16,37 +25,36 @@
     <string name="email_hint">Enter your e-mail</string>
     <string name="password_reset">Reset Password</string>
 
+    <!--  room table  -->
+    <string name="select_first_room">Select a room to perform an action.</string>
+    <string name="select_second_room">Select the room you would like to swap with.</string>
     <string name="request">Request</string>
     <string name="request_swap">Request Swap</string>
+
+    <!--  room and request table  -->
     <string name="batch">Batch: </string>
-    <string name="batch_ex">2001-Mobile-iOS</string>
     <string name="room_number">Room: </string>
     <string name="trainer">Trainer: </string>
     <string name="start_end">Dates: </string>
     <string name="seats">Seats: </string>
     <string name="no_string">N/A</string>
-    <string name="select_first_room">Select a room to perform an action.</string>
-    <string name="select_second_room">Select the room you would like to swap with.</string>
 
-    <string name="submit">Submit</string>
+    <!--  requests  -->
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
 
+    <!--  make request  -->
     <string name="start_date">Start Date:</string>
     <string name="end_date">End Date:</string>
     <string name="comments">Comments</string>
 
-    <string name="location_selector_title">Location Selector</string>
-
+    <!--  nav drawer  -->
+    <string name="room_request_title">Room Request</string>
     <string name="pending_requests_title">Pending Requests</string>
     <string name="accepted_requests_title">Accepted Requests</string>
     <string name="rejected_requests_title">Rejected Requests</string>
-
-    <string name="down_arrow">down arrow</string>
-    <string name="room_request_title">Room Request</string>
     <string name="settings_menu_title">Settings</string>
 
-    <string name="accept">Accept</string>
-    <string name="reject">Reject</string>
+    <string name="down_arrow">down arrow</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

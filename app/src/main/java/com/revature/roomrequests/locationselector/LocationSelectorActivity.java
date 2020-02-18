@@ -7,11 +7,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.login.LoginActivity;
 import com.revature.roomrequests.pojo.Location;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -20,11 +29,15 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
     final private String STATE = "state";
     final private String CAMPUS = "campus";
     final private String BUILDING = "building";
+    final private String LOG_TAG =  "LOCATION SELECTOR";
+
     ArrayList<Location> locations;
     ViewPager viewPager;
     LocationViewPagerAdapter viewPagerAdapter;
     String selectedState;
     String selectedCampus;
+
+    private ApiService apiService;
 
 
     @Override
@@ -32,63 +45,52 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_selector);
 
-        locations = getLocations();
-
         viewPager = findViewById(R.id.vp_locationselector_list);
 
-        viewPagerAdapter = new LocationViewPagerAdapter(getSupportFragmentManager(), getUniqueStates(locations));
+        apiService = new ApiService(this);
 
-        viewPager.setAdapter(viewPagerAdapter);
-
+        getLocations();
     }
 
-    public ArrayList<Location> getLocations() {
+    public void getLocations() {
 
-        ArrayList<Location> locations = new ArrayList<Location>();
+        Response.Listener<JSONArray> getLocationsListener = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                locations = new ArrayList<>();
+                Location location;
 
-        Location location = new Location();
-        location.setState("Florida");
-        location.setCampus("USF");
-        location.setBuilding("NEC");
-        locations.add(location);
+                try {
 
-        Location location2 = new Location();
-        location2.setState("Florida");
-        location2.setCampus("USF");
-        location2.setBuilding("BSM");
-        locations.add(location2);
+                    for(int i = 0; i<response.length(); i++){
 
-        Location location3 = new Location();
-        location3.setState("Texas");
-        location3.setCampus("Dallas");
-        location3.setBuilding("BigBuiding");
-        locations.add(location3);
+                        JSONObject jsonObject = (JSONObject) response.get(i);
+                        location = new Location();
 
-        Location location4 = new Location();
-        location4.setState("Virginia");
-        location4.setCampus("Reston");
-        location4.setBuilding("Hive");
-        locations.add(location4);
+                        location.setState(jsonObject.getString("state"));
+                        location.setCampus(jsonObject.getString("campus"));
+                        location.setBuilding(jsonObject.getString("building"));
 
-        Location location5 = new Location();
-        location5.setState("Virginia");
-        location5.setCampus("Reston");
-        location5.setBuilding("Other building");
-        locations.add(location5);
+                        locations.add(location);
+                    }
 
-        Location location6 = new Location();
-        location6.setState("West Virginia");
-        location6.setCampus("Morgantown");
-        location6.setBuilding("Main");
-        locations.add(location6);
+                } catch (JSONException e) {
+                    Log.d(LOG_TAG,e.toString());
+                }
 
-        Location location7 = new Location();
-        location7.setState("New York");
-        location7.setCampus("New York");
-        location7.setBuilding("Big Apple Building");
-        locations.add(location7);
+                updateViewWithLocations(locations);
+            }
+        };
 
-        return locations;
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, error.toString());
+                Snackbar.make(findViewById(R.id.container_login) ,"Error logging in", Snackbar.LENGTH_SHORT);
+            }
+        };
+
+        apiService.getLocations(getLocationsListener, errorListener);
     }
 
     public ArrayList<String> getUniqueStates(ArrayList<Location> locations) {
@@ -148,8 +150,6 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
     @Override
     public void locationUpdate(String tag, String update) {
 
-        ArrayList<Location> locations = getLocations();
-
         String tag1 = "android:switcher:" + R.id.vp_locationselector_list + ":" + 1;
         LocationFragment campusFragment = (LocationFragment) getSupportFragmentManager().findFragmentByTag(tag1);
 
@@ -197,4 +197,10 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
         }
     }
 
+    public void updateViewWithLocations(ArrayList<Location> locations) {
+
+        viewPagerAdapter = new LocationViewPagerAdapter(getSupportFragmentManager(), getUniqueStates(locations));
+
+        viewPager.setAdapter(viewPagerAdapter);
+    }
 }

@@ -1,23 +1,35 @@
 package com.revature.roomrequests.pojo;
 
 public class Room {
+
+    private int id;
     private String batch;
-    private String room;
+    private String roomNumber;
     private String trainer;
     private String dates;
-    private String seats;
+    private String capacity;
     private boolean available;
 
     public Room() {
+
     }
 
-    public Room(String batch, String room, String trainer, String dates, String seats, boolean available) {
+    public Room(int id, String batch, String roomNumber, String trainer, String dates, String capacity, boolean available) {
+        this.id = id;
         this.batch = batch;
-        this.room = room;
+        this.roomNumber = roomNumber;
         this.trainer = trainer;
         this.dates = dates;
-        this.seats = seats;
+        this.capacity = capacity;
         this.available = available;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBatch() {
@@ -28,12 +40,12 @@ public class Room {
         this.batch = batch;
     }
 
-    public String getRoom() {
-        return room;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public String getTrainer() {
@@ -52,11 +64,20 @@ public class Room {
         this.dates = dates;
     }
 
-    public String getSeats() { return seats; }
+    public String getCapacity() {
+        return capacity;
+    }
 
-    public void setSeats(String seats) { this.seats = seats; }
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
 
-    public boolean isAvailable() { return available; }
+    public boolean isAvailable() {
+        return available;
+    }
 
-    public void setAvailable(boolean available) { this.available = available; }
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
 }

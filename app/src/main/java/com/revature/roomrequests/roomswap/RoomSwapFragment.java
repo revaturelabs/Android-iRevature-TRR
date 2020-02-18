@@ -78,11 +78,11 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
         
         if(room1!=null && room2!=null) {
             tvBatch1.setText(room1.getBatch());
-            tvRoom1.setText(room1.getRoom());
+            tvRoom1.setText(room1.getRoomNumber());
             tvTrainer1.setText(room1.getTrainer());
             tvDates1.setText(room1.getDates());
             tvBatch2.setText(room2.getBatch());
-            tvRoom2.setText(room2.getRoom());
+            tvRoom2.setText(room2.getRoomNumber());
             tvTrainer2.setText(room2.getTrainer());
             tvDates2.setText(room2.getDates());
         }
@@ -135,7 +135,7 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
                     year,month,day);
             dialog.show();
         } else if (v.getId()==R.id.btn_room_swap_submit) {
-            Toast.makeText(getContext(),"Room: "+room1.getRoom()+" swap with "+room2.getRoom()+" was submitted",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Room: "+room1.getRoomNumber()+" swap with "+room2.getRoomNumber()+" was submitted",Toast.LENGTH_SHORT).show();
         }
     }
 

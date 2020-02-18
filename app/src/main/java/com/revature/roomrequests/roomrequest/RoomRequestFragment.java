@@ -56,7 +56,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         tvTrainer.setText(R.string.no_string);
         tvDates.setText(R.string.no_string);
         if(room!=null) {
-            tvRoom.setText(room.getRoom());
+            tvRoom.setText(room.getRoomNumber());
         } else {
             tvRoom.setText(R.string.no_string);
         }
@@ -121,7 +121,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
                     year,month,day);
             dialog.show();
         } else if (v.getId()==R.id.btn_room_request_submit) {
-            Toast.makeText(getContext(),"Room: "+room.getRoom()+" request was submitted",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Room: "+room.getRoomNumber()+" request was submitted",Toast.LENGTH_SHORT).show();
         }
     }
 

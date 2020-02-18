@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login.LoginActivity">
@@ -32,7 +33,7 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/username_hint"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/hint_and_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -27,7 +27,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:text="@string/batch_ex"
+                android:text="@string/batch"
                 android:textSize="16sp" />
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:text="@string/batch_ex"
+                android:text="@string/batch"
                 android:textSize="16sp" />
 
             <TextView

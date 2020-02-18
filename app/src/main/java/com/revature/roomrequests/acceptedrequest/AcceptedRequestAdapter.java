@@ -50,10 +50,10 @@ public class AcceptedRequestAdapter extends RecyclerView.Adapter<AcceptedRequest
             } else {
                 holder.tvRoom1Batch.setText(requests.get(position).getRoom1().getBatch());
             }
-            if (requests.get(position).getRoom1().getRoom() == null) {
+            if (requests.get(position).getRoom1().getRoomNumber() == null) {
                 holder.tvRoom1Room.setText(R.string.no_string);
             } else {
-                holder.tvRoom1Room.setText(requests.get(position).getRoom1().getRoom());
+                holder.tvRoom1Room.setText(requests.get(position).getRoom1().getRoomNumber());
             }
             if (requests.get(position).getRoom1().getTrainer() == null) {
                 holder.tvRoom1Trainer.setText(R.string.no_string);
@@ -67,7 +67,7 @@ public class AcceptedRequestAdapter extends RecyclerView.Adapter<AcceptedRequest
             }
         } else if (requests.get(position).getRoom2() != null) {
             holder.tvRoom1Batch.setText(R.string.no_string);
-            holder.tvRoom1Room.setText(requests.get(position).getRoom2().getRoom());
+            holder.tvRoom1Room.setText(requests.get(position).getRoom2().getRoomNumber());
             holder.tvRoom1Trainer.setText(R.string.no_string);
             holder.tvRoom1Dates.setText(R.string.no_string);
         }
@@ -78,10 +78,10 @@ public class AcceptedRequestAdapter extends RecyclerView.Adapter<AcceptedRequest
             } else {
                 holder.tvRoom2Batch.setText(requests.get(position).getRoom2().getBatch());
             }
-            if (requests.get(position).getRoom2().getRoom() == null) {
+            if (requests.get(position).getRoom2().getRoomNumber() == null) {
                 holder.tvRoom2Room.setText(R.string.no_string);
             } else {
-                holder.tvRoom2Room.setText(requests.get(position).getRoom2().getRoom());
+                holder.tvRoom2Room.setText(requests.get(position).getRoom2().getRoomNumber());
             }
             if (requests.get(position).getRoom2().getTrainer() == null) {
                 holder.tvRoom2Trainer.setText(R.string.no_string);
@@ -95,7 +95,7 @@ public class AcceptedRequestAdapter extends RecyclerView.Adapter<AcceptedRequest
             }
         } else if (requests.get(position).getRoom1() != null) {
             holder.tvRoom2Batch.setText(R.string.no_string);
-            holder.tvRoom2Room.setText(requests.get(position).getRoom1().getRoom());
+            holder.tvRoom2Room.setText(requests.get(position).getRoom1().getRoomNumber());
             holder.tvRoom2Trainer.setText(R.string.no_string);
             holder.tvRoom2Dates.setText(R.string.no_string);
         }

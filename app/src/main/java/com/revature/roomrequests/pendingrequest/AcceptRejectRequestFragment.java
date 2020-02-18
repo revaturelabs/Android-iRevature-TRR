@@ -59,10 +59,10 @@ public class AcceptRejectRequestFragment extends Fragment {
             } else {
                 tvRoom1Batch.setText(request.getRoom1().getBatch());
             }
-            if (request.getRoom1().getRoom() == null) {
+            if (request.getRoom1().getRoomNumber() == null) {
                 tvRoom1Room.setText(R.string.no_string);
             } else {
-                tvRoom1Room.setText(request.getRoom1().getRoom());
+                tvRoom1Room.setText(request.getRoom1().getRoomNumber());
             }
             if (request.getRoom1().getTrainer() == null) {
                 tvRoom1Trainer.setText(R.string.no_string);
@@ -76,7 +76,7 @@ public class AcceptRejectRequestFragment extends Fragment {
             }
         } else if(request.getRoom2()!=null){
             tvRoom1Batch.setText(R.string.no_string);
-            tvRoom1Room.setText(request.getRoom2().getRoom());
+            tvRoom1Room.setText(request.getRoom2().getRoomNumber());
             tvRoom1Trainer.setText(R.string.no_string);
             tvRoom1Dates.setText(R.string.no_string);
         }
@@ -87,10 +87,10 @@ public class AcceptRejectRequestFragment extends Fragment {
             } else {
                 tvRoom2Batch.setText(request.getRoom2().getBatch());
             }
-            if (request.getRoom2().getRoom() == null) {
+            if (request.getRoom2().getRoomNumber() == null) {
                 tvRoom2Room.setText(R.string.no_string);
             } else {
-                tvRoom2Room.setText(request.getRoom2().getRoom());
+                tvRoom2Room.setText(request.getRoom2().getRoomNumber());
             }
             if (request.getRoom2().getTrainer() == null) {
                 tvRoom2Trainer.setText(R.string.no_string);
@@ -104,7 +104,7 @@ public class AcceptRejectRequestFragment extends Fragment {
             }
         } else if(request.getRoom1()!=null) {
             tvRoom2Batch.setText(R.string.no_string);
-            tvRoom2Room.setText(request.getRoom1().getRoom());
+            tvRoom2Room.setText(request.getRoom1().getRoomNumber());
             tvRoom2Trainer.setText(R.string.no_string);
             tvRoom2Dates.setText(R.string.no_string);
         }

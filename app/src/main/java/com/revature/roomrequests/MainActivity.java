@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Location;
+import com.revature.roomrequests.pojo.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvUserRole;
     Location location;
     AppBarConfiguration appBarConfiguration;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +43,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        user = (User) getIntent().getSerializableExtra("user");
 
         tvUsername = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_username);
         tvUserRole = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_userrole);
         tvLocation = findViewById(R.id.tv_main_location);
         tvLocation.setPaintFlags(tvLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        tvUsername.setText("This will display the user's username");
-        tvUserRole.setText("This will display the user's role");
+        tvUsername.setText(user.getUsername());
+        tvUserRole.setText(user.getRole().toUpperCase());
 
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 Intent intent = new Intent(getApplicationContext(), LocationSelectorActivity.class);
-
                 startActivity(intent);
-
                 return false;
             }
         });
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_room_requests,R.id.nav_pending_requests,R.id.nav_accepted_requests,R.id.nav_rejected_requests)
                 .setDrawerLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -105,4 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public Location getLocation() {
+        return location;
+    }
 }

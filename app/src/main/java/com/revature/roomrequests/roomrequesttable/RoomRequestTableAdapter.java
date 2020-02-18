@@ -25,6 +25,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
 
     final String NO_STRING = "N/A";
 
+    ArrayList<Integer> ids;
     ArrayList<String> batches;
     ArrayList<String> rooms;
     ArrayList<String> trainers;
@@ -45,9 +46,10 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         super();
     }
 
-    public RoomRequestTableAdapter(Context context, FragmentManager fm, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates, ArrayList<String> seats, ArrayList<Boolean> availabilities) {
+    public RoomRequestTableAdapter(Context context, FragmentManager fm, ArrayList<Integer> ids, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates, ArrayList<String> seats, ArrayList<Boolean> availabilities) {
         this.context = context;
         this.fm = fm;
+        this.ids = ids;
         this.batches = batches;
         this.rooms = rooms;
         this.trainers = trainers;
@@ -103,7 +105,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                 Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
                 if(batches.get(position)==null){
                     Room room = new Room();
-                    room.setRoom(rooms.get(position));
+                    room.setRoomNumber(rooms.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -111,7 +113,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     ft.commit();
                 } else if(room1==null) {
                     Log.d("Room","We got here");
-                    room1 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
+                    room1 = new Room(ids.get(position),batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
                     notifyItemChanged(room1Pos);
                     room1Pos = position;
                     notifyItemChanged(room1Pos);
@@ -123,7 +125,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     itemsChangedListener.onItemsChanged(1);
                     Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
                 } else {
-                    room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
+                    room2 = new Room(ids.get(position),batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room1,room2));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -166,5 +168,16 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             cvRoom = itemView.findViewById(R.id.cv_room);
             btnAction = itemView.findViewById(R.id.btn_room_row_action);
         }
+    }
+
+    public void updateData(ArrayList<Integer> ids, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates, ArrayList<String> seats, ArrayList<Boolean> availabilities) {
+        this.ids = ids;
+        this.batches = batches;
+        this.rooms = rooms;
+        this.trainers = trainers;
+        this.dates = dates;
+        this.seats = seats;
+        this.availabilities = availabilities;
+        notifyDataSetChanged();
     }
 }
