@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_room_requests,R.id.nav_pending_requests,R.id.nav_accepted_requests,R.id.nav_rejected_requests)
+                R.id.nav_room_requests,R.id.nav_request_list)
                 .setDrawerLayout(drawer)
                 .build();
 

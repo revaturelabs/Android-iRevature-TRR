@@ -4,6 +4,7 @@ public class Request {
     private String type;
     private Room room1;
     private Room room2;
+    private String status="pending";
 
     public Request() {
     }
@@ -12,6 +13,13 @@ public class Request {
         this.type = type.toLowerCase();
         this.room1 = room1;
         this.room2 = room2;
+    }
+
+    public Request(String type, Room room1, Room room2, String status) {
+        this.type = type.toLowerCase();
+        this.room1 = room1;
+        this.room2 = room2;
+        this.status = status.toLowerCase();
     }
 
     public String getType() {
@@ -48,6 +56,18 @@ public class Request {
 
     public boolean isRequest() {
         return type.equals("request");
+    }
+
+    public void setStatusAccepted() {
+        this.status = "accepted";
+    }
+
+    public void setStatusRejected() {
+        this.status = "rejected";
+    }
+
+    public String getStatus() {
+        return this.status;
     }
 
 }

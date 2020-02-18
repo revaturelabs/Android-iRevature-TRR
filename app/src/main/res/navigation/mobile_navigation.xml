@@ -11,18 +11,8 @@
         android:label="@string/room_request_title"
         tools:layout="@layout/fragment_room_request_table" />
     <fragment
-        android:id="@+id/nav_pending_requests"
-        android:name="com.revature.roomrequests.pendingrequest.PendingRequestFragment"
-        android:label="@string/pending_requests_title"
-        tools:layout="@layout/fragment_pending_request" />
-    <fragment
-        android:id="@+id/nav_accepted_requests"
-        android:name="com.revature.roomrequests.acceptedrequest.AcceptedRequestFragment"
-        android:label="@string/accepted_requests_title"
-        tools:layout="@layout/fragment_accepted_request" />
-    <fragment
-        android:id="@+id/nav_rejected_requests"
-        android:name="com.revature.roomrequests.rejectedrequest.RejectedRequestFragment"
-        android:label="@string/rejected_requests_title"
-        tools:layout="@layout/fragment_rejected_request" />
+        android:id="@+id/nav_request_list"
+        android:name="com.revature.roomrequests.requestlist.RequestListFragment"
+        android:label="@string/requests_title"
+        tools:layout="@layout/fragment_request_list" />
 </navigation>
