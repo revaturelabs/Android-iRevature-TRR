@@ -88,16 +88,17 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
         
         
         if(room1!=null && room2!=null) {
+
             tvBatch1.append(" "+room1.getBatch());
-            tvRoom1.append(" "+room1.getRoom());
+            tvRoom1.append(" "+room1.getRoomNumber());
             tvTrainer1.append(" "+room1.getTrainer());
             tvDates1.append(" "+room1.getDates());
-            tvSeats1.append(" "+room1.getSeats());
+            tvSeats1.append(" "+room1.getCapacity());
             tvBatch2.append(" "+room2.getBatch());
-            tvRoom2.append(" "+room2.getRoom());
+            tvRoom2.append(" "+room2.getRoomNumber());
             tvTrainer2.append(" "+room2.getTrainer());
             tvDates2.append(" "+room2.getDates());
-            tvSeats2.append(" "+room2.getSeats());
+            tvSeats2.append(" "+room2.getCapacity());
         }
 
         startDateListener = new DatePickerDialog.OnDateSetListener() {
@@ -172,7 +173,7 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
             }
             dialog.show();
         } else if (v.getId()==R.id.btn_room_swap_submit) {
-            Toast.makeText(getContext(),"Room: "+room1.getRoom()+" swap with "+room2.getRoom()+" was submitted",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Room: "+room1.getRoomNumber()+" swap with "+room2.getRoomNumber()+" was submitted",Toast.LENGTH_SHORT).show();
         }
     }
 

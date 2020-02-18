@@ -56,8 +56,8 @@ public class RejectedRequestFragment extends Fragment {
 
     private void getRejectedRequests(){
         ArrayList<Request> requests = new ArrayList<>(Arrays.asList(
-                new Request("swap",new Room("2001-Mobile-iOS","300","Uday","2/2-3/13","30",false),new Room("2001-Mobile-And","200","Mayur","2/2-3/13","25",false)),
-                new Request("request",new Room("2001-Mobile-And","200","Mayur","2/2-3/13","25",false),null)
+                new Request("swap",new Room(2,"2001-Mobile-iOS","300","Uday","2/2-3/13","30",false),new Room(2,"2001-Mobile-And","200","Mayur","2/2-3/13","25",false)),
+                new Request("request",new Room(2,"2001-Mobile-And","200","Mayur","2/2-3/13","25",false),null)
         ));
 
         this.requests=requests;

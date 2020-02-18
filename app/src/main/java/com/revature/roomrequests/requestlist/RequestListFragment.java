@@ -23,16 +23,11 @@ import java.util.Arrays;
  */
 public class RequestListFragment extends Fragment {
 
-
     ArrayList<Request> requests;
-
 
     public RequestListFragment() {
         // Required empty public constructor
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,12 +51,7 @@ public class RequestListFragment extends Fragment {
     }
 
     private void getPendingRequests(){
-        ArrayList<Request> requests = new ArrayList<>(Arrays.asList(
-                new Request("swap",new Room("2001-Mobile-iOS","300","Uday","2/2-3/13","30",false),new Room("2001-Mobile-And","200","Mayur","2/2-3/13","25",false)),
-                new Request("request",new Room("2001-Mobile-And","200","Mayur","2/2-3/13","25",false),null),
-                new Request("request",new Room("2001-Mobile","200","Nick","1/6-2/2","25",false),new Room("1912-Java-Fullstack","300","Trevin","1/6-2/2","30",false),"rejected"),
-                new Request("request",new Room("2001-Mobile","200","Nick","1/6-2/2","25",false),new Room("1912-Java-AI","400","Alex","1/6-2/2","30",false),"accepted")
-        ));
+        ArrayList<Request> requests = new ArrayList<>();
 
         this.requests=requests;
     }

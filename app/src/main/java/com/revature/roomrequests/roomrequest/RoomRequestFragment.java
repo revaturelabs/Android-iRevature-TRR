@@ -64,8 +64,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         tvTrainer.append(" "+noString);
         tvDates.append(" "+noString);
         if(room!=null) {
-            tvRoom.append(" "+room.getRoom());
-            tvSeats.append(" "+room.getSeats());
+            tvRoom.append(" "+room.getRoomNumber());
+            tvSeats.append(" "+room.getCapacity());
         } else {
             tvRoom.append(" "+noString);
         }
@@ -158,7 +158,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
             }
             dialog.show();
         } else if (v.getId()==R.id.btn_room_request_submit) {
-            Toast.makeText(getContext(),"Room: "+room.getRoom()+" request was submitted",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Room: "+room.getRoomNumber()+" request was submitted",Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -9,16 +9,23 @@ import android.os.PatternMatcher;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
+import com.revature.roomrequests.pojo.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,16 +37,21 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox chkRemember;
     Button btnLogin;
     SharedPreferences preferences;
+
     final private String USERNAME_KEY = "username";
     final private String PASSWORD_KEY = "password";
     final private String REMEMBER_KEY = "remember";
+    final private String LOG_TAG = "LOGIN ACTIVITY";
 
     private TextWatcher textWatcher;
+    ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        apiService = new ApiService(this);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -106,8 +118,46 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void authenticate() {
+        Response.Listener<JSONObject> loginListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                User user = new User();
+
+                try {
+
+                    user.setUsername(response.getString("username"));
+                    user.setRole(response.getString("role"));
+                    user.setId(response.getInt("id"));
+                    user.setToken(response.getInt("token"));
+
+                } catch (JSONException e) {
+                    Log.d(LOG_TAG,e.toString());
+                }
+
+                loggedIn(user);
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, error.toString());
+                Snackbar.make(findViewById(R.id.container_login) ,"Error logging in", Snackbar.LENGTH_SHORT);
+            }
+        };
+
+        String username = etUsername.getText().toString();
+        String password = etPassword.getText().toString();
+
+        apiService.authenticateUser(username, password, loginListener, errorListener);
+    }
+
+    public void loggedIn(User user) {
 
         SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putInt("auth_token", user.getToken());
 
         if (chkRemember.isChecked()) {
             editor.putString(USERNAME_KEY, etUsername.getText().toString());
@@ -127,10 +177,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if (state != null && campus != null && building != null) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("user", user);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), LocationSelectorActivity.class);
             intent.putExtra("calling_activity",LoginActivity.class.toString());
+            intent.putExtra("user", user);
             startActivity(intent);
         }
 
