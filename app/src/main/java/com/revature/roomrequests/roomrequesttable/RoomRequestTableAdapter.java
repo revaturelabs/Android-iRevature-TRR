@@ -32,6 +32,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     ArrayList<String> dates;
     ArrayList<String> seats;
     ArrayList<Boolean> availabilities;
+    Room myRoom;
 
     Context context;
     FragmentManager fm;
@@ -56,6 +57,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         this.dates = dates;
         this.seats = seats;
         this.availabilities = availabilities;
+        myRoom = new Room(100,"My Batch","My room","Me","myDates","myseats",false);
     }
 
     @NonNull
@@ -102,36 +104,46 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         holder.btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
+                //Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
                 if(batches.get(position)==null){
                     Room room = new Room();
                     room.setRoomNumber(rooms.get(position));
+                    room.setCapacity(seats.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
-                } else if(room1==null) {
-                    Log.d("Room","We got here");
-                    room1 = new Room(ids.get(position),batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
-                    notifyItemChanged(room1Pos);
-                    room1Pos = position;
-                    notifyItemChanged(room1Pos);
-                    itemsChangedListener.onItemsChanged(2);
-                } else if(position==room1Pos) {
-                    room1Pos = RecyclerView.NO_POSITION;
-                    room1=null;
-                    v.setSelected(false);
-                    itemsChangedListener.onItemsChanged(1);
-                    Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
+
                 } else {
-                    room2 = new Room(ids.get(position),batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
+                    Room room = new Room(ids.get(position),batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room1,room2));
+                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room,myRoom));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
                 }
+                    //else if(room1==null) {
+//                    Log.d("Room","We got here");
+//                    room1 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
+//                    notifyItemChanged(room1Pos);
+//                    room1Pos = position;
+//                    notifyItemChanged(room1Pos);
+//                    itemsChangedListener.onItemsChanged(2);
+//                } else if(position==room1Pos) {
+//                    room1Pos = RecyclerView.NO_POSITION;
+//                    room1=null;
+//                    v.setSelected(false);
+//                    itemsChangedListener.onItemsChanged(1);
+//                    Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
+//                } else {
+//                    room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
+//                    FragmentTransaction ft = fm.beginTransaction();
+//                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room1,room2));
+//                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                    ft.addToBackStack(null);
+//                    ft.commit();
+//                }
             }
         });
     }

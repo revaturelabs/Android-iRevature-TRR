@@ -3,6 +3,7 @@ package com.revature.roomrequests.roomrequesttable;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -30,14 +34,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RoomRequestTableFragment extends Fragment implements RoomRequestTableAdapter.ItemsChangedListener {
+public class RoomRequestTableFragment extends Fragment implements View.OnClickListener {
+    
+    EditText etStartDate,etEndDate;
+    ImageButton btnStartDate, btnEndDate;
+
+    DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
+    private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
 
     ArrayList<Integer> ids;
     ArrayList<String> batches;
@@ -48,7 +62,6 @@ public class RoomRequestTableFragment extends Fragment implements RoomRequestTab
     ArrayList<Boolean> availabilities;
     Location location;
 
-    TextView tvPick;
     RecyclerView recyclerView;
 
     private ApiService apiService;
@@ -63,9 +76,33 @@ public class RoomRequestTableFragment extends Fragment implements RoomRequestTab
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_request_table, container, false);
+        
+        etStartDate = view.findViewById(R.id.et_room_table_start_date);
+        etStartDate.setOnClickListener(this);
+        etEndDate = view.findViewById(R.id.et_room_table_end_date);
+        etEndDate.setOnClickListener(this);
+        btnStartDate = view.findViewById(R.id.btn_room_table_start_date);
+        btnStartDate.setOnClickListener(this);
+        btnEndDate = view.findViewById(R.id.btn_room_table_end_date);
+        btnEndDate.setOnClickListener(this);
 
-        tvPick = view.findViewById(R.id.tv_room_request_choice);
-        tvPick.setText(R.string.select_first_room);
+        startDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month=month+1;
+                String date = month+"/"+dayOfMonth+"/"+year;
+                etStartDate.setText(date);
+            }
+        };
+
+        endDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month+1;
+                String date = month+"/"+dayOfMonth+"/"+year;
+                etEndDate.setText(date);
+            }
+        };
 
         recyclerView = view.findViewById(R.id.recycle_room_requests_table);
 
@@ -76,8 +113,6 @@ public class RoomRequestTableFragment extends Fragment implements RoomRequestTab
         getRooms();
 
         RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(), getFragmentManager(), new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList());
-
-        adapter.setItemsChangedListener(this);
 
         recyclerView.setAdapter(adapter);
 
@@ -164,11 +199,53 @@ public class RoomRequestTableFragment extends Fragment implements RoomRequestTab
     }
 
     @Override
-    public void onItemsChanged(int choice) {
-        if(choice == 1) {
-            tvPick.setText(R.string.select_first_room);
-        } else {
-            tvPick.setText(R.string.select_second_room);
+    public void onClick(View v) {
+        if(v.getId()== R.id.et_room_table_start_date || v.getId()==R.id.btn_room_table_start_date){
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+                    android.R.style.Theme_Material_Dialog_MinWidth,
+                    startDateListener,
+                    year,month,day);
+            if(!etEndDate.getText().toString().equals("")) {
+                Date endDate = null;
+                try {
+                    endDate = f.parse(etEndDate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    endDate = new Date(Long.MAX_VALUE);
+                }
+                dialog.getDatePicker().setMaxDate(endDate.getTime());
+            }
+            dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            dialog.show();
+        } else if ( v.getId()==R.id.et_room_table_end_date || v.getId()==R.id.btn_room_table_end_date) {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+                    android.R.style.Theme_Material_Dialog_MinWidth,
+                    endDateListener,
+                    year,month,day);
+            if(!etStartDate.getText().toString().equals("")){
+                String startDateString = etStartDate.getText().toString();
+                Date startDate = null;
+                try {
+                    startDate = f.parse(startDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    startDate = new Date(System.currentTimeMillis());
+                }
+                dialog.getDatePicker().setMinDate(startDate.getTime());
+            } else {
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            }
+            dialog.show();
         }
     }
 

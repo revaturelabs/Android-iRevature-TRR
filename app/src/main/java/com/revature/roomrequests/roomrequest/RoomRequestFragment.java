@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,19 +20,25 @@ import android.widget.Toast;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RoomRequestFragment extends Fragment implements View.OnClickListener {
 
-    TextView tvBatch,tvRoom,tvTrainer,tvDates;
+    TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats;
     EditText etComments, etStartDate, etEndDate;
     Button btnSubmit;
     ImageButton btnPickStart, btnPickEnd;
     Room room;
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
+    private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+    
+    private String noString = "N/A";
 
 
     public RoomRequestFragment() {
@@ -52,14 +59,20 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         tvRoom = view.findViewById(R.id.tv_room_request_room);
         tvTrainer = view.findViewById(R.id.tv_room_request_trainer);
         tvDates = view.findViewById(R.id.tv_room_request_dates);
-        tvBatch.setText(R.string.no_string);
-        tvTrainer.setText(R.string.no_string);
-        tvDates.setText(R.string.no_string);
+        tvSeats = view.findViewById(R.id.tv_room_request_size);
+        tvBatch.append(" "+noString);
+        tvTrainer.append(" "+noString);
+        tvDates.append(" "+noString);
         if(room!=null) {
-            tvRoom.setText(room.getRoomNumber());
+            tvRoom.append(" "+room.getRoomNumber());
+            tvSeats.append(" "+room.getCapacity());
         } else {
-            tvRoom.setText(R.string.no_string);
+            tvRoom.append(" "+noString);
         }
+
+        etComments = view.findViewById(R.id.et_room_request_comments);
+        int maxLength = 500;
+        etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
 
         btnSubmit = view.findViewById(R.id.btn_room_request_submit);
         btnSubmit.setOnClickListener(this);
@@ -108,6 +121,17 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
                         android.R.style.Theme_Material_Dialog_MinWidth,
                         startDateListener,
                         year,month,day);
+                if(!etEndDate.getText().toString().equals("")) {
+                    Date endDate = null;
+                    try {
+                        endDate = f.parse(etEndDate.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        endDate = new Date(Long.MAX_VALUE);
+                    }
+                    dialog.getDatePicker().setMaxDate(endDate.getTime());
+                }
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 dialog.show();
         } else if ( v.getId()==R.id.et_room_request_end_date || v.getId()==R.id.btn_room_request_end_date) {
             Calendar cal = Calendar.getInstance();
@@ -119,6 +143,19 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
                     android.R.style.Theme_Material_Dialog_MinWidth,
                     endDateListener,
                     year,month,day);
+            if(!etStartDate.getText().toString().equals("")){
+                String startDateString = etStartDate.getText().toString();
+                Date startDate = null;
+                try {
+                    startDate = f.parse(startDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    startDate = new Date(System.currentTimeMillis());
+                }
+                dialog.getDatePicker().setMinDate(startDate.getTime());
+            } else {
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            }
             dialog.show();
         } else if (v.getId()==R.id.btn_room_request_submit) {
             Toast.makeText(getContext(),"Room: "+room.getRoomNumber()+" request was submitted",Toast.LENGTH_SHORT).show();

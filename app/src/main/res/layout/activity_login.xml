@@ -86,7 +86,7 @@
 
     <ImageView
         android:id="@+id/img_login_usericon"
-        android:layout_width="0dp"
+        android:layout_width="25dp"
         android:layout_height="0dp"
         android:contentDescription="@string/username_icon_description"
         app:layout_constraintBottom_toBottomOf="@+id/et_login_username"

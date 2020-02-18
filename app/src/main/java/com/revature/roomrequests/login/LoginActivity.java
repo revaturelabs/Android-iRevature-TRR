@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PatternMatcher;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,6 +26,9 @@ import com.revature.roomrequests.pojo.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -86,22 +90,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 // check Fields For Empty Values
-                checkFieldsForEmptyValues();
+                checkFieldsForValidValues();
             }
         };
 
         etUsername.addTextChangedListener(textWatcher);
         etPassword.addTextChangedListener(textWatcher);
 
-        checkFieldsForEmptyValues();
+        checkFieldsForValidValues();
     }
 
-    void checkFieldsForEmptyValues(){
+    void checkFieldsForValidValues(){
 
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
 
-        if(username.equals("") || password.equals("")){
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPat = Pattern.compile(emailRegex,Pattern.CASE_INSENSITIVE);
+        Matcher emailMatcher = emailPat.matcher(username);
+        if(!emailMatcher.find() || password.length()<8){
             btnLogin.setEnabled(false);
             btnLogin.setBackgroundColor(getResources().getColor(R.color.revature_orange_faded));
         } else {
