@@ -42,6 +42,6 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return state + " - " + campus + " - " + building;
+        return "Location: " + state + " > " + campus + " > " + building;
     }
 }

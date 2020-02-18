@@ -32,6 +32,8 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_selector);
 
+        setTitle(R.string.location_selector_title);
+
         locations = getLocations();
 
         viewPager = findViewById(R.id.vp_locationselector_list);
