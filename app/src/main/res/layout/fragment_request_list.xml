@@ -5,6 +5,49 @@
     android:orientation="vertical"
     tools:context="com.revature.roomrequests.requestlist.RequestListFragment">
 
+    <LinearLayout
+        android:id="@+id/requests_info_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:divider="@color/dark_gray"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/card_request_date_margin"
+        android:paddingTop="5dp"
+        android:paddingRight="@dimen/card_request_date_margin"
+        android:paddingBottom="@dimen/card_padding">
+
+        <TextView
+            android:id="@+id/tv_request_list_results"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/request_number_of_results_label"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_request_accepted_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/key_margin"
+            android:background="@color/room_available"
+            android:paddingLeft="@dimen/key_padding"
+            android:paddingRight="@dimen/key_padding"
+            android:text="@string/accepted_key" />
+
+        <TextView
+            android:id="@+id/tv_request_rejected_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/key_margin"
+            android:background="@color/room_unavailable"
+            android:paddingLeft="@dimen/key_padding"
+            android:paddingRight="@dimen/key_padding"
+            android:text="@string/rejected_key" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_request_list"
         android:layout_width="match_parent"

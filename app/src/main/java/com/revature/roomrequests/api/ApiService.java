@@ -112,12 +112,39 @@ public class ApiService {
         return jsonObject;
     }
 
-    public void getRoomsForLocation(Location location, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
+    public void getRequestsForLocation(Location location, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
 
         RequestQueue requestQueue;
         CustomJsonRequest customJsonRequest;
         JSONObject jsonObject = getJsonObjectWithToken();
 
+        requestQueue = Volley.newRequestQueue(context);
+
+        try {
+            jsonObject.put("state", location.getState());
+            jsonObject.put("campus", location.getCampus());
+            jsonObject.put("building", location.getBuilding());
+        } catch (JSONException e) {
+            Log.d(LOG_TAG, e.toString());
+        }
+
+        customJsonRequest = new CustomJsonRequest(
+                Request.Method.GET,
+                apiUrl + roomRequestsUrlExtension,
+                jsonObject,
+                responseListener,
+                errorListener
+        );
+
+        requestQueue.add(customJsonRequest);
+
+    }
+
+    public void getRoomsForLocation(Location location, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
+
+        RequestQueue requestQueue;
+        CustomJsonRequest customJsonRequest;
+        JSONObject jsonObject = getJsonObjectWithToken();
 
         requestQueue = Volley.newRequestQueue(context);
 
