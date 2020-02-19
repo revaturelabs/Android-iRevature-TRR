@@ -1,6 +1,8 @@
 package com.revature.roomrequests.roomrequesttable;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +59,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         this.dates = dates;
         this.seats = seats;
         this.availabilities = availabilities;
-        myRoom = new Room(100,"My Batch","My room","Me","myDates","myseats",false);
+        myRoom = new Room(-1,NO_STRING,NO_STRING,"Me",NO_STRING,NO_STRING,true);
     }
 
     @NonNull
@@ -72,6 +74,8 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
 
     @Override
     public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, final int position) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final String trainerName = preferences.getString("name","");
         holder.itemView.setSelected(room1Pos==position);
         if(batches.get(position)!=null) {
             holder.tvBatch.append(" " + batches.get(position));
@@ -101,12 +105,20 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_unavailable));
             holder.btnAction.setText("Swap");
         }
+        if(position==0 && trainerName.equals(trainers.get(position))) {
+            holder.tvCurrent.setVisibility(View.VISIBLE);
+            holder.btnAction.setVisibility(View.GONE);
+            holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.current_room));
+            myRoom = new Room(ids.get(position),batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
+        }
         holder.btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
                 if(batches.get(position)==null){
                     Room room = new Room();
+                    room.setId(ids.get(position));
+                    room.setTrainer(trainerName);
                     room.setRoomNumber(rooms.get(position));
                     room.setCapacity(seats.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
@@ -165,7 +177,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     }
 
     public class RequestRoomViewHolder extends RecyclerView.ViewHolder {
-        TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats;
+        TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats,tvCurrent;
         CardView cvRoom;
         Button btnAction;
 
@@ -179,6 +191,8 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
             tvSeats = itemView.findViewById(R.id.tv_room_row_seats);
             cvRoom = itemView.findViewById(R.id.cv_room);
             btnAction = itemView.findViewById(R.id.btn_room_row_action);
+
+            tvCurrent = itemView.findViewById(R.id.tv_room_row_current);
         }
     }
 

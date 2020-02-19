@@ -127,8 +127,9 @@ public class LoginActivity extends AppCompatActivity {
                 try {
 
                     user.setUsername(response.getString("username"));
+                    user.setName(response.getString("name"));
                     user.setRole(response.getString("role"));
-                    user.setId(response.getInt("id"));
+                    user.setId(response.getInt("user_id"));
                     user.setToken(response.getInt("token"));
 
                 } catch (JSONException e) {
@@ -158,6 +159,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putInt("auth_token", user.getToken());
+        editor.putInt("user_id",user.getId());
+        editor.putString("name",user.getName());
 
         if (chkRemember.isChecked()) {
             editor.putString(USERNAME_KEY, etUsername.getText().toString());

@@ -2,31 +2,45 @@ package com.revature.roomrequests.roomrequest;
 
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,6 +53,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
     EditText etComments, etStartDate, etEndDate;
     Button btnSubmit;
     ImageButton btnPickStart, btnPickEnd;
+    Spinner spinnerBatch;
+    ArrayAdapter<String> spinnerBatchAdapter;
     Room room;
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
     private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
@@ -46,6 +62,9 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
     TextWatcher textWatcher;
     
     private String noString = "N/A";
+
+    private ApiService apiService;
+    final String LOG_TAG = "ROOM REQUEST";
 
 
     public RoomRequestFragment() {
@@ -62,20 +81,29 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_request, container, false);
+
+        apiService = new ApiService(getContext());
+
         tvBatch = view.findViewById(R.id.tv_room_request_batch);
         tvRoom = view.findViewById(R.id.tv_room_request_room);
         tvTrainer = view.findViewById(R.id.tv_room_request_trainer);
         tvDates = view.findViewById(R.id.tv_room_request_dates);
         tvSeats = view.findViewById(R.id.tv_room_request_size);
-        tvBatch.append(" "+noString);
-        tvTrainer.append(" "+noString);
         tvDates.append(" "+noString);
         if(room!=null) {
             tvRoom.append(" "+room.getRoomNumber());
             tvSeats.append(" "+room.getCapacity());
+            tvTrainer.append(" "+room.getTrainer());
         } else {
             tvRoom.append(" "+noString);
         }
+
+        ArrayList<String> batches = getBatches();
+        spinnerBatch = view.findViewById(R.id.spinner_room_request_batches);
+        spinnerBatchAdapter = new ArrayAdapter<>(
+                getContext(),R.layout.support_simple_spinner_dropdown_item,batches);
+        spinnerBatchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBatch.setAdapter(spinnerBatchAdapter);
 
         etComments = view.findViewById(R.id.et_room_request_comments);
         int maxLength = 500;
@@ -131,6 +159,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         };
 
         etComments.addTextChangedListener(textWatcher);
+        etStartDate.addTextChangedListener(textWatcher);
+        etEndDate.addTextChangedListener(textWatcher);
 
         checkFieldsForValidValues();
 
@@ -138,7 +168,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
     }
 
     void checkFieldsForValidValues() {
-        if(etComments.getText().toString().equals("")){
+        if(etComments.getText().toString().equals("") || etStartDate.getText().toString().equals("") || etEndDate.getText().toString().equals("")){
             btnSubmit.setEnabled(false);
             btnSubmit.setBackgroundColor(getResources().getColor(R.color.revature_orange_faded));
         } else {
@@ -196,9 +226,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
             }
             dialog.show();
         } else if (v.getId()==R.id.btn_room_request_submit) {
-            Toast.makeText(getContext(),"Room: "+room.getRoomNumber()+" request was submitted",Toast.LENGTH_SHORT).show();
-
-            // TODO: submit room request
+            submitRequest(v);
 
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -207,6 +235,58 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
             ft.addToBackStack(null);
             ft.commit();
         }
+    }
+
+    void submitRequest(final View v) {
+        Response.Listener<JSONObject> submitListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Snackbar.make(v,response.getString("message"), Snackbar.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Log.d(LOG_TAG,e.toString());
+                }
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, error.toString());
+                Snackbar.make(v,"Error submitting request", Snackbar.LENGTH_SHORT).show();
+            }
+        };
+        room.setBatch(spinnerBatch.getSelectedItem().toString());
+        apiService.postSubmitRoomRequest(room,null,etStartDate.getText().toString(),etEndDate.getText().toString(),etComments.getText().toString(),submitListener,errorListener);
+    }
+
+    ArrayList<String> getBatches() {
+        final ArrayList<String> batches = new ArrayList<>();
+        Response.Listener<JSONArray> batchesListener = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for(int i =0; i<response.length(); i++) {
+                    try {
+                        batches.add(response.getJSONObject(i).getString("batch_name"));
+                    } catch (JSONException e) {
+                        Log.d(LOG_TAG,e.toString());
+                    }
+                }
+                spinnerBatchAdapter.notifyDataSetChanged();
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, error.toString());
+            }
+        };
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        int trainerId = preferences.getInt("user_id",-1);
+        apiService.getTrainerBatches(trainerId,batchesListener,errorListener);
+        return batches;
     }
 
 }
