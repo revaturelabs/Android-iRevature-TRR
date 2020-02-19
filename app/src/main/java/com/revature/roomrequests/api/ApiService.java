@@ -256,14 +256,20 @@ public class ApiService {
 
         try {
             jsonObject.put("first_room_id",room1.getId());
-            jsonObject.put("second_room_id",room2.getId());
             jsonObject.put("start_date",start_date);
             jsonObject.put("end_date",end_date);
             jsonObject.put("trainer_name",room1.getTrainer());
-            jsonObject.put("second_trainer_name",room2.getTrainer());
             jsonObject.put("batch_name",room1.getBatch());
-            jsonObject.put("second_batch_name",room2.getBatch());
             jsonObject.put("reason_request",reason);
+            if(room2!=null) {
+                jsonObject.put("second_room_id", room2.getId());
+                jsonObject.put("second_trainer_name",room2.getTrainer());
+                jsonObject.put("second_batch_name",room2.getBatch());
+            } else {
+                jsonObject.put("second_room_id", null);
+                jsonObject.put("second_trainer_name",null);
+                jsonObject.put("second_batch_name",null);
+            }
         } catch (JSONException e) {
             Log.d(LOG_TAG, e.toString());
         }

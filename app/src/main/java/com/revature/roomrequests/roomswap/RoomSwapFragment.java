@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +55,9 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
 
     TextWatcher textWatcher;
 
+    private ApiService apiService;
+    final String LOG_TAG = "ROOM SWAP";
+
 
     public RoomSwapFragment() {
         // Required empty public constructor
@@ -63,6 +74,8 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_swap, container, false);
+
+        apiService = new ApiService(getContext());
         
         tvBatch1 = view.findViewById(R.id.tv_swap_room1_batch);
         tvRoom1 = view.findViewById(R.id.tv_swap_room1_room);
@@ -143,6 +156,8 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
         };
 
         etComments.addTextChangedListener(textWatcher);
+        etStartDate.addTextChangedListener(textWatcher);
+        etEndDate.addTextChangedListener(textWatcher);
 
         checkFieldsForValidValues();
         
@@ -150,7 +165,7 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
     }
 
     void checkFieldsForValidValues() {
-        if(etComments.getText().toString().equals("")){
+        if(etComments.getText().toString().equals("") || etStartDate.getText().toString().equals("") || etEndDate.getText().toString().equals("")){
             btnSubmit.setEnabled(false);
             btnSubmit.setBackgroundColor(getResources().getColor(R.color.revature_orange_faded));
         } else {
@@ -208,9 +223,7 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
             }
             dialog.show();
         } else if (v.getId()==R.id.btn_room_swap_submit) {
-            Toast.makeText(getContext(),"Room: "+room1.getRoomNumber()+" swap with "+room2.getRoomNumber()+" was submitted",Toast.LENGTH_SHORT).show();
-
-            //TODO: submit swap request
+            submitRequest(v);
 
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -219,6 +232,29 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
             ft.addToBackStack(null);
             ft.commit();
         }
+    }
+
+    void submitRequest(final View v) {
+        Response.Listener<JSONObject> submitListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Snackbar.make(v,response.getString("message"), Snackbar.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Log.d(LOG_TAG,e.toString());
+                }
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, error.toString());
+                Snackbar.make(v,"Error submitting request", Snackbar.LENGTH_SHORT).show();
+            }
+        };
+
+        apiService.postSubmitRoomRequest(room1,room2,etStartDate.getText().toString(),etEndDate.getText().toString(),etComments.getText().toString(),submitListener,errorListener);
     }
 
 }

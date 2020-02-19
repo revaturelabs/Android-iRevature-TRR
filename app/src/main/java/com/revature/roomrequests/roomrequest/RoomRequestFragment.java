@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,6 +73,9 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_request, container, false);
+
+        apiService = new ApiService(getContext());
+
         tvBatch = view.findViewById(R.id.tv_room_request_batch);
         tvRoom = view.findViewById(R.id.tv_room_request_room);
         tvTrainer = view.findViewById(R.id.tv_room_request_trainer);
@@ -135,6 +145,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         };
 
         etComments.addTextChangedListener(textWatcher);
+        etStartDate.addTextChangedListener(textWatcher);
+        etEndDate.addTextChangedListener(textWatcher);
 
         checkFieldsForValidValues();
 
@@ -200,9 +212,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
             }
             dialog.show();
         } else if (v.getId()==R.id.btn_room_request_submit) {
-            Toast.makeText(getContext(),"Room: "+room.getRoomNumber()+" request was submitted",Toast.LENGTH_SHORT).show();
-
-            // TODO: submit room request
+            submitRequest(v);
 
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -211,6 +221,29 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
             ft.addToBackStack(null);
             ft.commit();
         }
+    }
+
+    void submitRequest(final View v) {
+        Response.Listener<JSONObject> submitListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Snackbar.make(v,response.getString("message"), Snackbar.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Log.d(LOG_TAG,e.toString());
+                }
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, error.toString());
+                Snackbar.make(v,"Error submitting request", Snackbar.LENGTH_SHORT).show();
+            }
+        };
+
+        apiService.postSubmitRoomRequest(room,null,etStartDate.getText().toString(),etEndDate.getText().toString(),etComments.getText().toString(),submitListener,errorListener);
     }
 
 }
