@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
 
@@ -47,6 +48,9 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
     
     private String noString = "N/A";
 
+    private ApiService apiService;
+    final String LOG_TAG = "ROOM REQUEST";
+
 
     public RoomRequestFragment() {
         // Required empty public constructor
@@ -68,11 +72,11 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         tvDates = view.findViewById(R.id.tv_room_request_dates);
         tvSeats = view.findViewById(R.id.tv_room_request_size);
         tvBatch.append(" "+noString);
-        tvTrainer.append(" "+noString);
         tvDates.append(" "+noString);
         if(room!=null) {
             tvRoom.append(" "+room.getRoomNumber());
             tvSeats.append(" "+room.getCapacity());
+            tvTrainer.append(" "+room.getTrainer());
         } else {
             tvRoom.append(" "+noString);
         }
@@ -138,7 +142,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
     }
 
     void checkFieldsForValidValues() {
-        if(etComments.getText().toString().equals("")){
+        if(etComments.getText().toString().equals("") || etStartDate.getText().toString().equals("") || etEndDate.getText().toString().equals("")){
             btnSubmit.setEnabled(false);
             btnSubmit.setBackgroundColor(getResources().getColor(R.color.revature_orange_faded));
         } else {

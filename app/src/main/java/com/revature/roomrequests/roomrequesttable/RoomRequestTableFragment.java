@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.prefs.Preferences;
 
 
 /**
@@ -130,7 +131,12 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
             @Override
             public void onResponse(JSONArray response) {
                 ArrayList<Room> rooms = new ArrayList<>();
+                ArrayList<Room> temp = new ArrayList<>();
                 Room room;
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                int userId = preferences.getInt("user_id",-1);
+
 
                 try {
 
@@ -152,13 +158,20 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
                         room.setCapacity(jsonObject.getString("capacity"));
                         room.setAvailable(jsonObject.getBoolean("available"));
 
-                        rooms.add(room);
+                        Integer trainerId = jsonObject.getString("trainer_id").equals("null") ? -1 : Integer.parseInt(jsonObject.getString("trainer_id"));
+
+                        if(trainerId==userId) {
+                            rooms.add(room);
+                        } else {
+                            temp.add(room);
+                        }
                     }
 
                 } catch (JSONException e) {
                     Log.d(LOG_TAG,e.toString());
                 }
 
+                rooms.addAll(temp);
                 setRooms(rooms);
             }
         };

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Location;
+import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.pojo.User;
 
 import com.android.volley.Request;
@@ -238,6 +239,40 @@ public class ApiService {
         jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 apiUrl + rejectRoomRequestUrlExtension,
+                jsonObject,
+                responseListener,
+                errorListener
+        );
+
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+    public void postSubmitRoomRequest(Room room1, Room room2, String start_date, String end_date, String reason, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+
+        RequestQueue requestQueue;
+        JsonObjectRequest jsonObjectRequest;
+        JSONObject jsonObject = getJsonObjectWithToken();
+
+        try {
+            jsonObject.put("first_room_id",room1.getId());
+            jsonObject.put("second_room_id",room2.getId());
+            jsonObject.put("start_date",start_date);
+            jsonObject.put("end_date",end_date);
+            jsonObject.put("trainer_name",room1.getTrainer());
+            jsonObject.put("second_trainer_name",room2.getTrainer());
+            jsonObject.put("batch_name",room1.getBatch());
+            jsonObject.put("second_batch_name",room2.getBatch());
+            jsonObject.put("reason_request",reason);
+        } catch (JSONException e) {
+            Log.d(LOG_TAG, e.toString());
+        }
+
+        requestQueue = Volley.newRequestQueue(context);
+
+        jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                apiUrl + roomRequestsUrlExtension,
                 jsonObject,
                 responseListener,
                 errorListener
