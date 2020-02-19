@@ -5,8 +5,12 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,7 @@ import android.widget.Toast;
 
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
+import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,6 +44,8 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
 
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
     private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+
+    TextWatcher textWatcher;
 
 
     public RoomSwapFragment() {
@@ -118,10 +125,38 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
                 etEndDate.setText(date);
             }
         };
-        
-        
+
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // check Fields For Empty Values
+                checkFieldsForValidValues();
+            }
+        };
+
+        etComments.addTextChangedListener(textWatcher);
+
+        checkFieldsForValidValues();
         
         return view;
+    }
+
+    void checkFieldsForValidValues() {
+        if(etComments.getText().toString().equals("")){
+            btnSubmit.setEnabled(false);
+            btnSubmit.setBackgroundColor(getResources().getColor(R.color.revature_orange_faded));
+        } else {
+            btnSubmit.setEnabled(true);
+            btnSubmit.setBackgroundColor(getResources().getColor(R.color.revature_orange));
+        }
     }
 
     @Override
@@ -174,6 +209,15 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
             dialog.show();
         } else if (v.getId()==R.id.btn_room_swap_submit) {
             Toast.makeText(getContext(),"Room: "+room1.getRoomNumber()+" swap with "+room2.getRoomNumber()+" was submitted",Toast.LENGTH_SHORT).show();
+
+            //TODO: submit swap request
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.host_main_fragment_container,new RoomRequestTableFragment());
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.addToBackStack(null);
+            ft.commit();
         }
     }
 

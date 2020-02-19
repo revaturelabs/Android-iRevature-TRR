@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.InputFilter;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.pojo.Room;
+import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -194,6 +197,15 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
             dialog.show();
         } else if (v.getId()==R.id.btn_room_request_submit) {
             Toast.makeText(getContext(),"Room: "+room.getRoomNumber()+" request was submitted",Toast.LENGTH_SHORT).show();
+
+            // TODO: submit room request
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.host_main_fragment_container,new RoomRequestTableFragment());
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.addToBackStack(null);
+            ft.commit();
         }
     }
 

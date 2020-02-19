@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="@android:color/black"
                 android:text="@string/start_date" />
 
             <EditText
@@ -36,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:hint="mm/dd/yyyy"
                 android:inputType="date"
+                android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
             <ImageButton
@@ -58,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@android:color/black"
                 android:text="@string/end_date" />
 
             <EditText
@@ -66,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:hint="mm/dd/yyyy"
                 android:inputType="date"
+                android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
             <ImageButton
