@@ -5,9 +5,6 @@
     <string name="submit">Submit</string>
     <string name="location_selector_title">Location Selector</string>
 
-    <!--  api  -->
-    <string name="api_url">https://private-f0f69-roomrequests.apiary-mock.com/</string>
-
     <!--  login  -->
     <string name="username">Username: </string>
     <string name="username_hint">Enter username</string>

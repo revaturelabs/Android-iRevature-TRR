@@ -28,7 +28,7 @@ import java.util.Arrays;
 public class ApiService {
 
     // API urls
-    final private String apiUrl;
+    final private String apiUrl = "https://private-f0f69-roomrequests.apiary-mock.com/";
     final private String loginUrlExtension =  "/login";
     final private String locationsUrlExtension = "/locations";
     final private String roomsUrlExtension = "/rooms";
@@ -46,7 +46,6 @@ public class ApiService {
 
     public ApiService(Context context) {
         this.context = context;
-        apiUrl = context.getResources().getString(R.string.api_url);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         auth_token = preferences.getInt("auth_token", -1);
@@ -54,6 +53,16 @@ public class ApiService {
         if (auth_token == -1) {
             Log.d(LOG_TAG, "auth token not made available for api service");
         }
+    }
+
+    public JSONObject getJsonObjectWithToken() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("token", auth_token);
+        } catch (JSONException e) {
+            Log.d(LOG_TAG, e.toString());
+        }
+        return jsonObject;
     }
 
     public void authenticateUser(String username, String password, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
@@ -100,16 +109,6 @@ public class ApiService {
 
         requestQueue.add(customJsonRequest);
 
-    }
-
-    public JSONObject getJsonObjectWithToken() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("token", auth_token);
-        } catch (JSONException e) {
-            Log.d(LOG_TAG, e.toString());
-        }
-        return jsonObject;
     }
 
     public void getRequestsForLocation(Location location, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
@@ -165,6 +164,60 @@ public class ApiService {
         );
 
         requestQueue.add(customJsonRequest);
+
+    }
+
+    public void postAcceptedRequest(com.revature.roomrequests.pojo.Request request, String comment, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+
+        RequestQueue requestQueue;
+        JsonObjectRequest jsonObjectRequest;
+        JSONObject jsonObject = getJsonObjectWithToken();
+
+        try {
+            jsonObject.put("request_id", request.getId());
+            jsonObject.put("comment", comment);
+        } catch (JSONException e) {
+            Log.d(LOG_TAG, e.toString());
+        }
+
+        requestQueue = Volley.newRequestQueue(context);
+
+        jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                apiUrl + acceptRoomRequestUrlExtension,
+                jsonObject,
+                responseListener,
+                errorListener
+        );
+
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+    public void postRejectedRequest(com.revature.roomrequests.pojo.Request request, String comment, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+
+        RequestQueue requestQueue;
+        JsonObjectRequest jsonObjectRequest;
+        JSONObject jsonObject = getJsonObjectWithToken();
+
+        try {
+            jsonObject.put("request_id", request.getId());
+            jsonObject.put("comment", comment);
+        } catch (JSONException e) {
+            Log.d(LOG_TAG, e.toString());
+        }
+
+        requestQueue = Volley.newRequestQueue(context);
+
+        jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                apiUrl + rejectRoomRequestUrlExtension,
+                jsonObject,
+                responseListener,
+                errorListener
+        );
+
+        requestQueue.add(jsonObjectRequest);
 
     }
 
