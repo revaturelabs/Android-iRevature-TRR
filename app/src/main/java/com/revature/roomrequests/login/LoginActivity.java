@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     user.setUsername(response.getString("username"));
                     user.setRole(response.getString("role"));
-                    user.setId(response.getInt("id"));
+                    user.setId(response.getInt("user_id"));
                     user.setToken(response.getInt("token"));
 
                 } catch (JSONException e) {

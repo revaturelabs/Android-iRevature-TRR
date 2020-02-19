@@ -37,8 +37,8 @@ public class ApiService {
     final private String pendingRoomRequestsUrlExtension = "/pending_requests";
     final private String acceptedRoomRequestsUrlExtension = "/accepted_requests";
     final private String rejectedRoomRequestsUrlExtension = "/rejected_requests";
-    final private String acceptRoomRequestUrlExtension = "/accept_requests";
-    final private String rejectRoomRequestUrlExtension = "/reject_requests";
+    final private String acceptRoomRequestUrlExtension = "/accept_request";
+    final private String rejectRoomRequestUrlExtension = "/reject_request";
 
     private Context context;
     final private String LOG_TAG = "API SERVICE ERROR";
@@ -167,7 +167,7 @@ public class ApiService {
 
     }
 
-    public void postAcceptedRequest(com.revature.roomrequests.pojo.Request request, String comment, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+    public void postAcceptRequest(com.revature.roomrequests.pojo.Request request, String comment, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
 
         RequestQueue requestQueue;
         JsonObjectRequest jsonObjectRequest;
@@ -194,7 +194,7 @@ public class ApiService {
 
     }
 
-    public void postRejectedRequest(com.revature.roomrequests.pojo.Request request, String comment, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+    public void postRejectRequest(com.revature.roomrequests.pojo.Request request, String comment, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
 
         RequestQueue requestQueue;
         JsonObjectRequest jsonObjectRequest;

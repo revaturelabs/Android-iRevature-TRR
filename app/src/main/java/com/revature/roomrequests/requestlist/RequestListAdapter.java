@@ -3,10 +3,12 @@ package com.revature.roomrequests.requestlist;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,18 +17,29 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.pojo.Request;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.RequestViewHolder> {
-    ArrayList<Request> requests;
 
+    ArrayList<Request> requests;
     Context context;
     FragmentManager fm;
+    ApiService apiService;
+    View adapterView;
+    ViewGroup parent;
 
-    private String noString="N/A";
+    final private String noString = "N/A";
+    final private String LOG_TAG = "Request List Adapter";
 
     public RequestListAdapter(){}
 
@@ -34,14 +47,16 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         this.context=context;
         this.fm = fm;
         this.requests=requests;
+        apiService = new ApiService(context);
     }
 
     @NonNull
     @Override
     public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_request,parent,false);
+        this.parent = parent;
+        adapterView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_request,parent,false);
         //set the view's size, margins, paddings, and layout paramters
-        RequestViewHolder vh = new RequestViewHolder(v);
+        RequestViewHolder vh = new RequestViewHolder(adapterView);
         return vh;
     }
 
@@ -119,25 +134,98 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Request: "+position+" was accepted",Toast.LENGTH_SHORT).show();
+            public void onClick(final View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Accept Request");
+                builder.setMessage("Are you sure you want to accept this request?");
+
+                final View view = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_reject_request_alert,parent,false);
+
+                ((EditText)view.findViewById(R.id.et_reject_request_alert_reason)).setHint("Why are you accepting this request");
+
+                builder.setView(view);
+                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Response.Listener<JSONObject> acceptedListener = new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d(LOG_TAG, response.toString());
+                                try {
+                                    Snackbar.make(v,response.getString("message"), Snackbar.LENGTH_SHORT).show();
+                                } catch (JSONException e) {
+                                    Log.d(LOG_TAG,e.toString());
+                                }
+                            }
+                        };
+
+                        Response.ErrorListener errorListener = new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(LOG_TAG, error.toString());
+                                Snackbar.make(v,error.toString(), Snackbar.LENGTH_SHORT).show();
+                            }
+                        };
+
+                        Request request = requests.get(position);
+
+                        EditText editText = view.findViewById(R.id.et_reject_request_alert_reason);
+                        String comment = editText.getText().toString();
+
+                        apiService.postAcceptRequest(request, comment, acceptedListener, errorListener);
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, null);
+
+                builder.show();
             }
         });
 
         holder.btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            public void onClick(final View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Reject Request");
                 builder.setMessage("Are you sure you want to reject this request?");
+
+                final View view = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_reject_request_alert,parent,false);
+
+                builder.setView(view);
                 builder.setPositiveButton(R.string.reject, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                requests.get(position).setStatus("rejected");
+
+                                Response.Listener<JSONObject> rejectionListener = new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.d(LOG_TAG, response.toString());
+                                        try {
+                                            Snackbar.make(v,response.getString("message"), Snackbar.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            Log.d(LOG_TAG,e.toString());
+                                        }
+                                    }
+                                };
+
+                                Response.ErrorListener errorListener = new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.d(LOG_TAG, error.toString());
+                                        Snackbar.make(v,error.toString(), Snackbar.LENGTH_SHORT).show();
+                                    }
+                                };
+
+                                Request request = requests.get(position);
+
+                                EditText editText = view.findViewById(R.id.et_reject_request_alert_reason);
+                                String comment = editText.getText().toString();
+
+                                apiService.postRejectRequest(request, comment, rejectionListener, errorListener);
                             }
                         });
                 builder.setNegativeButton(R.string.cancel, null);
-                builder.setView(R.layout.layout_reject_request_alert);
+
                 builder.show();
             }
         });
