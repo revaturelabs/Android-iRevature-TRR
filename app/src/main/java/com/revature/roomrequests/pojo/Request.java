@@ -1,33 +1,23 @@
 package com.revature.roomrequests.pojo;
 
 public class Request {
-    private String type;
+
+    private int id;
+    private String dates;
     private Room room1;
     private Room room2;
-    private String status="pending";
+    private String reasonForRequest;
+    private String status;
 
-    public Request() {
-    }
+    public Request() { }
 
-    public Request(String type, Room room1, Room room2) {
-        this.type = type.toLowerCase();
+    public Request(int id, String dates, Room room1, Room room2, String reasonForRequest, String status) {
+        this.id = id;
+        this.dates = dates;
         this.room1 = room1;
         this.room2 = room2;
-    }
-
-    public Request(String type, Room room1, Room room2, String status) {
-        this.type = type.toLowerCase();
-        this.room1 = room1;
-        this.room2 = room2;
-        this.status = status.toLowerCase();
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type.toLowerCase();
+        this.reasonForRequest = reasonForRequest;
+        this.status = status;
     }
 
     public Room getRoom1() {
@@ -46,28 +36,20 @@ public class Request {
         this.room2 = room2;
     }
 
-    public boolean isSwap() {
-        return type.equals("swap");
-    }
+    public int getId() { return id; }
 
-    public boolean isUnassign() {
-        return type.equals("unassign");
-    }
+    public void setId(int id) { this.id = id; }
 
-    public boolean isRequest() {
-        return type.equals("request");
-    }
+    public String getDates() { return dates; }
 
-    public void setStatusAccepted() {
-        this.status = "accepted";
-    }
+    public void setDates(String dates) { this.dates = dates; }
 
-    public void setStatusRejected() {
-        this.status = "rejected";
-    }
+    public String getReasonForRequest() { return reasonForRequest; }
 
-    public String getStatus() {
-        return this.status;
-    }
+    public void setReasonForRequest(String reasonForRequest) { this.reasonForRequest = reasonForRequest; }
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
 
 }

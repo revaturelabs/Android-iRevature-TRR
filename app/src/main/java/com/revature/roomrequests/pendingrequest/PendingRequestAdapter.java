@@ -1,7 +1,6 @@
 package com.revature.roomrequests.pendingrequest;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.revature.roomrequests.R;
@@ -134,12 +132,11 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
             tvRoom1Batch = itemView.findViewById(R.id.tv_request_room1_batch);
             tvRoom1Room = itemView.findViewById(R.id.tv_request_room1_room);
             tvRoom1Trainer = itemView.findViewById(R.id.tv_request_room1_trainer);
-            tvRoom1Dates = itemView.findViewById(R.id.tv_request_room1_dates);
+            tvRoom1Dates = itemView.findViewById(R.id.tv_request_dates);
 
             tvRoom2Batch = itemView.findViewById(R.id.tv_request_room2_batch);
             tvRoom2Room = itemView.findViewById(R.id.tv_request_room2_room);
             tvRoom2Trainer = itemView.findViewById(R.id.tv_request_room2_trainer);
-            tvRoom2Dates = itemView.findViewById(R.id.tv_request_room2_dates);
 
             cvRoom2 = itemView.findViewById(R.id.card_room2);
             cvRoom1 = itemView.findViewById(R.id.card_room1);

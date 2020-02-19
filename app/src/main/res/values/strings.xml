@@ -30,6 +30,8 @@
     <string name="select_second_room">Select the room you would like to swap with.</string>
     <string name="request">Request</string>
     <string name="request_swap">Request Swap</string>
+    <string name="unoccupied_key">Unoccupied</string>
+    <string name="occupied_key">Occupied</string>
 
     <!--  room and request table  -->
     <string name="batch">Batch: </string>
@@ -42,6 +44,10 @@
     <!--  requests  -->
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="swap_dates">Date requested for:</string>
+    <string name="request_number_of_results_label">Results:</string>
+    <string name="accepted_key">Accepted</string>
+    <string name="rejected_key">Rejected</string>
 
     <!--  make request  -->
     <string name="start_date">Start Date:</string>

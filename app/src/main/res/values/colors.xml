@@ -11,7 +11,7 @@
     <color name="room_available">#d6ecd2</color>
     <color name="room_unavailable">#fedfdf</color>
     <color name="gray">#808080</color>
-    <color name="light_gray">#C0C0C0</color>
+    <color name="light_gray">#ececec</color>
     <color name="dark_gray">#505050</color>
     <color name="hint_and_placeholder">#999999</color>
 </resources>
