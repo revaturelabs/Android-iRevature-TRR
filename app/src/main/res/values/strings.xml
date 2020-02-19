@@ -44,14 +44,11 @@
     <!--  requests  -->
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
-<<<<<<< HEAD
     <string name="reject_reason">Why are you rejecting this request?</string>
-=======
     <string name="swap_dates">Date requested for:</string>
     <string name="request_number_of_results_label">Results:</string>
     <string name="accepted_key">Accepted</string>
     <string name="rejected_key">Rejected</string>
->>>>>>> fa6598a6fb139ee642934eefba2e13b29ee0ffcd
 
     <!--  make request  -->
     <string name="start_date">Start Date:</string>

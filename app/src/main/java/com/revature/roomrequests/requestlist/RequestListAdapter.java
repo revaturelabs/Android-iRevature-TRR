@@ -133,7 +133,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
                 builder.setPositiveButton(R.string.reject, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                requests.get(position).setStatusRejected();
+                                requests.get(position).setStatus("rejected");
                             }
                         });
                 builder.setNegativeButton(R.string.cancel, null);
