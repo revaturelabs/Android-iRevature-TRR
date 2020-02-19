@@ -5,9 +5,6 @@
     <string name="submit">Submit</string>
     <string name="location_selector_title">Location Selector</string>
 
-    <!--  api  -->
-    <string name="api_url">https://private-f0f69-roomrequests.apiary-mock.com/</string>
-
     <!--  login  -->
     <string name="username">Username: </string>
     <string name="username_hint">Enter username</string>
@@ -30,6 +27,8 @@
     <string name="select_second_room">Select the room you would like to swap with.</string>
     <string name="request">Request</string>
     <string name="request_swap">Request Swap</string>
+    <string name="unoccupied_key">Unoccupied</string>
+    <string name="occupied_key">Occupied</string>
 
     <!--  room and request table  -->
     <string name="batch">Batch: </string>
@@ -42,11 +41,17 @@
     <!--  requests  -->
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="reject_reason">Why are you rejecting this request?</string>
+    <string name="swap_dates">Date requested for:</string>
+    <string name="request_number_of_results_label">Results:</string>
+    <string name="accepted_key">Accepted</string>
+    <string name="rejected_key">Rejected</string>
 
     <!--  make request  -->
     <string name="start_date">Start Date:</string>
     <string name="end_date">End Date:</string>
     <string name="comments">Reason for request</string>
+    <string name="comment_label">Reason:*</string>
 
     <!--  nav drawer  -->
     <string name="room_request_title">Room Request</string>

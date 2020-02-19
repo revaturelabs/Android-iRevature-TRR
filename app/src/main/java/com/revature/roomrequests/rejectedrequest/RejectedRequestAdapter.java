@@ -113,12 +113,11 @@ public class RejectedRequestAdapter extends RecyclerView.Adapter<RejectedRequest
             tvRoom1Batch = itemView.findViewById(R.id.tv_request_room1_batch);
             tvRoom1Room = itemView.findViewById(R.id.tv_request_room1_room);
             tvRoom1Trainer = itemView.findViewById(R.id.tv_request_room1_trainer);
-            tvRoom1Dates = itemView.findViewById(R.id.tv_request_room1_dates);
+            tvRoom1Dates = itemView.findViewById(R.id.tv_request_dates);
 
             tvRoom2Batch = itemView.findViewById(R.id.tv_request_room2_batch);
             tvRoom2Room = itemView.findViewById(R.id.tv_request_room2_room);
             tvRoom2Trainer = itemView.findViewById(R.id.tv_request_room2_trainer);
-            tvRoom2Dates = itemView.findViewById(R.id.tv_request_room2_dates);
         }
     }
 }

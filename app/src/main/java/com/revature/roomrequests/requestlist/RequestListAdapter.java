@@ -1,6 +1,8 @@
 package com.revature.roomrequests.requestlist;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.revature.roomrequests.R;
@@ -29,7 +30,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
     public RequestListAdapter(){}
 
-    public RequestListAdapter(Context context, FragmentManager fm,ArrayList<Request> requests) {
+    public RequestListAdapter(Context context, FragmentManager fm, ArrayList<Request> requests) {
         this.context=context;
         this.fm = fm;
         this.requests=requests;
@@ -46,27 +47,27 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, final int position) {
+        holder.tvRequestDates.append(" " + requests.get(position).getDates());
+
         if(requests.get(position).getRoom1()!=null) {
             if (requests.get(position).getRoom1().getBatch() == null) {
                 holder.tvRoom1Batch.append(" "+noString);
             } else {
                 holder.tvRoom1Batch.append(" "+requests.get(position).getRoom1().getBatch());
             }
+
             if (requests.get(position).getRoom1().getRoomNumber() == null) {
                 holder.tvRoom1Room.append(" "+noString);
             } else {
                 holder.tvRoom1Room.append(" "+requests.get(position).getRoom1().getRoomNumber());
             }
-            holder.tvRoom1Size.append(requests.get(position).getRoom1().getCapacity());
+
+            holder.tvRoom1Size.append(" " + requests.get(position).getRoom1().getCapacity());
+
             if (requests.get(position).getRoom1().getTrainer() == null) {
                 holder.tvRoom1Trainer.append(" "+noString);
             } else {
                 holder.tvRoom1Trainer.append(" "+requests.get(position).getRoom1().getTrainer());
-            }
-            if (requests.get(position).getRoom1().getDates() == null) {
-                holder.tvRoom1Dates.append(" "+noString);
-            } else {
-                holder.tvRoom1Dates.append(" "+requests.get(position).getRoom1().getDates());
             }
         } else if(requests.get(position).getRoom2()!=null){
             holder.cvRoom1.setVisibility(CardView.GONE);
@@ -82,22 +83,21 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
             } else {
                 holder.tvRoom2Batch.append(" "+requests.get(position).getRoom2().getBatch());
             }
+
             if (requests.get(position).getRoom2().getRoomNumber() == null) {
                 holder.tvRoom2Room.append(" "+noString);
             } else {
                 holder.tvRoom2Room.append(" "+requests.get(position).getRoom2().getRoomNumber());
             }
-            holder.tvRoom2Size.append(requests.get(position).getRoom2().getCapacity());
+
+            holder.tvRoom2Size.append(" " + requests.get(position).getRoom2().getCapacity());
+
             if (requests.get(position).getRoom2().getTrainer() == null) {
                 holder.tvRoom2Trainer.append(" "+noString);
             } else {
                 holder.tvRoom2Trainer.append(" "+requests.get(position).getRoom2().getTrainer());
             }
-            if (requests.get(position).getRoom2().getDates() == null) {
-                holder.tvRoom2Dates.append(" "+noString);
-            } else {
-                holder.tvRoom2Dates.append(" "+requests.get(position).getRoom2().getDates());
-            }
+
         } else if(requests.get(position).getRoom1()!=null) {
             holder.cvRoom2.setVisibility(CardView.GONE);
 //            holder.tvRoom2Batch.append(" "+noString);
@@ -127,7 +127,18 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         holder.btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Request: "+position+" was rejected",Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Reject Request");
+                builder.setMessage("Are you sure you want to reject this request?");
+                builder.setPositiveButton(R.string.reject, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requests.get(position).setStatus("rejected");
+                            }
+                        });
+                builder.setNegativeButton(R.string.cancel, null);
+                builder.setView(R.layout.layout_reject_request_alert);
+                builder.show();
             }
         });
     }
@@ -138,23 +149,24 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
     }
 
     public class RequestViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRoom1Batch,tvRoom1Room,tvRoom1Trainer,tvRoom1Dates,tvRoom1Size;
-        TextView tvRoom2Batch,tvRoom2Room,tvRoom2Trainer,tvRoom2Dates,tvRoom2Size;
+        TextView tvRequestDates;
+        TextView tvRoom1Batch,tvRoom1Room,tvRoom1Trainer,tvRoom1Size;
+        TextView tvRoom2Batch,tvRoom2Room,tvRoom2Trainer,tvRoom2Size;
         CardView cvRoom1,cvRoom2;
         Button btnAccept, btnReject;
 
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvRequestDates = itemView.findViewById(R.id.tv_request_dates);
+
             tvRoom1Batch = itemView.findViewById(R.id.tv_request_room1_batch);
             tvRoom1Room = itemView.findViewById(R.id.tv_request_room1_room);
             tvRoom1Trainer = itemView.findViewById(R.id.tv_request_room1_trainer);
-            tvRoom1Dates = itemView.findViewById(R.id.tv_request_room1_dates);
             tvRoom1Size = itemView.findViewById(R.id.tv_request_room1_size);
 
             tvRoom2Batch = itemView.findViewById(R.id.tv_request_room2_batch);
             tvRoom2Room = itemView.findViewById(R.id.tv_request_room2_room);
             tvRoom2Trainer = itemView.findViewById(R.id.tv_request_room2_trainer);
-            tvRoom2Dates = itemView.findViewById(R.id.tv_request_room2_dates);
             tvRoom2Size = itemView.findViewById(R.id.tv_request_room2_size);
 
             cvRoom2 = itemView.findViewById(R.id.card_room2);
@@ -164,5 +176,10 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
             btnReject = itemView.findViewById(R.id.btn_request_reject);
 
         }
+    }
+
+    public void updateData(ArrayList<Request> requests) {
+        this.requests = requests;
+        notifyDataSetChanged();
     }
 }

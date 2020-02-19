@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:textColor="@android:color/black"
                 android:gravity="center"
                 android:text="@string/start_date" />
 
@@ -36,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@android:color/black"
                 android:gravity="center"
                 android:text="@string/end_date" />
         </LinearLayout>
@@ -57,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="mm/dd/yyyy"
+                    android:textColor="@android:color/black"
                     android:inputType="date"
                     android:textSize="14sp" />
 
@@ -79,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="mm/dd/yyyy"
+                    android:textColor="@android:color/black"
                     android:inputType="date"
                     android:textSize="14sp" />
 
@@ -90,6 +94,14 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_request_swap_reason_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:text="@string/comment_label"
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/et_room_swap_comments"
@@ -111,7 +123,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/submit" />
+            android:background="@color/revature_orange"
+            android:text="@string/submit"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -155,6 +169,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/room_number"
                             android:textSize="16sp" />
 
@@ -163,6 +178,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/seats"
                             android:textSize="16sp" />
 
@@ -179,6 +195,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/trainer"
                             android:textSize="16sp" />
 
@@ -187,6 +204,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/start_end"
                             android:textSize="16sp" />
 
@@ -197,6 +215,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:textColor="@android:color/black"
                         android:text="@string/batch"
                         android:textSize="16sp" />
 
@@ -228,6 +247,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/room_number"
                             android:textSize="16sp" />
 
@@ -236,6 +256,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/seats"
                             android:textSize="16sp" />
 
@@ -252,6 +273,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/trainer"
                             android:textSize="16sp" />
 
@@ -260,6 +282,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@android:color/black"
                             android:text="@string/start_end"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -269,6 +292,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:textColor="@android:color/black"
                         android:text="@string/batch"
                         android:textSize="16sp" />
 
