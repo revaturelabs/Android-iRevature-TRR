@@ -22,7 +22,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_line_bottom_margin"
                 android:orientation="horizontal">
 
@@ -31,8 +31,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@android:color/black"
                     android:text="@string/room_number"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -40,14 +40,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@android:color/black"
                     android:text="@string/seats"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_line_bottom_margin"
                 android:orientation="horizontal">
 
@@ -56,8 +56,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@android:color/black"
                     android:text="@string/trainer"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -65,15 +65,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@android:color/black"
                     android:text="@string/start_end"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_line_bottom_margin"
                 android:orientation="horizontal">
 
@@ -82,8 +82,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@android:color/black"
                     android:text="@string/batch"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp" />
             </LinearLayout>
 
