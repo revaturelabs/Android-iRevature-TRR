@@ -168,7 +168,7 @@ public class ApiService {
 
     }
 
-    public void getTrainerBatches(int trainer_id, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+    public void getTrainerBatches(int trainer_id, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
 
         RequestQueue requestQueue;
         CustomJsonRequest customJsonRequest;
