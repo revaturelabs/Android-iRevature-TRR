@@ -167,6 +167,32 @@ public class ApiService {
 
     }
 
+    public void getTrainerBatches(int trainer_id, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+
+        RequestQueue requestQueue;
+        CustomJsonRequest customJsonRequest;
+        JSONObject jsonObject = getJsonObjectWithToken();
+
+        requestQueue = Volley.newRequestQueue(context);
+
+        try {
+            jsonObject.put("trainer_id",trainer_id);
+        } catch (JSONException e) {
+            Log.d(LOG_TAG,e.toString());
+        }
+
+        customJsonRequest = new CustomJsonRequest(
+                Request.Method.GET,
+                apiUrl + batchesUrlExtension,
+                jsonObject,
+                responseListener,
+                errorListener
+        );
+
+        requestQueue.add(customJsonRequest);
+
+    }
+
     public void postAcceptedRequest(com.revature.roomrequests.pojo.Request request, String comment, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
 
         RequestQueue requestQueue;
