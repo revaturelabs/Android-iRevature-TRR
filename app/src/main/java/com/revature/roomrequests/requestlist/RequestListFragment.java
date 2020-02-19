@@ -107,9 +107,10 @@ public class RequestListFragment extends Fragment {
                         String endDate = jsonObject.getString("end_date");
 
                         request.setId(jsonObject.getInt("request_id"));
-                        request.setDates(startDate + "-" + endDate);
+                        request.setDates(startDate + " - " + endDate);
                         request.setReasonForRequest(jsonObject.getString("reason_request"));
                         request.setStatus(jsonObject.getString("status"));
+                        request.setDateMade(jsonObject.getString("date_made"));
 
                         room1.setId(jsonObject.getInt("room_id"));
                         room1.setBatch(jsonObject.getString("batch_name"));
