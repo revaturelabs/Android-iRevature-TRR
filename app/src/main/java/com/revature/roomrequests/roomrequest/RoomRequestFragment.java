@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ import java.util.Date;
  */
 public class RoomRequestFragment extends Fragment implements View.OnClickListener {
 
+    ScrollView scrollView;
     TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats;
     EditText etComments, etStartDate, etEndDate;
     Button btnSubmit;
@@ -84,6 +86,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
 
         apiService = new ApiService(getContext());
 
+        scrollView = view.findViewById(R.id.scroll_room_request_layout);
+
         tvBatch = view.findViewById(R.id.tv_room_request_batch);
         tvRoom = view.findViewById(R.id.tv_room_request_room);
         tvTrainer = view.findViewById(R.id.tv_room_request_trainer);
@@ -108,6 +112,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         etComments = view.findViewById(R.id.et_room_request_comments);
         int maxLength = 500;
         etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
+        etComments.setOnClickListener(this);
 
         btnSubmit = view.findViewById(R.id.btn_room_request_submit);
         btnSubmit.setOnClickListener(this);
@@ -145,6 +150,17 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                scrollView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        View lastChild = scrollView.getChildAt(scrollView.getChildCount() - 1);
+                        int bottom = lastChild.getBottom() + scrollView.getPaddingBottom();
+                        int sy = scrollView.getScrollY();
+                        int sh = scrollView.getHeight();
+                        int delta = bottom - (sy + sh);
+                        scrollView.smoothScrollBy(0, delta);
+                    }
+                }, 200);
             }
 
             @Override
