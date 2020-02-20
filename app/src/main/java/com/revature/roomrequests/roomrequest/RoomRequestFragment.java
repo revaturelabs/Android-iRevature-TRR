@@ -2,9 +2,12 @@ package com.revature.roomrequests.roomrequest;
 
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -51,8 +55,8 @@ import java.util.Date;
 public class RoomRequestFragment extends Fragment implements View.OnClickListener {
 
     ScrollView scrollView;
-    TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats;
-    EditText etComments, etStartDate, etEndDate;
+    TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats,etStartDate, etEndDate;
+    EditText etComments;
     Button btnSubmit;
     ImageButton btnPickStart, btnPickEnd;
     Spinner spinnerBatch;
@@ -149,21 +153,12 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                scrollView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        View lastChild = scrollView.getChildAt(scrollView.getChildCount() - 1);
-                        int bottom = lastChild.getBottom() + scrollView.getPaddingBottom();
-                        int sy = scrollView.getScrollY();
-                        int sh = scrollView.getHeight();
-                        int delta = bottom - (sy + sh);
-                        scrollView.smoothScrollBy(0, delta);
-                    }
-                }, 200);
+                scrollView.scrollTo(0,btnSubmit.getBottom());
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
             }
 
             @Override

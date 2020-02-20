@@ -63,10 +63,11 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <EditText
+                        <TextView
                             android:id="@+id/et_room_swap_start_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
                             android:hint="mm/dd/yyyy"
                             android:inputType="date"
                             android:textColor="@android:color/black"
@@ -86,10 +87,11 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <EditText
+                        <TextView
                             android:id="@+id/et_room_swap_end_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
                             android:hint="mm/dd/yyyy"
                             android:inputType="date"
                             android:textColor="@android:color/black"
@@ -131,7 +133,8 @@
                     android:id="@+id/btn_room_swap_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="35dp"
                     android:background="@color/revature_orange"
                     android:text="@string/submit"
                     android:textColor="@android:color/white" />
