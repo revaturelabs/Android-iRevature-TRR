@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:outlineProvider="bounds"
+    android:scrollY="500dp"
     tools:context="com.revature.roomrequests.roomrequest.RoomRequestFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,11 +21,11 @@
             android:text="@string/start_date"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toStartOf="@+id/tv_room_request_end_date"
-            app:layout_constraintHorizontal_bias="0.229"
+            app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/et_room_request_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_room_request_start_date" />
 
-        <EditText
+        <TextView
             android:id="@+id/et_room_request_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,8 +68,7 @@
             android:focusableInTouchMode="true"
             android:text="@string/submit"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/et_room_request_comments"
             app:layout_constraintTop_toBottomOf="@+id/et_room_request_comments" />
 
         <ImageButton
@@ -84,7 +84,6 @@
             android:id="@+id/btn_room_request_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:background="@drawable/calendar"
             app:layout_constraintStart_toEndOf="@+id/et_room_request_end_date"
             app:layout_constraintTop_toTopOf="@+id/tv_room_request_end_date" />
@@ -100,6 +99,7 @@
             android:inputType="textMultiLine"
             android:lines="6"
             android:scrollbars="vertical"
+            android:selectAllOnFocus="false"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/btn_room_request_end_date"
             app:layout_constraintStart_toStartOf="@+id/et_room_request_start_date"
