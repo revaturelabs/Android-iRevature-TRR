@@ -10,6 +10,7 @@
     <color name="focused_color">#c0c0c0</color>
     <color name="room_available">#d6ecd2</color>
     <color name="room_unavailable">#fedfdf</color>
+    <color name="current_room">#d0eff7</color>
     <color name="gray">#808080</color>
     <color name="light_gray">#ececec</color>
     <color name="dark_gray">#505050</color>

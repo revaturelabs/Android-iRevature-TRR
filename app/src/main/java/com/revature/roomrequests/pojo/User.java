@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private String username;
+    private String name;
     private String role;
     private Integer id;
     private Integer token;
@@ -21,6 +22,10 @@ public class User implements Serializable {
     public String getUsername() { return username; }
 
     public void setUsername(String username) { this.username = username; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
 
     public String getRole() { return role; }
 
