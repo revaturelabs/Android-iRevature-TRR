@@ -18,6 +18,7 @@
         android:paddingBottom="@dimen/key_margin">
 
         <LinearLayout
+            android:id="@+id/container_room_table_start_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -25,26 +26,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_room_table_start_date"
+                android:id="@+id/tv_room_table_start_date_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/key_margin"
-                android:gravity="center"
                 android:text="@string/start_date"
                 android:textColor="@android:color/white" />
 
-            <EditText
-                android:id="@+id/et_room_table_start_date"
+            <TextView
+                android:id="@+id/tv_room_table_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/key_margin"
-                android:background="@drawable/container_bottom_border_white"
                 android:hint="mm/dd/yyyy"
-                android:inputType="date"
                 android:textColor="@android:color/white"
-                android:textColorHighlight="@android:color/white"
-                android:textColorHint="@android:color/white"
+                android:textColorHint="@color/light_gray"
                 android:textSize="14sp" />
 
             <ImageButton
@@ -56,6 +52,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/container_room_table_end_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -63,7 +60,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_room_table_end_date"
+                android:id="@+id/tv_room_table_end_date_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/key_margin"
@@ -71,17 +68,14 @@
                 android:text="@string/end_date"
                 android:textColor="@android:color/white" />
 
-            <EditText
-                android:id="@+id/et_room_table_end_date"
+            <TextView
+                android:id="@+id/tv_room_table_end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/key_margin"
-                android:background="@drawable/container_bottom_border_white"
                 android:hint="mm/dd/yyyy"
-                android:inputType="date"
                 android:textColor="@android:color/white"
-                android:textColorHighlight="@android:color/white"
-                android:textColorHint="@android:color/white"
+                android:textColorHint="@color/light_gray"
                 android:textSize="14sp" />
 
             <ImageButton
@@ -135,6 +129,15 @@
             android:paddingRight="@dimen/key_padding"
             android:text="@string/occupied_key" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_room_table_helper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:text="@string/room_table_helper"
+        android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_room_requests_table"
