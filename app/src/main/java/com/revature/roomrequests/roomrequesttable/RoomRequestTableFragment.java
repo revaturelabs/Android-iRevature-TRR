@@ -49,6 +49,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
     
     EditText etStartDate,etEndDate;
     ImageButton btnStartDate, btnEndDate;
+    TextView tvNumberOfRooms;
 
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
     private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
@@ -116,6 +117,8 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
         recyclerView.setAdapter(adapter);
 
+        tvNumberOfRooms = view.findViewById(R.id.tv_room_results);
+
         return view;
     }
 
@@ -175,6 +178,8 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
     }
 
     public void setRooms(ArrayList<Room> rooms) {
+
+        tvNumberOfRooms.setText(getResources().getString(R.string.number_of_results_label) + " " + rooms.size() + " rooms");
 
         ids = new ArrayList<>();
         batches = new ArrayList<>();

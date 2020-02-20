@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.pojo.Location;
@@ -30,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +76,7 @@ public class RequestListFragment extends Fragment {
         RequestListAdapter adapter = new RequestListAdapter(context, getFragmentManager(),new ArrayList<Request>());
         recyclerView.setAdapter(adapter);
 
-        tvNumberOfRequests = view.findViewById(R.id.tv_request_list_results);
+        tvNumberOfRequests = view.findViewById(R.id.tv_request_results);
 
         return view;
     }
@@ -163,7 +161,7 @@ public class RequestListFragment extends Fragment {
 
     public void setRequests(ArrayList<Request> requests) {
 
-        tvNumberOfRequests.setText("Results: " + requests.size() + " requests");
+        tvNumberOfRequests.setText(getResources().getString(R.string.number_of_results_label) + " " + requests.size() + " requests");
 
         RequestListAdapter adapter = (RequestListAdapter) recyclerView.getAdapter();
         adapter.updateData(requests);

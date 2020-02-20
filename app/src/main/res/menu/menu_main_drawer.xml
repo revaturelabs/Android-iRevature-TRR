@@ -3,14 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_room_requests"
-            android:title="@string/room_request_title" />
-        <item
-            android:id="@+id/nav_request_list"
-            android:title="@string/requests_title" />
-
-    </group>
 
 </menu>
