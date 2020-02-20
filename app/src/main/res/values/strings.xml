@@ -49,12 +49,15 @@
     <string name="accepted_key">Accepted</string>
     <string name="rejected_key">Rejected</string>
     <string name="request_made_date">Request made:</string>
+    <string name="request_made_on">Request made on</string>
+    <string name="swap_request_made_on">Swap request made on</string>
+    <string name="request_reason_label">Reason for request:</string>
 
     <!--  make request  -->
-    <string name="start_date">Start Date:</string>
-    <string name="end_date">End Date:</string>
+    <string name="start_date">Start Date: <font color='#FF0000'>*</font></string>
+    <string name="end_date">End Date: <font color='#FF0000'>*</font></string>
     <string name="comments">Reason for request</string>
-    <string name="comment_label">Reason:*</string>
+    <string name="comment_label">Reason <font color='#FF0000'>*</font></string>
 
     <!--  nav drawer  -->
     <string name="room_request_title">Room Request</string>

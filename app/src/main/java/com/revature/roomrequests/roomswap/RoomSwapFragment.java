@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +44,11 @@ import java.util.Date;
  */
 public class RoomSwapFragment extends Fragment implements View.OnClickListener {
 
-    TextView tvBatch1,tvRoom1,tvTrainer1,tvDates1,tvSeats1,tvBatch2,tvRoom2,tvTrainer2,tvDates2,tvSeats2;
-    EditText etComments, etStartDate, etEndDate;
+    TextView tvBatch1,tvRoom1,tvTrainer1,tvDates1,tvSeats1,tvBatch2,tvRoom2,tvTrainer2,tvDates2,tvSeats2,etStartDate, etEndDate;
+    EditText etComments;
     Button btnSubmit;
     ImageButton btnPickStart, btnPickEnd;
+    ScrollView scrollView;
     
     Room room1,room2;
 
@@ -76,6 +78,8 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_room_swap, container, false);
 
         apiService = new ApiService(getContext());
+
+        scrollView = view.findViewById(R.id.scroll_room_swap_layout);
         
         tvBatch1 = view.findViewById(R.id.tv_swap_room1_batch);
         tvRoom1 = view.findViewById(R.id.tv_swap_room1_room);
@@ -142,6 +146,7 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
         textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                scrollView.scrollTo(0,btnSubmit.getBottom());
             }
 
             @Override
