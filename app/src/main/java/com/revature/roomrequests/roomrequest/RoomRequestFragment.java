@@ -2,9 +2,12 @@ package com.revature.roomrequests.roomrequest;
 
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,11 +20,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,8 +54,9 @@ import java.util.Date;
  */
 public class RoomRequestFragment extends Fragment implements View.OnClickListener {
 
-    TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats;
-    EditText etComments, etStartDate, etEndDate;
+    ScrollView scrollView;
+    TextView tvBatch,tvRoom,tvTrainer,tvDates,tvSeats,etStartDate, etEndDate;
+    EditText etComments;
     Button btnSubmit;
     ImageButton btnPickStart, btnPickEnd;
     Spinner spinnerBatch;
@@ -84,6 +90,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
 
         apiService = new ApiService(getContext());
 
+        scrollView = view.findViewById(R.id.scroll_room_request_layout);
+
         tvBatch = view.findViewById(R.id.tv_room_request_batch);
         tvRoom = view.findViewById(R.id.tv_room_request_room);
         tvTrainer = view.findViewById(R.id.tv_room_request_trainer);
@@ -106,8 +114,8 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         spinnerBatch.setAdapter(spinnerBatchAdapter);
 
         etComments = view.findViewById(R.id.et_room_request_comments);
-        int maxLength = 500;
-        etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
+        etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(getResources().getInteger(R.integer.comments_maximum))});
+        etComments.setOnClickListener(this);
 
         btnSubmit = view.findViewById(R.id.btn_room_request_submit);
         btnSubmit.setOnClickListener(this);
@@ -145,10 +153,12 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                scrollView.scrollTo(0,btnSubmit.getBottom());
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
             }
 
             @Override

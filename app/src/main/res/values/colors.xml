@@ -8,6 +8,7 @@
     <color name="blue">#00aaFF</color>
     <color name="selected_color">#c0c0c0</color>
     <color name="focused_color">#c0c0c0</color>
+    <color name="pressed_color">#c0c0c0</color>
     <color name="room_available">#d6ecd2</color>
     <color name="room_unavailable">#fedfdf</color>
     <color name="current_room">#d0eff7</color>
@@ -15,4 +16,5 @@
     <color name="light_gray">#d4d4d4</color>
     <color name="dark_gray">#505050</color>
     <color name="hint_and_placeholder">#999999</color>
+    <color name="required_red">#d3494e</color>
 </resources>

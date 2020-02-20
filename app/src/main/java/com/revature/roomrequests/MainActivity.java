@@ -5,22 +5,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Layout;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.navigation.NavController;
@@ -92,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
             });
+            menu.getItem(0).setIcon(R.drawable.rooms);
         } else if (user.getRole().toLowerCase().equals("site manager")) {
             menu.add(R.string.requests_title);
             menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -101,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
             });
+            menu.getItem(0).setIcon(R.drawable.requests);
             navController.getGraph().setStartDestination(R.id.nav_request_list);
             navController.popBackStack();
             navController.navigate(R.id.nav_request_list);
@@ -126,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        menu.getItem(1).setIcon(R.drawable.logout);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_room_requests, R.id.nav_request_list)

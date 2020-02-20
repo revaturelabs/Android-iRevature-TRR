@@ -46,7 +46,7 @@ public class LocationFragment extends Fragment {
 
         TextView tvSelectStatement = view.findViewById(R.id.tv_locationfragment_selectstatement);
 
-        tvSelectStatement.setText(String.format("Select %s...", tag));
+        tvSelectStatement.setText(String.format("Select %s", tag));
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_locationselector_locations);
 

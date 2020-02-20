@@ -17,6 +17,7 @@ import com.revature.roomrequests.R;
 import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.login.LoginActivity;
 import com.revature.roomrequests.pojo.Location;
+import com.revature.roomrequests.pojo.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -189,7 +190,10 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
                 String loginActivityName = LoginActivity.class.toString();
 
                 if (loginActivityName.equals(className)) {
+                    Intent received = getIntent();
+                    User user = (User) received.getSerializableExtra("user");
                     Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("user",user);
                     startActivity(intent);
                 } else {
                     finish();
