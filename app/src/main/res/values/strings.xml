@@ -24,7 +24,7 @@
     <string name="email_hint">Enter your e-mail</string>
     <string name="password_reset">Reset Password</string>
 
-    <!--  room table  -->
+    <!--  rooms table  -->
     <string name="select_first_room">Select a room to perform an action.</string>
     <string name="select_second_room">Select the room you would like to swap with.</string>
     <string name="request">Request</string>
@@ -32,7 +32,7 @@
     <string name="unoccupied_key">Unoccupied</string>
     <string name="occupied_key">Occupied</string>
     <string name="current_room">Current Room</string>
-    <!--  room and request table  -->
+    <!--  rooms and request table  -->
     <string name="batch">Batch: </string>
     <string name="room_number">Room Number: </string>
     <string name="trainer">Trainer: </string>
@@ -70,5 +70,8 @@
     <string name="down_arrow">down arrow</string>
 
     <string name="freepik_attribution">Icon made by Freepik from www.flaticon.com</string>
+    <string name="mynamepong_attribution">Icon made by mynamepong from www.flaticon.com</string>
+    <string name="trex_attribution">Icon made by t-rex from www.flaticon.com</string>
+    <string name="dmitri13_attribution">Icon made by dmitri13 from www.flaticon.com</string>
 
 </resources>
