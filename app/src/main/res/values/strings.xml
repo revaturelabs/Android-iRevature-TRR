@@ -32,6 +32,8 @@
     <string name="unoccupied_key">Unoccupied</string>
     <string name="occupied_key">Occupied</string>
     <string name="current_room">Current Room</string>
+    <string name="room_table_helper">Enter a start date and end date to view room availabilities</string>
+
     <!--  room and request table  -->
     <string name="batch">Batch: </string>
     <string name="room_number">Room Number: </string>

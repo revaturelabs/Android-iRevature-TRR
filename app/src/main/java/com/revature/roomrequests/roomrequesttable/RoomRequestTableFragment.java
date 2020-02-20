@@ -19,12 +19,12 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.android.material.snackbar.Snackbar;
-import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.api.ApiService;
 import com.revature.roomrequests.pojo.Location;
@@ -37,10 +37,8 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.prefs.Preferences;
 
 
 /**
@@ -48,9 +46,10 @@ import java.util.prefs.Preferences;
  */
 public class RoomRequestTableFragment extends Fragment implements View.OnClickListener {
     
-    EditText etStartDate,etEndDate;
+    TextView tvStartDate,tvEndDate;
     ImageButton btnStartDate, btnEndDate;
-    TextView tvNumberOfRooms;
+    TextView tvNumberOfRooms, tvHelper;
+    LinearLayout containerStartDate, containerEndDate;
 
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
     private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
@@ -79,21 +78,27 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_request_table, container, false);
         
-        etStartDate = view.findViewById(R.id.et_room_table_start_date);
-        etStartDate.setOnClickListener(this);
-        etEndDate = view.findViewById(R.id.et_room_table_end_date);
-        etEndDate.setOnClickListener(this);
+        tvStartDate = view.findViewById(R.id.tv_room_table_start_date);
+        tvStartDate.setOnClickListener(this);
+        tvEndDate = view.findViewById(R.id.tv_room_table_end_date);
+        tvEndDate.setOnClickListener(this);
         btnStartDate = view.findViewById(R.id.btn_room_table_start_date);
         btnStartDate.setOnClickListener(this);
         btnEndDate = view.findViewById(R.id.btn_room_table_end_date);
         btnEndDate.setOnClickListener(this);
+
+        containerStartDate = view.findViewById(R.id.container_room_table_start_date);
+        containerStartDate.setOnClickListener(this);
+        containerEndDate = view.findViewById(R.id.container_room_table_end_date);
+        containerEndDate.setOnClickListener(this);
 
         startDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month=month+1;
                 String date = month+"/"+dayOfMonth+"/"+year;
-                etStartDate.setText(date);
+                tvStartDate.setText(date);
+                checkToMakeRoomCall();
             }
         };
 
@@ -102,7 +107,8 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month+1;
                 String date = month+"/"+dayOfMonth+"/"+year;
-                etEndDate.setText(date);
+                tvEndDate.setText(date);
+                checkToMakeRoomCall();
             }
         };
 
@@ -112,13 +118,14 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        getRooms();
-
         RoomRequestTableAdapter adapter = new RoomRequestTableAdapter(getActivity().getApplicationContext(), getFragmentManager(), new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList(),new ArrayList());
 
         recyclerView.setAdapter(adapter);
 
         tvNumberOfRooms = view.findViewById(R.id.tv_room_results);
+        tvHelper = view.findViewById(R.id.tv_room_table_helper);
+
+        checkToMakeRoomCall();
 
         return view;
     }
@@ -190,6 +197,16 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
         apiService.getRoomsForLocation(location, getRoomsListener, errorListener);
     }
 
+    public void checkToMakeRoomCall() {
+
+        String string = tvStartDate.getText().toString();
+
+        if (!tvStartDate.getText().toString().equals("") && !tvEndDate.getText().toString().equals("")) {
+            getRooms();
+            tvHelper.setVisibility(View.GONE);
+        }
+    }
+
     public void setRooms(ArrayList<Room> rooms) {
 
         tvNumberOfRooms.setText(getResources().getString(R.string.number_of_results_label) + " " + rooms.size() + " rooms");
@@ -218,7 +235,9 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if(v.getId()== R.id.et_room_table_start_date || v.getId()==R.id.btn_room_table_start_date){
+        if(v.getId() == R.id.tv_room_table_start_date_label
+                || v.getId() == R.id.btn_room_table_start_date
+                || v.getId() == R.id.container_room_table_start_date){
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -228,10 +247,10 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
                     android.R.style.Theme_Material_Dialog_MinWidth,
                     startDateListener,
                     year,month,day);
-            if(!etEndDate.getText().toString().equals("")) {
+            if(!tvEndDate.getText().toString().equals("")) {
                 Date endDate = null;
                 try {
-                    endDate = f.parse(etEndDate.getText().toString());
+                    endDate = f.parse(tvEndDate.getText().toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                     endDate = new Date(Long.MAX_VALUE);
@@ -240,7 +259,9 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
             }
             dialog.getDatePicker().setMinDate(System.currentTimeMillis());
             dialog.show();
-        } else if ( v.getId()==R.id.et_room_table_end_date || v.getId()==R.id.btn_room_table_end_date) {
+        } else if ( v.getId() == R.id.tv_room_table_end_date
+                    || v.getId() == R.id.btn_room_table_end_date
+                    || v.getId() == R.id.container_room_table_end_date) {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -250,8 +271,8 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
                     android.R.style.Theme_Material_Dialog_MinWidth,
                     endDateListener,
                     year,month,day);
-            if(!etStartDate.getText().toString().equals("")){
-                String startDateString = etStartDate.getText().toString();
+            if(!tvStartDate.getText().toString().equals("")){
+                String startDateString = tvStartDate.getText().toString();
                 Date startDate = null;
                 try {
                     startDate = f.parse(startDateString);
