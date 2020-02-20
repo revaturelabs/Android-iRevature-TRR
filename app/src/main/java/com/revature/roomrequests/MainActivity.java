@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
             });
-//            menu.getItem(0).setIcon(R.drawable.rooms);
+            menu.getItem(0).setIcon(R.drawable.rooms);
         } else if (user.getRole().toLowerCase().equals("site manager")) {
             menu.add(R.string.requests_title);
             menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
             });
-//            menu.getItem(0).setIcon(R.drawable.calendar_small);
+            menu.getItem(0).setIcon(R.drawable.requests);
             navController.getGraph().setStartDestination(R.id.nav_request_list);
             navController.popBackStack();
             navController.navigate(R.id.nav_request_list);
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-//        menu.getItem(1).setIcon(R.drawable.human);
+        menu.getItem(1).setIcon(R.drawable.logout);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_room_requests, R.id.nav_request_list)
