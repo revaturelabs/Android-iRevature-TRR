@@ -7,12 +7,24 @@
         android:id="@+id/et_reject_request_alert_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_marginStart="@dimen/dialog_comment_margin"
+        android:layout_marginEnd="@dimen/dialog_comment_margin"
         android:background="@android:drawable/editbox_background"
+        android:ems="10"
         android:gravity="top|left"
         android:hint="@string/reason_hint"
         android:inputType="textMultiLine"
         android:lines="6"
         android:scrollbars="vertical"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_request_dialog_char_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dialog_comment_margin"
+        android:layout_marginEnd="@dimen/dialog_comment_margin"
+        android:gravity="end"
+        android:paddingStart="@dimen/dialog_comment_padding"
+        android:paddingEnd="@dimen/dialog_comment_padding" />
 </LinearLayout>
