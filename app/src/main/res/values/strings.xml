@@ -32,6 +32,7 @@
     <string name="unoccupied_key">Unoccupied</string>
     <string name="occupied_key">Occupied</string>
     <string name="current_room">Current Room</string>
+
     <!--  room and request table  -->
     <string name="batch">Batch: </string>
     <string name="room_number">Room Number: </string>
@@ -44,11 +45,13 @@
     <!--  requests  -->
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
-    <string name="reason_hint">Reason for action on this request</string>
+    <string name="reason_hint">Reason <font color="#FF0000">*</font></string>
     <string name="swap_dates">Requested for:</string>
     <string name="accepted_key">Accepted</string>
     <string name="rejected_key">Rejected</string>
     <string name="request_made_date">Request made:</string>
+    <string name="accept_request_dialog_message">Provide a reason for accepting this request</string>
+    <string name="reject_request_dialog_message">Provide a reason for rejecting this request</string>
 
     <!--  make request  -->
     <string name="start_date">Start Date:</string>

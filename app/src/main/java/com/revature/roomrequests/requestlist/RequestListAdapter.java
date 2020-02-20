@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +66,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
     @Override
     public void onBindViewHolder(@NonNull final RequestViewHolder holder, final int position) {
 
-        Resources resources = context.getResources();
+        final Resources resources = context.getResources();
 
         holder.tvRequestDates.setText(resources.getText(R.string.swap_dates) + " " + requests.get(position).getDates());
         holder.tvDateMade.setText(resources.getText(R.string.request_made_date) + " " + requests.get(position).getDateMade());
@@ -131,15 +134,20 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+
                 final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Accept Request");
-                builder.setMessage("Are you sure you want to accept this request?");
+                builder.setMessage(resources.getString(R.string.accept_request_dialog_message));
 
                 final View view = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_request_action_dialog,parent,false);
 
-                ((EditText)view.findViewById(R.id.et_reject_request_alert_reason)).setHint("Reason for accepting this request");
+                final EditText etReason = view.findViewById(R.id.et_reject_request_alert_reason);
+                final TextView tvCount = view.findViewById(R.id.tv_request_dialog_char_count);
+                tvCount.setText("0/" + resources.getInteger(R.integer.comments_maximum));
+                etReason.setFilters(new InputFilter[] {new InputFilter.LengthFilter(resources.getInteger(R.integer.comments_maximum))});
 
                 builder.setView(view);
+
                 builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -174,24 +182,57 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
                         apiService.postAcceptRequest(request, comment, acceptedListener, errorListener);
                     }
                 });
+
                 builder.setNegativeButton(R.string.cancel, null);
 
-                builder.show();
+                final AlertDialog acceptDialog = builder.create();
+
+                acceptDialog.show();
+
+                acceptDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+                TextWatcher textWatcher = new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        // check Fields For Empty Values
+                        if (etReason.getText().toString().length() == 0) {
+                            acceptDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        } else {
+                            acceptDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                        }
+                        tvCount.setText(etReason.getText().toString().length() + "/" + resources.getInteger(R.integer.comments_maximum));
+                    }
+                };
+
+                etReason.addTextChangedListener(textWatcher);
             }
         });
 
         holder.btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+
                 final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Reject Request");
-                builder.setMessage("Are you sure you want to reject this request?");
+                builder.setMessage(resources.getString(R.string.reject_request_dialog_message));
 
                 final View view = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_request_action_dialog,parent,false);
 
-                ((EditText)view.findViewById(R.id.et_reject_request_alert_reason)).setHint("Reason for rejecting this request");
+                final EditText etReason = view.findViewById(R.id.et_reject_request_alert_reason);
+                final TextView tvCount = view.findViewById(R.id.tv_request_dialog_char_count);
+                tvCount.setText("0/" + resources.getInteger(R.integer.comments_maximum));
+                etReason.setFilters(new InputFilter[] {new InputFilter.LengthFilter(resources.getInteger(R.integer.comments_maximum))});
 
                 builder.setView(view);
+
                 builder.setPositiveButton(R.string.reject, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -226,9 +267,37 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
                                 apiService.postRejectRequest(request, comment, rejectionListener, errorListener);
                             }
                         });
+
                 builder.setNegativeButton(R.string.cancel, null);
 
-                builder.show();
+                final AlertDialog rejectDialog = builder.create();
+
+                rejectDialog.show();
+
+                rejectDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+                TextWatcher textWatcher = new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        // check Fields For Empty Values
+                        if (etReason.getText().toString().length() == 0) {
+                            rejectDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        } else {
+                            rejectDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                        }
+                        tvCount.setText(etReason.getText().toString().length() + "/" + resources.getInteger(R.integer.comments_maximum));
+                    }
+                };
+
+                etReason.addTextChangedListener(textWatcher);
             }
         });
     }

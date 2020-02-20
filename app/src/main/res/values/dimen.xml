@@ -16,4 +16,6 @@
     <dimen name="card_request_date_margin">10dp</dimen>
     <dimen name="key_margin">5dp</dimen>
     <dimen name="key_padding">5dp</dimen>
+    <dimen name="dialog_comment_margin">10dp</dimen>
+    <dimen name="dialog_comment_padding">5dp</dimen>
 </resources>

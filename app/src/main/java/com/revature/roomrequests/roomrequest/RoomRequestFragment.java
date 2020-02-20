@@ -110,8 +110,7 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         spinnerBatch.setAdapter(spinnerBatchAdapter);
 
         etComments = view.findViewById(R.id.et_room_request_comments);
-        int maxLength = 500;
-        etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
+        etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(getResources().getInteger(R.integer.comments_maximum))});
         etComments.setOnClickListener(this);
 
         btnSubmit = view.findViewById(R.id.btn_room_request_submit);
