@@ -2,6 +2,7 @@ package com.revature.roomrequests.roomrequesttable;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,36 +75,42 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
 
     @Override
     public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, final int position) {
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         final String trainerName = preferences.getString("name","");
+
+        Resources resources = context.getResources();
+
         holder.itemView.setSelected(room1Pos==position);
+
         if(batches.get(position)!=null) {
-            holder.tvBatch.append(" " + batches.get(position));
+            holder.tvBatch.setText( resources.getString(R.string.batch) + " " + batches.get(position));
         } else {
-            holder.tvBatch.append(" " + NO_STRING);
+            holder.tvBatch.setText(resources.getString(R.string.batch) + " " + NO_STRING);
         }
-        holder.tvRoom.append(" " + rooms.get(position));
-        if(batches.get(position)!=null) {
-            holder.tvTrainer.append(" " + trainers.get(position));
+        holder.tvRoom.setText(resources.getString(R.string.room_number) + " " + rooms.get(position));
+
+        if(trainers.get(position)!=null) {
+            holder.tvTrainer.setText(resources.getString(R.string.trainer) + " " + trainers.get(position));
         } else {
-            holder.tvTrainer.append(" " + NO_STRING);
+            holder.tvTrainer.setText(resources.getString(R.string.trainer) + " " + NO_STRING);
         }
-        if(batches.get(position)!=null) {
-            holder.tvDates.append(" " + dates.get(position));
+        if(dates.get(position)!=null) {
+            holder.tvDates.setText(resources.getString(R.string.start_end) + " " + dates.get(position));
         } else {
-            holder.tvDates.append(" " + NO_STRING);
+            holder.tvDates.setText(resources.getString(R.string.start_end) + " " + NO_STRING);
         }
         if(seats.get(position)!=null) {
-            holder.tvSeats.append(" " + seats.get(position));
+            holder.tvSeats.setText(resources.getString(R.string.seats) + " " + seats.get(position));
         } else {
-            holder.tvSeats.append(" " + NO_STRING);
+            holder.tvSeats.setText(resources.getString(R.string.seats) + " " + NO_STRING);
         }
         if(availabilities.get(position)){
             holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_available));
-            holder.btnAction.setText("Request");
+            holder.btnAction.setText(resources.getString(R.string.request_button));
         } else {
             holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_unavailable));
-            holder.btnAction.setText("Swap");
+            holder.btnAction.setText(resources.getString(R.string.swap_button));
         }
         if(position==0 && trainerName.equals(trainers.get(position))) {
             holder.tvCurrent.setVisibility(View.VISIBLE);

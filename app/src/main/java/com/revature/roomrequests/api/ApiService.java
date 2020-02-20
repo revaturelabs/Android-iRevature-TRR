@@ -140,7 +140,7 @@ public class ApiService {
 
     }
 
-    public void getRoomsForLocation(Location location, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
+    public void getRoomsForLocation(Location location, String startDate, String endDate, Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
 
         RequestQueue requestQueue;
         CustomJsonRequest customJsonRequest;
@@ -152,6 +152,8 @@ public class ApiService {
             jsonObject.put("state", location.getState());
             jsonObject.put("campus", location.getCampus());
             jsonObject.put("building", location.getBuilding());
+            jsonObject.put("start_date", startDate);
+            jsonObject.put("end_date", endDate);
         } catch (JSONException e) {
             Log.d(LOG_TAG, e.toString());
         }
