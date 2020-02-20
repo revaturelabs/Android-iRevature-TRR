@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#F28500</color>
     <color name="colorPrimaryDark">#C2551D</color>
-    <color name="colorAccent">#B0B0B0</color>
+    <color name="colorAccent">@color/gray</color>
     <color name="revature_orange">#F28500</color>
     <color name="revature_orange_faded">#FF9B69</color>
     <color name="blue">#00aaFF</color>

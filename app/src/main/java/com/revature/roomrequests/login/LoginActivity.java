@@ -46,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextWatcher textWatcher;
     ApiService apiService;
 
+    // for development purposes
+    Button btnSiteManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +101,20 @@ public class LoginActivity extends AppCompatActivity {
         etPassword.addTextChangedListener(textWatcher);
 
         checkFieldsForValidValues();
+
+        btnSiteManager = findViewById(R.id.btn_login_site_manager);
+        btnSiteManager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                User user = new User();
+                user.setRole("site manager");
+                user.setUsername("Gavin Mitchell");
+                user.setId(100);
+                user.setToken(1234);
+                loggedIn(user);
+            }
+        });
     }
 
     void checkFieldsForValidValues(){

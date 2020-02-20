@@ -8,6 +8,7 @@ public class Request {
     private Room room2;
     private String reasonForRequest;
     private String status;
+    private String dateMade;
 
     public Request() { }
 
@@ -52,4 +53,7 @@ public class Request {
 
     public void setStatus(String status) { this.status = status; }
 
+    public String getDateMade() { return dateMade; }
+
+    public void setDateMade(String dateMade) { this.dateMade = dateMade; }
 }

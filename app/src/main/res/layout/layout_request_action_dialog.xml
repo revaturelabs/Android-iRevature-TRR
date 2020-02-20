@@ -10,7 +10,7 @@
         android:ems="10"
         android:background="@android:drawable/editbox_background"
         android:gravity="top|left"
-        android:hint="@string/reject_reason"
+        android:hint="@string/reason_hint"
         android:inputType="textMultiLine"
         android:lines="6"
         android:scrollbars="vertical"

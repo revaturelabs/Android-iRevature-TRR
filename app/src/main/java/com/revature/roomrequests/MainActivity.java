@@ -4,14 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Layout;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.navigation.NavController;
@@ -21,10 +30,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
-
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Location;
 import com.revature.roomrequests.pojo.User;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,11 +43,17 @@ public class MainActivity extends AppCompatActivity {
     Location location;
     AppBarConfiguration appBarConfiguration;
     User user;
+    MainActivity self;
+
+    // for development purposes
+    Button btnSiteManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        self = this;
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,16 +78,63 @@ public class MainActivity extends AppCompatActivity {
         });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
+
+        Menu menu = navigationView.getMenu();
+
+        if (user.getRole().toLowerCase().equals("trainer")) {
+            menu.add(R.string.room_request_title);
+            menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    navController.navigate(R.id.nav_room_requests);
+                    return false;
+                }
+            });
+        } else if (user.getRole().toLowerCase().equals("site manager")) {
+            menu.add(R.string.requests_title);
+            menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    navController.navigate(R.id.nav_request_list);
+                    return false;
+                }
+            });
+            navController.getGraph().setStartDestination(R.id.nav_request_list);
+            navController.popBackStack();
+            navController.navigate(R.id.nav_request_list);
+        }
+
+        menu.add("Logout");
+        menu.getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(self);
+                builder.setTitle("Logout");
+                builder.setMessage("Are you sure you want to logout?");
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        self.finish();
+                    }
+                });
+                builder.setNegativeButton(R.string.no, null);
+
+                builder.show();
+                return false;
+            }
+        });
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_room_requests,R.id.nav_request_list)
+                R.id.nav_room_requests, R.id.nav_request_list)
                 .setDrawerLayout(drawer)
                 .build();
 
-        NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override
