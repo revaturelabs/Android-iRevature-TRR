@@ -1,44 +1,52 @@
 package com.revature.roomrequests;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.navigation.NavigationView;
+
 
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Location;
-import com.revature.roomrequests.pojo.Room;
-import com.revature.roomrequests.roomrequesttable.RoomRequestTableFragment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity implements RoomRequestFragment.SendRoom {
-
-    final private int LOCATION_SELECTOR_RESULT_CODE = 1;
-    TextView tvLocation,tvPickRoom;
-    FrameLayout mainFragment;
+    TextView tvLocation;
+    TextView tvUsername;
+    TextView tvUserRole;
+    Location location;
+    AppBarConfiguration appBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        Location location = (Location) getIntent().getSerializableExtra("Location");
 
-        tvPickRoom = findViewById(R.id.tv_main_pickRoom);
-
+        tvUsername = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_username);
+        tvUserRole = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_userrole);
         tvLocation = findViewById(R.id.tv_main_location);
 
-        tvLocation.setText(location.toString());
+        tvUsername.setText("This will display the user's username");
+        tvUserRole.setText("This will display the user's role");
 
         tvLocation.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -52,39 +60,47 @@ public class MainActivity extends AppCompatActivity implements RoomRequestFragme
             }
         });
 
-        tvPickRoom.setText(R.string.select_first_room);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
-        mainFragment = findViewById(R.id.frame_main_fragment_container);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.frame_main_fragment_container,new RoomRequestTableFragment(new ArrayList<>(Arrays.asList("2001-Mobile-iOS","2001-Mobile-And",null)),
-                new ArrayList<>(Arrays.asList("200","300","400")),
-                new ArrayList<>(Arrays.asList("Uday","Mayur",null)),
-                new ArrayList<>(Arrays.asList("2/21-3/21","2/21-3/21",null))));
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.commit();
-
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_room_requests,R.id.nav_pending_requests,R.id.nav_accepted_requests,R.id.nav_rejected_requests)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     @Override
-    public void sendRoomForRequest(Room room) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     @Override
-    public void sendRoomsForSwap(Room room1, Room room2) {
-
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        Toast.makeText(getApplicationContext(), "got result", Toast.LENGTH_SHORT).show();
+        String state = preferences.getString("location_state", null);
+        String campus = preferences.getString("location_campus", null);
+        String building = preferences.getString("location_building", null);
 
-        if(requestCode == LOCATION_SELECTOR_RESULT_CODE) {
-            Location location = (Location) data.getSerializableExtra("Location");
+        if (state != null && campus != null && building != null) {
+            location = new Location(state, campus, building);
             tvLocation.setText(location.toString());
+        } else {
+            Intent intent = new Intent(this, LocationSelectorActivity.class);
+            startActivity(intent);
         }
     }
+
 }

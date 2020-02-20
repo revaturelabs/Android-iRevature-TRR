@@ -1,24 +1,23 @@
 package com.revature.roomrequests.roomrequesttable;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.revature.roomrequests.MainActivity;
 import com.revature.roomrequests.R;
-import com.revature.roomrequests.RoomRequestFragment;
+import com.revature.roomrequests.pojo.Room;
+import com.revature.roomrequests.roomrequest.RoomRequestFragment;
+import com.revature.roomrequests.roomswap.RoomSwapFragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTableAdapter.RequestRoomViewHolder> {
 
@@ -28,13 +27,21 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     ArrayList<String> dates;
 
     Context context;
+    FragmentManager fm;
+    Room room1=null;
+    Room room2=null;
+    int room1Pos=RecyclerView.NO_POSITION;
+    int room2Pos = RecyclerView.NO_POSITION;
+
+    ItemsChangedListener itemsChangedListener;
 
     public RoomRequestTableAdapter(){
         super();
     }
 
-    public RoomRequestTableAdapter(Context context, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
+    public RoomRequestTableAdapter(Context context, FragmentManager fm, ArrayList<String> batches, ArrayList<String> rooms, ArrayList<String> trainers, ArrayList<String> dates) {
         this.context = context;
+        this.fm = fm;
         this.batches = batches;
         this.rooms = rooms;
         this.trainers = trainers;
@@ -53,6 +60,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
 
     @Override
     public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, final int position) {
+        holder.itemView.setSelected(room1Pos==position);
         if(batches.get(position)!=null) {
             holder.tvBatch.setText(batches.get(position));
         } else {
@@ -72,18 +80,50 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"You chose room: " + rooms.get(position),Toast.LENGTH_SHORT).show();
+                Log.d("Room check", "Position: "+position + " room1Pos: "+room1Pos);
                 if(batches.get(position)==null){
-                    FrameLayout mainFragment = v.getRootView().findViewById(R.id.frame_main_fragment_container);
-                    FragmentManager fragmentManager = ;
-                    FragmentTransaction ft = fragmentManager.beginTransaction();
-                    ft.replace(R.id.frame_main_fragment_container,new RoomRequestFragment());
+                    Room room = new Room();
+                    room.setRoom(rooms.get(position));
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                } else if(room1==null) {
+                    Log.d("Room","We got here");
+                    room1 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
+                    notifyItemChanged(room1Pos);
+                    room1Pos = position;
+                    notifyItemChanged(room1Pos);
+                    itemsChangedListener.onItemsChanged(2);
+                } else if(position==room1Pos) {
+                    room1Pos = RecyclerView.NO_POSITION;
+                    room1=null;
+                    v.setSelected(false);
+                    itemsChangedListener.onItemsChanged(1);
+                    Log.d("Reset Room1","Room 1 is now null and room1Pos is: "+room1Pos);
+                } else {
+                    room2 = new Room(batches.get(position),rooms.get(position),trainers.get(position),dates.get(position));
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room1,room2));
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
             }
         });
     }
+
+    public interface ItemsChangedListener {
+        void onItemsChanged(int choice);
+
+    }
+
+    public void setItemsChangedListener(ItemsChangedListener listener) {
+        this.itemsChangedListener = listener;
+
+    }
+
 
     @Override
     public int getItemCount() {
@@ -96,10 +136,11 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         public RequestRoomViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvBatch = itemView.findViewById(R.id.tv_row_batch);
-            tvRoom = itemView.findViewById(R.id.tv_row_room);
-            tvTrainer = itemView.findViewById(R.id.tv_row_trainer);
-            tvDates = itemView.findViewById(R.id.tv_row_dates);
+            tvBatch = itemView.findViewById(R.id.tv_room_row_batch);
+            tvRoom = itemView.findViewById(R.id.tv_room_row_room);
+            tvTrainer = itemView.findViewById(R.id.tv_room_row_trainer);
+            tvDates = itemView.findViewById(R.id.tv_room_row_dates);
+
         }
     }
 }

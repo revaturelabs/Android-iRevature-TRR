@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="revature_orange">#F26925</color>
+    <color name="colorPrimary">#F28500</color>
+    <color name="colorPrimaryDark">#C2551D</color>
+    <color name="colorAccent">#B0B0B0</color>
+    <color name="revature_orange">#F28500</color>
+    <color name="revature_orange_faded">#FF9B69</color>
     <color name="blue">#00aaFF</color>
+    <color name="selected_color">#b6d7a8</color>
+    <color name="pressed_color">#b6d7a8</color>
+    <color name="focused_color">#b6d7a8</color>
+    <color name="gray">#808080</color>
+    <color name="light_gray">#C0C0C0</color>
+    <color name="dark_gray">#505050</color>
+    <color name="hint_and_placeholder">#999999</color>
 </resources>

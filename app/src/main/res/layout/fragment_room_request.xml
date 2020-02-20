@@ -1,147 +1,151 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.revature.roomrequests.RoomRequestFragment">
+    android:outlineProvider="bounds"
+    tools:context="com.revature.roomrequests.roomrequest.RoomRequestFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_room_request_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/start_date"
+        app:layout_constraintEnd_toStartOf="@+id/tv_room_request_end_date"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_room_request_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="mm/dd/yyyy"
+        android:inputType="date"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_room_request_start_date"
+        app:layout_constraintStart_toStartOf="@+id/tv_room_request_start_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_room_request_start_date" />
+
+    <TextView
+        android:id="@+id/tv_room_request_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="100dp"
+        android:text="@string/end_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <EditText
+        android:id="@+id/et_room_request_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="mm/dd/yyyy"
+        android:inputType="date"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_room_request_end_date"
+        app:layout_constraintStart_toStartOf="@+id/tv_room_request_end_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_room_request_end_date" />
+
+    <Button
+        android:id="@+id/btn_room_request_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_room_request_comments" />
+
+    <ImageButton
+        android:id="@+id/btn_room_request_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:src="@android:drawable/ic_menu_my_calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/et_room_request_start_date"
+        app:layout_constraintStart_toEndOf="@+id/et_room_request_start_date" />
+
+    <ImageButton
+        android:id="@+id/btn_room_request_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:src="@android:drawable/ic_menu_my_calendar"
+        app:layout_constraintStart_toEndOf="@+id/et_room_request_end_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_room_request_end_date" />
+
+    <EditText
+        android:id="@+id/et_room_request_comments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@android:drawable/editbox_background"
+        android:gravity="top|left"
+        android:hint="@string/comments"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:scrollbars="vertical"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_room_request_end_date"
+        app:layout_constraintStart_toStartOf="@+id/et_room_request_start_date"
+        app:layout_constraintTop_toBottomOf="@+id/et_room_request_start_date" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_room_request_start_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/tv_room_request_start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_date"
-            app:layout_constraintBottom_toTopOf="@+id/et_room_request_start_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.278"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.933" />
-
-        <TextView
-            android:id="@+id/tv_room_request_end_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/end_date"
-            app:layout_constraintBottom_toTopOf="@+id/btn_room_request_end_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.412"
-            app:layout_constraintStart_toEndOf="@+id/tv_room_request_start_date" />
-
-        <EditText
-            android:id="@+id/et_room_request_start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:inputType="date"
-            app:layout_constraintStart_toStartOf="@+id/tv_room_request_start_date"
-            app:layout_constraintTop_toTopOf="@+id/btn_room_request_start_date" />
-
-        <EditText
-            android:id="@+id/et_room_request_end_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:inputType="date"
-            app:layout_constraintStart_toStartOf="@+id/tv_room_request_end_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_room_request_end_date" />
-
-        <EditText
-            android:id="@+id/et_room_request_comments"
+            android:id="@+id/tv_room_request_batch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/comments"
-            android:inputType="textMultiLine"
-            android:lines="4"
-            android:gravity="top|left"
-            android:textSize="14sp"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/btn_room_request_submit"
-            app:layout_constraintEnd_toEndOf="@+id/btn_room_request_end_date"
-            app:layout_constraintStart_toStartOf="@+id/et_room_request_start_date"
-            app:layout_constraintTop_toBottomOf="@+id/btn_room_request_start_date" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/batch_ex"
+            android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btn_room_request_submit"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_room_request_room"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="228dp"
-            android:text="@string/submit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/room_number"
+            android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/btn_room_request_start_date"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_room_request_trainer"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_my_calendar"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_room_request_end_date"
-            app:layout_constraintStart_toEndOf="@+id/et_room_request_start_date" />
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/trainer"
+            android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/btn_room_request_end_date"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_room_request_dates"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="104dp"
-            android:src="@android:drawable/ic_menu_my_calendar"
-            app:layout_constraintBottom_toTopOf="@+id/btn_room_request_submit"
-            app:layout_constraintStart_toEndOf="@+id/et_room_request_end_date" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/tv_room_request_end_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.344">
-
-            <TextView
-                android:id="@+id/tv_room_request_batch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="3"
-                android:text="@string/batch_ex"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_room_request_room"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:text="@string/room_number"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_room_request_trainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:text="@string/trainer"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_room_request_dates"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="2"
-                android:text="@string/start_end"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/start_end"
+            android:textSize="16sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
