@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="164dp"
-            android:text="@string/start_date"
+            android:text="@string/start_date_required"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toStartOf="@+id/tv_room_request_end_date"
             app:layout_constraintHorizontal_bias="0.333"
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="100dp"
-            android:text="@string/end_date"
+            android:text="@string/end_date_required"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_room_request_start_date" />

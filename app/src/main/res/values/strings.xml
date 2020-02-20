@@ -32,6 +32,8 @@
     <string name="unoccupied_key">Unoccupied</string>
     <string name="occupied_key">Occupied</string>
     <string name="current_room">Current Room</string>
+    <string name="start_date">Start Date:</string>
+    <string name="end_date">End Date:</string>
 
     <!--  rooms and request table  -->
     <string name="batch">Batch: </string>
@@ -57,8 +59,8 @@
     <string name="request_reason_label">Reason for request:</string>
 
     <!--  make request  -->
-    <string name="start_date">Start Date: <font color='#FF0000'>*</font></string>
-    <string name="end_date">End Date: <font color='#FF0000'>*</font></string>
+    <string name="start_date_required">Start Date: <font color='#FF0000'>*</font></string>
+    <string name="end_date_required">End Date: <font color='#FF0000'>*</font></string>
     <string name="comments">Reason for request</string>
     <string name="comment_label">Reason <font color='#FF0000'>*</font></string>
 
