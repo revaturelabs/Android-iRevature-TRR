@@ -66,9 +66,11 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         Resources resources = context.getResources();
 
         holder.tvRequestDates.setText(resources.getText(R.string.swap_dates) + " " + requests.get(position).getDates());
-        holder.tvDateMade.setText(resources.getText(R.string.request_made_date) + " " + requests.get(position).getDateMade());
+        holder.tvDateMade.setText(" "+requests.get(position).getDateMade());
+        holder.tvReason.setText(requests.get(position).getReasonForRequest());
 
         if(requests.get(position).getRoom1()!=null) {
+            holder.tvRequestType.setText(R.string.request_made_on);
             if (requests.get(position).getRoom1().getBatch() == null) {
                 holder.tvRoom1Batch.setText(resources.getText(R.string.batch) + " " + noString);
             } else {
@@ -93,6 +95,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         }
 
         if(requests.get(position).getRoom2()!=null) {
+            holder.tvRequestType.setText(R.string.swap_request_made_on);
             if (requests.get(position).getRoom2().getBatch() == null) {
                 holder.tvRoom2Batch.setText(resources.getText(R.string.batch) + " " + noString);
             } else {
@@ -112,7 +115,6 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
             } else {
                 holder.tvRoom2Trainer.setText(resources.getText(R.string.batch) + " " + requests.get(position).getRoom2().getTrainer());
             }
-
         } else if(requests.get(position).getRoom1()!=null) {
             holder.cvRoom2.setVisibility(CardView.GONE);
         }
@@ -239,7 +241,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
     }
 
     public class RequestViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRequestDates,tvDateMade;
+        TextView tvRequestDates,tvDateMade,tvRequestType,tvReason;
         TextView tvRoom1Batch,tvRoom1Room,tvRoom1Trainer,tvRoom1Size;
         TextView tvRoom2Batch,tvRoom2Room,tvRoom2Trainer,tvRoom2Size;
         CardView cvRoom1,cvRoom2;
@@ -265,6 +267,9 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
             btnAccept = itemView.findViewById(R.id.btn_request_accept);
             btnReject = itemView.findViewById(R.id.btn_request_reject);
+
+            tvRequestType = itemView.findViewById(R.id.tv_request_type);
+            tvReason = itemView.findViewById(R.id.tv_request_row_comments);
 
         }
     }

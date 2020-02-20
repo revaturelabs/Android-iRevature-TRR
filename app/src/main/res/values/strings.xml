@@ -49,6 +49,9 @@
     <string name="accepted_key">Accepted</string>
     <string name="rejected_key">Rejected</string>
     <string name="request_made_date">Request made:</string>
+    <string name="request_made_on">Request made on</string>
+    <string name="swap_request_made_on">Swap request made on</string>
+    <string name="request_reason_label">Reason for request:</string>
 
     <!--  make request  -->
     <string name="start_date">Start Date:</string>
