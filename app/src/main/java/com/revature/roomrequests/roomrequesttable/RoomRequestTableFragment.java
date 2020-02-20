@@ -194,7 +194,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
             }
         };
 
-        apiService.getRoomsForLocation(location, getRoomsListener, errorListener);
+        apiService.getRoomsForLocation(location, tvStartDate.getText().toString(), tvEndDate.getText().toString(), getRoomsListener, errorListener);
     }
 
     public void checkToMakeRoomCall() {
