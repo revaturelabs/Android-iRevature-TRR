@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -199,8 +200,6 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
     public void checkToMakeRoomCall() {
 
-        String string = tvStartDate.getText().toString();
-
         if (!tvStartDate.getText().toString().equals("") && !tvEndDate.getText().toString().equals("")) {
             getRooms();
             tvHelper.setVisibility(View.GONE);
@@ -235,8 +234,8 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.tv_room_table_start_date_label
-                || v.getId() == R.id.btn_room_table_start_date
+        if(v.getId() == R.id.btn_room_table_start_date
+                || v.getId() == R.id.tv_room_table_start_date
                 || v.getId() == R.id.container_room_table_start_date){
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
@@ -259,9 +258,9 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
             }
             dialog.getDatePicker().setMinDate(System.currentTimeMillis());
             dialog.show();
-        } else if ( v.getId() == R.id.tv_room_table_end_date
-                    || v.getId() == R.id.btn_room_table_end_date
-                    || v.getId() == R.id.container_room_table_end_date) {
+        } else if (v.getId() == R.id.btn_room_table_end_date
+                || v.getId() == R.id.tv_room_table_end_date
+                || v.getId() == R.id.container_room_table_end_date) {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -302,4 +301,5 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
         apiService = new ApiService(context);
     }
+
 }

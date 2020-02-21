@@ -12,42 +12,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingStart="@dimen/card_request_date_margin"
         android:paddingEnd="@dimen/card_request_date_margin"
-        android:paddingBottom="@dimen/key_margin">
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:id="@+id/container_room_table_start_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|start"
-            android:orientation="horizontal">
+            android:gravity="bottom|start"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
-            <TextView
-                android:id="@+id/tv_room_table_start_date_label"
+            <ImageButton
+                android:id="@+id/btn_room_table_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/key_margin"
-                android:text="@string/start_date"
-                android:textColor="@android:color/white" />
+                android:background="@drawable/calendar_small_white"
+                android:contentDescription="@string/date_icon_description" />
 
             <TextView
                 android:id="@+id/tv_room_table_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/key_margin"
-                android:hint="mm/dd/yyyy"
+                android:hint="@string/start_date_hint"
+                android:paddingEnd="@dimen/key_padding"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/light_gray"
-                android:textSize="14sp" />
-
-            <ImageButton
-                android:id="@+id/btn_room_table_start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/calendar_small_white" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -56,33 +54,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|end"
-            android:orientation="horizontal">
+            android:gravity="bottom|start"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
-            <TextView
-                android:id="@+id/tv_room_table_end_date_label"
+            <ImageButton
+                android:id="@+id/btn_room_table_end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/key_margin"
-                android:gravity="center"
-                android:text="@string/end_date"
-                android:textColor="@android:color/white" />
+                android:background="@drawable/calendar_small_white"
+                android:contentDescription="@string/date_icon_description" />
 
             <TextView
                 android:id="@+id/tv_room_table_end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/key_margin"
-                android:hint="mm/dd/yyyy"
+                android:hint="@string/end_date_hint"
+                android:paddingEnd="@dimen/key_padding"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/light_gray"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
-            <ImageButton
-                android:id="@+id/btn_room_table_end_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/calendar_small_white" />
         </LinearLayout>
 
     </LinearLayout>
@@ -93,27 +88,18 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:divider="@color/dark_gray"
-        android:gravity="end"
+        android:gravity="start"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/card_request_date_margin"
-        android:paddingTop="5dp"
+        android:paddingTop="@dimen/key_margin"
         android:paddingRight="@dimen/card_request_date_margin"
         android:paddingBottom="@dimen/card_padding">
-
-        <TextView
-            android:id="@+id/tv_room_results"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/number_of_results_label"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_request_accepted_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/key_margin"
+            android:layout_marginEnd="@dimen/key_margin"
             android:background="@color/room_available"
             android:paddingLeft="@dimen/key_padding"
             android:paddingRight="@dimen/key_padding"
@@ -123,11 +109,21 @@
             android:id="@+id/tv_request_rejected_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/key_margin"
+            android:layout_marginEnd="@dimen/key_margin"
             android:background="@color/room_unavailable"
             android:paddingLeft="@dimen/key_padding"
             android:paddingRight="@dimen/key_padding"
             android:text="@string/occupied_key" />
+
+        <TextView
+            android:id="@+id/tv_room_results"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:layout_marginStart="@dimen/key_margin"/>
+
     </LinearLayout>
 
     <TextView
