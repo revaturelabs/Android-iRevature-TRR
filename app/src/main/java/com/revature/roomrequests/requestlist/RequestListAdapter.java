@@ -116,7 +116,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
             if (requests.get(position).getRoom2().getTrainer() == null) {
                 holder.tvRoom2Trainer.setText(resources.getText(R.string.trainer) + " " +  noString);
             } else {
-                holder.tvRoom2Trainer.setText(resources.getText(R.string.batch) + " " + requests.get(position).getRoom2().getTrainer());
+                holder.tvRoom2Trainer.setText(resources.getText(R.string.trainer) + " " + requests.get(position).getRoom2().getTrainer());
             }
         } else if(requests.get(position).getRoom1()!=null) {
             holder.cvRoom2.setVisibility(CardView.GONE);

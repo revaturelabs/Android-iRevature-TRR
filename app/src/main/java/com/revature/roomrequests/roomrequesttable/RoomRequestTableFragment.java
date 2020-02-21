@@ -243,7 +243,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
-                    android.R.style.Theme_Material_Dialog_MinWidth,
+                    R.style.CalendarDialog,
                     startDateListener,
                     year,month,day);
             if(!tvEndDate.getText().toString().equals("")) {
@@ -267,7 +267,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
-                    android.R.style.Theme_Material_Dialog_MinWidth,
+                    R.style.CalendarDialog,
                     endDateListener,
                     year,month,day);
             if(!tvStartDate.getText().toString().equals("")){
