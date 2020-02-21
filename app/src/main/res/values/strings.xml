@@ -1,9 +1,9 @@
 <resources>
 
     <!--  common  -->
-    <string name="app_name">RevatureTrainingRoomRequests</string>
+    <string name="app_name">Room Requests</string>
     <string name="submit">Submit</string>
-    <string name="location_selector_title">Location Selector</string>
+    <string name="location_selector_title">Set Location</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
@@ -18,18 +18,18 @@
     <string name="logo_description">Revature Logo</string>
     <string name="username_icon_description">Username Icon</string>
     <string name="password_icon_description">Password Icon</string>
-    <string name="forgot_password_dialog">Enter your e-mail to receive the reset instructions.</string>
+    <string name="forgot_password_dialog">Enter your e-mail to receive the reset instructions</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
     <string name="email_hint">Enter your e-mail</string>
     <string name="password_reset">Reset Password</string>
 
     <!--  rooms table  -->
-    <string name="select_first_room">Select a room to perform an action.</string>
-    <string name="select_second_room">Select the room you would like to swap with.</string>
+    <string name="select_first_room">Select a room to perform an action</string>
+    <string name="select_second_room">Select the room you would like to swap with</string>
     <string name="request">Request</string>
     <string name="request_swap">Request Swap</string>
-    <string name="request_button">Request</string>
+    <string name="request_button">New Request</string>
     <string name="swap_button">Swap</string>
     <string name="unoccupied_key">Unoccupied</string>
     <string name="occupied_key">Occupied</string>
@@ -43,7 +43,7 @@
 
     <!--  room and request table  -->
     <string name="batch">Batch: </string>
-    <string name="room_number">Room number: </string>
+    <string name="room_number">Room Number: </string>
     <string name="trainer">Trainer: </string>
     <string name="start_end">Occupied: </string>
     <string name="seats">Capacity: </string>

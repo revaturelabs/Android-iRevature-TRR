@@ -161,7 +161,7 @@ public class RequestListFragment extends Fragment {
 
     public void setRequests(ArrayList<Request> requests) {
 
-        tvNumberOfRequests.setText(getResources().getString(R.string.number_of_results_label) + " " + requests.size() + " requests");
+        tvNumberOfRequests.setText("Showing " + requests.size() + " results");
 
         RequestListAdapter adapter = (RequestListAdapter) recyclerView.getAdapter();
         adapter.updateData(requests);
