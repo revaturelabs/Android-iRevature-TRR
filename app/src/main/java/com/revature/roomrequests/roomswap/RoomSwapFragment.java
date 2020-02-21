@@ -1,7 +1,9 @@
 package com.revature.roomrequests.roomswap;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -47,27 +50,33 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
     TextView tvBatch1,tvRoom1,tvTrainer1,tvDates1,tvSeats1,tvBatch2,tvRoom2,tvTrainer2,tvDates2,tvSeats2,etStartDate, etEndDate;
     EditText etComments;
     Button btnSubmit;
-    ImageButton btnPickStart, btnPickEnd;
+//    ImageButton btnPickStart, btnPickEnd;
     ScrollView scrollView;
     
     Room room1,room2;
 
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
     private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+    String startDate,endDate;
 
     TextWatcher textWatcher;
 
     private ApiService apiService;
     final String LOG_TAG = "ROOM SWAP";
+    private RoomSwapFragment self;
 
 
     public RoomSwapFragment() {
         // Required empty public constructor
+        this.self = this;
     }
     
-    public RoomSwapFragment(Room room1, Room room2) {
+    public RoomSwapFragment(Room room1, Room room2,String startDate,String endDate) {
         this.room1 = room1;
         this.room2 = room2;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.self = this;
     }
 
 
@@ -95,20 +104,32 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
         
         etStartDate = view.findViewById(R.id.et_room_swap_start_date);
         etStartDate.setOnClickListener(this);
+        if(startDate != null) {
+            etStartDate.setText(" "+startDate);
+        }
         etEndDate = view.findViewById(R.id.et_room_swap_end_date);
         etEndDate.setOnClickListener(this);
+        if(endDate != null) {
+            etEndDate.setText(" "+endDate);
+        }
 
         etComments = view.findViewById(R.id.et_room_swap_comments);
-        int maxLength = 500;
-        etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
+        etComments.setFilters(new InputFilter[] {new InputFilter.LengthFilter(getResources().getInteger(R.integer.comments_maximum))});
+        etComments.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                InputMethodManager imm =  (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
         
         btnSubmit = view.findViewById(R.id.btn_room_swap_submit);
         btnSubmit.setOnClickListener(this);
         
-        btnPickStart = view.findViewById(R.id.btn_room_swap_start_date);
-        btnPickStart.setOnClickListener(this);
-        btnPickEnd = view.findViewById(R.id.btn_room_swap_end_date);
-        btnPickEnd.setOnClickListener(this);
+//        btnPickStart = view.findViewById(R.id.btn_room_swap_start_date);
+//        btnPickStart.setOnClickListener(this);
+//        btnPickEnd = view.findViewById(R.id.btn_room_swap_end_date);
+//        btnPickEnd.setOnClickListener(this);
         
         
         if(room1!=null && room2!=null) {
@@ -181,61 +202,70 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.getId()== R.id.et_room_swap_start_date || v.getId()==R.id.btn_room_swap_start_date){
-            Calendar cal = Calendar.getInstance();
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH);
-            int day = cal.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
-                    R.style.CalendarDialog,
-                    startDateListener,
-                    year,month,day);
-            if(!etEndDate.getText().toString().equals("")) {
-                Date endDate = null;
-                try {
-                    endDate = f.parse(etEndDate.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    endDate = new Date(Long.MAX_VALUE);
-                }
-                dialog.getDatePicker().setMaxDate(endDate.getTime());
-            }
-            dialog.getDatePicker().setMinDate(System.currentTimeMillis());
-            dialog.show();
-        } else if ( v.getId()==R.id.et_room_swap_end_date || v.getId()==R.id.btn_room_swap_end_date) {
-            Calendar cal = Calendar.getInstance();
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH);
-            int day = cal.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
-                    R.style.CalendarDialog,
-                    endDateListener,
-                    year,month,day);
-            if(!etStartDate.getText().toString().equals("")){
-                String startDateString = etStartDate.getText().toString();
-                Date startDate = null;
-                try {
-                    startDate = f.parse(startDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    startDate = new Date(System.currentTimeMillis());
-                }
-                dialog.getDatePicker().setMinDate(startDate.getTime());
-            } else {
-                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
-            }
-            dialog.show();
-        } else if (v.getId()==R.id.btn_room_swap_submit) {
+//        if(v.getId()== R.id.et_room_swap_start_date || v.getId()==R.id.btn_room_swap_start_date){
+//            Calendar cal = Calendar.getInstance();
+//            int year = cal.get(Calendar.YEAR);
+//            int month = cal.get(Calendar.MONTH);
+//            int day = cal.get(Calendar.DAY_OF_MONTH);
+//
+//            DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+//                    R.style.CalendarDialog,
+//                    startDateListener,
+//                    year,month,day);
+//            if(!etEndDate.getText().toString().equals("")) {
+//                Date endDate = null;
+//                try {
+//                    endDate = f.parse(etEndDate.getText().toString());
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                    endDate = new Date(Long.MAX_VALUE);
+//                }
+//                dialog.getDatePicker().setMaxDate(endDate.getTime());
+//            }
+//            dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+//            dialog.show();
+//        } else if ( v.getId()==R.id.et_room_swap_end_date || v.getId()==R.id.btn_room_swap_end_date) {
+//            Calendar cal = Calendar.getInstance();
+//            int year = cal.get(Calendar.YEAR);
+//            int month = cal.get(Calendar.MONTH);
+//            int day = cal.get(Calendar.DAY_OF_MONTH);
+//
+//            DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+//                    R.style.CalendarDialog,
+//                    endDateListener,
+//                    year,month,day);
+//            if(!etStartDate.getText().toString().equals("")){
+//                String startDateString = etStartDate.getText().toString();
+//                Date startDate = null;
+//                try {
+//                    startDate = f.parse(startDateString);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                    startDate = new Date(System.currentTimeMillis());
+//                }
+//                dialog.getDatePicker().setMinDate(startDate.getTime());
+//            } else {
+//                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+//            }
+//            dialog.show();
+//        } else
+        if (v.getId()==R.id.btn_room_swap_submit) {
             submitRequest(v);
 
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.host_main_fragment_container,new RoomRequestTableFragment());
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.addToBackStack(null);
-            ft.commit();
+//            FragmentManager fm = getFragmentManager();
+//            FragmentTransaction ft = fm.beginTransaction();
+//            ft.replace(R.id.host_main_fragment_container,new RoomRequestTableFragment());
+//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//            ft.addToBackStack(null);
+//            ft.commit();
+            self.getActivity().getSupportFragmentManager().popBackStack();
+
+
+            AlertDialog.Builder submitAlert = new AlertDialog.Builder(getActivity(),R.style.CalendarDialog);
+            submitAlert.setPositiveButton(R.string.okay,null);
+            submitAlert.setTitle(R.string.request_submitted);
+            submitAlert.setMessage(R.string.request_submit_message);
+            submitAlert.show();
         }
     }
 

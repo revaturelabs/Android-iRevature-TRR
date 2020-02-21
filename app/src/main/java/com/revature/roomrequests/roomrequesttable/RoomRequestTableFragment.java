@@ -55,6 +55,8 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
     DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
     private SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
 
+    private String startDate,endDate;
+
     ArrayList<Integer> ids;
     ArrayList<String> batches;
     ArrayList<String> rooms;
@@ -134,6 +136,34 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
     @Override
     public void onStart() {
         super.onStart();
+        if(startDate!=null) {
+            tvStartDate.setText(startDate);
+        }
+        if(endDate!=null){
+            tvEndDate.setText(endDate);
+        }
+        checkToMakeRoomCall();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG,"Paused");
+        startDate = tvStartDate.getText().toString();
+        endDate = tvEndDate.getText().toString();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG,"Stopped");
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG,"Destroyed");
     }
 
     public void getRooms() {
@@ -230,6 +260,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
         RoomRequestTableAdapter adapter = (RoomRequestTableAdapter) recyclerView.getAdapter();
         adapter.updateData(ids,batches,this.rooms,trainers,dates,capacities,availabilities);
+        adapter.updateDates(tvStartDate.getText().toString(),tvEndDate.getText().toString());
     }
 
     @Override

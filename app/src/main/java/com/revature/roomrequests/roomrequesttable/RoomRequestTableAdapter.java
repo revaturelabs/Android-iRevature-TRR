@@ -36,6 +36,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     ArrayList<String> seats;
     ArrayList<Boolean> availabilities;
     Room myRoom;
+    String startDate,endDate;
 
     Context context;
     FragmentManager fm;
@@ -129,7 +130,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                     room.setRoomNumber(rooms.get(position));
                     room.setCapacity(seats.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room));
+                    ft.replace(R.id.host_main_fragment_container,new RoomRequestFragment(room,startDate,endDate));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
@@ -137,7 +138,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
                 } else {
                     Room room = new Room(ids.get(position),batches.get(position),rooms.get(position),trainers.get(position),dates.get(position),seats.get(position),availabilities.get(position));
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room,myRoom));
+                    ft.replace(R.id.host_main_fragment_container,new RoomSwapFragment(room,myRoom,startDate,endDate));
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.addToBackStack(null);
                     ft.commit();
@@ -212,5 +213,10 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         this.seats = seats;
         this.availabilities = availabilities;
         notifyDataSetChanged();
+    }
+
+    public void updateDates(String startDate, String endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }
