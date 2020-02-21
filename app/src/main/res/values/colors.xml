@@ -17,4 +17,5 @@
     <color name="dark_gray">#505050</color>
     <color name="hint_and_placeholder">#999999</color>
     <color name="required_red">#d3494e</color>
+    <color name="black">#000000</color>
 </resources>
