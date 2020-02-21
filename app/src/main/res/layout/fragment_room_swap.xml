@@ -26,63 +26,63 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_room_swap">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="bottom|center"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:gravity="bottom|center"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <ImageButton
-                            android:id="@+id/btn_room_swap_start_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/key_margin"
-                            android:background="@drawable/calendar" />
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/btn_room_swap_start_date"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="@dimen/key_margin"-->
+<!--                            android:background="@drawable/calendar" />-->
 
-                        <TextView
-                            android:id="@+id/et_room_swap_start_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/start_date_required"
-                            android:inputType="date"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/et_room_swap_start_date"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:hint="@string/start_date_required"-->
+<!--                            android:inputType="date"-->
+<!--                            android:textColor="@android:color/black"-->
+<!--                            android:textSize="14sp" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="bottom|center"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:gravity="bottom|center"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <ImageButton
-                            android:id="@+id/btn_room_swap_end_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/key_margin"
-                            android:background="@drawable/calendar" />
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/btn_room_swap_end_date"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="@dimen/key_margin"-->
+<!--                            android:background="@drawable/calendar" />-->
 
-                        <TextView
-                            android:id="@+id/et_room_swap_end_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/end_date_required"
-                            android:inputType="date"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/et_room_swap_end_date"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:hint="@string/end_date_required"-->
+<!--                            android:inputType="date"-->
+<!--                            android:textColor="@android:color/black"-->
+<!--                            android:textSize="14sp" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
                 <TextView
                     android:id="@+id/tv_request_swap_reason_label"
@@ -96,7 +96,6 @@
                     android:id="@+id/et_room_swap_comments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:background="@android:drawable/editbox_background"
                     android:gravity="top|left"
                     android:hint="@string/comment_label"
@@ -289,6 +288,46 @@
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/request_dates"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/et_room_swap_start_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/start_date_required"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" -"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/et_room_swap_end_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/end_date_required"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
