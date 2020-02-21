@@ -208,7 +208,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
 
     public void setRooms(ArrayList<Room> rooms) {
 
-        tvNumberOfRooms.setText(getResources().getString(R.string.number_of_results_label) + " " + rooms.size() + " rooms");
+        tvNumberOfRooms.setText("Showing " + rooms.size() + " results");
 
         ids = new ArrayList<>();
         batches = new ArrayList<>();
