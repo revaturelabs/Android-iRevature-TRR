@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -25,7 +26,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.locationselector.LocationSelectorActivity;
+import com.revature.roomrequests.login.LoginActivity;
 import com.revature.roomrequests.pojo.Location;
 import com.revature.roomrequests.pojo.User;
 
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        self.finish();
+                        logout();
                     }
                 });
                 builder.setNegativeButton(R.string.no, null);
@@ -135,6 +138,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void logout() {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+
+        editor.remove(LoginActivity.AUTH_TOKEN_KEY);
+        editor.remove(LoginActivity.USER_ID_KEY);
+        editor.remove(LoginActivity.USER_NAME_KEY);
+        editor.commit();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.main, menu);
@@ -153,9 +169,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String state = preferences.getString("location_state", null);
-        String campus = preferences.getString("location_campus", null);
-        String building = preferences.getString("location_building", null);
+        String state = preferences.getString(LocationSelectorActivity.LOCATION_STATE_KEY, null);
+        String campus = preferences.getString(LocationSelectorActivity.LOCATION_CAMPUS_KEY, null);
+        String building = preferences.getString(LocationSelectorActivity.LOCATION_BUILDING_KEY, null);
 
         if (state != null && campus != null && building != null) {
             location = new Location(state, campus, building);
@@ -164,6 +180,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LocationSelectorActivity.class);
             startActivity(intent);
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     public Location getLocation() {

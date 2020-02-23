@@ -38,9 +38,13 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     SharedPreferences preferences;
 
-    final private String USERNAME_KEY = "username";
-    final private String PASSWORD_KEY = "password";
-    final private String REMEMBER_KEY = "remember";
+    final static public String USERNAME_KEY = "username";
+    final static public String PASSWORD_KEY = "password";
+    final static public String REMEMBER_KEY = "remember";
+    final static public String AUTH_TOKEN_KEY = "auth_token";
+    final static public String USER_ID_KEY = "user_id";
+    final static public String USER_NAME_KEY = "user_name";
+
     final private String LOG_TAG = "LOGIN ACTIVITY";
 
     private TextWatcher textWatcher;
@@ -173,36 +177,31 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putInt("auth_token", user.getToken());
-        editor.putInt("user_id",user.getId());
-        editor.putString("name",user.getName());
+        editor.putInt(AUTH_TOKEN_KEY, user.getToken());
+        editor.putInt(USER_ID_KEY,user.getId());
+        editor.putString(USER_NAME_KEY,user.getName());
+
+        if (!preferences.getString(USERNAME_KEY, "").equals(user.getUsername())) {
+            editor.remove(LocationSelectorActivity.LOCATION_STATE_KEY);
+            editor.remove(LocationSelectorActivity.LOCATION_CAMPUS_KEY);
+            editor.remove(LocationSelectorActivity.LOCATION_BUILDING_KEY);
+        }
 
         if (chkRemember.isChecked()) {
-            editor.putString(USERNAME_KEY, etUsername.getText().toString());
+            editor.putString(USERNAME_KEY, user.getUsername());
             editor.putString(PASSWORD_KEY, etPassword.getText().toString());
             editor.putBoolean(REMEMBER_KEY, true);
-            editor.commit();
         } else {
             editor.remove(USERNAME_KEY);
             editor.remove(PASSWORD_KEY);
             editor.remove(REMEMBER_KEY);
-            editor.commit();
         }
 
-        String state = preferences.getString("location_state",null);
-        String campus = preferences.getString("location_campus",null);
-        String building = preferences.getString("location_building",null);
+        editor.commit();
 
-        if (state != null && campus != null && building != null) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("user", user);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), LocationSelectorActivity.class);
-            intent.putExtra("calling_activity",LoginActivity.class.toString());
-            intent.putExtra("user", user);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
 
     }
 }
