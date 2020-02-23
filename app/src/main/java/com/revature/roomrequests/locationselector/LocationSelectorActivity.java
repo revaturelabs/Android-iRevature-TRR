@@ -30,6 +30,9 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
     final private String STATE = "state";
     final private String CAMPUS = "campus";
     final private String BUILDING = "building";
+    final static public String LOCATION_STATE_KEY = "location_state";
+    final static public String LOCATION_CAMPUS_KEY = "location_campus";
+    final static public String LOCATION_BUILDING_KEY = "locatin_building";
     final private String LOG_TAG =  "LOCATION SELECTOR";
 
     ArrayList<Location> locations;
@@ -181,23 +184,12 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
 
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("location_state", selectedState);
-                editor.putString("location_campus", selectedCampus);
-                editor.putString("location_building", update);
+                editor.putString(LOCATION_STATE_KEY, selectedState);
+                editor.putString(LOCATION_CAMPUS_KEY, selectedCampus);
+                editor.putString(LOCATION_BUILDING_KEY, update);
                 editor.commit();
 
-                String className = getIntent().getStringExtra("calling_activity");
-                String loginActivityName = LoginActivity.class.toString();
-
-                if (loginActivityName.equals(className)) {
-                    Intent received = getIntent();
-                    User user = (User) received.getSerializableExtra("user");
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("user",user);
-                    startActivity(intent);
-                } else {
-                    finish();
-                }
+                finish();
 
                 break;
         }

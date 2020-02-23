@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.revature.roomrequests.R;
+import com.revature.roomrequests.login.LoginActivity;
 import com.revature.roomrequests.pojo.Location;
 import com.revature.roomrequests.pojo.Room;
 import com.revature.roomrequests.pojo.User;
@@ -49,7 +50,7 @@ public class ApiService {
         this.context = context;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        auth_token = preferences.getInt("auth_token", -1);
+        auth_token = preferences.getInt(LoginActivity.AUTH_TOKEN_KEY, -1);
 
         if (auth_token == -1) {
             Log.d(LOG_TAG, "auth token not made available for api service");
