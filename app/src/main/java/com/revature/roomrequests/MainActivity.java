@@ -169,9 +169,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String state = preferences.getString("location_state", null);
-        String campus = preferences.getString("location_campus", null);
-        String building = preferences.getString("location_building", null);
+        String state = preferences.getString(LocationSelectorActivity.LOCATION_STATE_KEY, null);
+        String campus = preferences.getString(LocationSelectorActivity.LOCATION_CAMPUS_KEY, null);
+        String building = preferences.getString(LocationSelectorActivity.LOCATION_BUILDING_KEY, null);
 
         if (state != null && campus != null && building != null) {
             location = new Location(state, campus, building);

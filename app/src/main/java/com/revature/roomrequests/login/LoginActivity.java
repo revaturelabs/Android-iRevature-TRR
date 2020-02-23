@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (chkRemember.isChecked()) {
-            editor.putString(USERNAME_KEY, etUsername.getText().toString());
+            editor.putString(USERNAME_KEY, user.getUsername());
             editor.putString(PASSWORD_KEY, etPassword.getText().toString());
             editor.putBoolean(REMEMBER_KEY, true);
         } else {

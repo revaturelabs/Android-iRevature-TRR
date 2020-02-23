@@ -32,7 +32,7 @@ public class LocationSelectorActivity extends AppCompatActivity implements Locat
     final private String BUILDING = "building";
     final static public String LOCATION_STATE_KEY = "location_state";
     final static public String LOCATION_CAMPUS_KEY = "location_campus";
-    final static public String LOCATION_BUILDING_KEY = "locatin_building";
+    final static public String LOCATION_BUILDING_KEY = "location_building";
     final private String LOG_TAG =  "LOCATION SELECTOR";
 
     ArrayList<Location> locations;
