@@ -195,7 +195,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
                         room.setBatch(batch);
                         room.setRoomNumber(jsonObject.getString("room_number"));
                         room.setTrainer(trainerName);
-                        room.setDates(startDate == null ? null : startDate + "-" + endDate);
+                        room.setDates(startDate == null ? null : startDate + " - " + endDate);
                         room.setCapacity(jsonObject.getString("capacity"));
                         room.setAvailable(jsonObject.getBoolean("available"));
 
