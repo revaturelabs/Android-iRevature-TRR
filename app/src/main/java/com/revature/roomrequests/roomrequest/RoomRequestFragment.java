@@ -112,11 +112,11 @@ public class RoomRequestFragment extends Fragment implements View.OnClickListene
         tvSeats = view.findViewById(R.id.tv_room_request_size);
         tvDates.append(" "+noString);
         if(room!=null) {
-            tvRoom.append(" "+room.getRoomNumber());
-            tvSeats.append(" "+room.getCapacity());
-            tvTrainer.append(" "+room.getTrainer());
+            tvRoom.setText(" "+room.getRoomNumber());
+            tvSeats.setText(" "+room.getCapacity());
+            tvTrainer.setText(" "+room.getTrainer());
         } else {
-            tvRoom.append(" "+noString);
+            tvRoom.setText(" "+noString);
         }
 
         ArrayList<String> batches = getBatches();

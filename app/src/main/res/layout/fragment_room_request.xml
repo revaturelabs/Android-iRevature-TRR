@@ -132,23 +132,51 @@
                             android:layout_marginBottom="@dimen/card_line_bottom_margin"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tv_room_request_room"
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/room_number"
-                                android:textColor="@android:color/black"
-                                android:textSize="16sp" />
+                                android:orientation="horizontal"
+                                android:layout_weight="1">
 
-                            <TextView
-                                android:id="@+id/tv_room_request_size"
+                                <TextView
+                                    android:id="@+id/tv_room_request_room_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/room_number"
+                                    android:textColor="@color/label"
+                                    android:textSize="16sp"  />
+
+                                <TextView
+                                    android:id="@+id/tv_room_request_room"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:theme="@style/soft_text"
+                                    android:textSize="16sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/seats"
-                                android:textColor="@android:color/black"
-                                android:textSize="16sp" />
+                                android:orientation="horizontal"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/tv_room_request_size_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/seats"
+                                    android:textColor="@color/label"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_room_request_size"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:theme="@style/soft_text"
+                                    android:textSize="16sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -158,23 +186,51 @@
                             android:layout_marginBottom="@dimen/card_line_bottom_margin"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tv_room_request_trainer"
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/trainer"
-                                android:textColor="@android:color/black"
-                                android:textSize="16sp" />
+                                android:orientation="horizontal"
+                                android:layout_weight="1">
 
-                            <TextView
-                                android:id="@+id/tv_room_request_dates"
+                                <TextView
+                                    android:id="@+id/tv_room_request_trainer_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/trainer"
+                                    android:textColor="@color/label"
+                                    android:textSize="16sp"  />
+
+                                <TextView
+                                    android:id="@+id/tv_room_request_trainer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:theme="@style/soft_text"
+                                    android:textSize="16sp"  />
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/start_end"
-                                android:textColor="@android:color/black"
-                                android:textSize="16sp" />
+                                android:orientation="horizontal"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/tv_room_request_dates_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/batch"
+                                    android:textColor="@color/label"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_room_request_dates"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:theme="@style/soft_text"
+                                    android:textSize="16sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -187,14 +243,15 @@
                                 android:id="@+id/tv_room_request_batch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/batch"
-                                android:textColor="@android:color/black"
+                                android:text="@string/batch_picker_label"
+                                android:textColor="@color/label"
                                 android:textSize="16sp" />
 
                             <Spinner
                                 android:id="@+id/spinner_room_request_batches"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -220,7 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/start_date_required"
-                        android:textColor="@android:color/black"
+                        android:theme="@style/soft_text"
                         android:textSize="16sp" />
 
                     <TextView
@@ -228,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" -"
-                        android:textColor="@android:color/black"
+                        android:theme="@style/soft_text"
                         android:textSize="16sp" />
 
                     <TextView
@@ -236,7 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/end_date_required"
-                        android:textColor="@android:color/black"
+                        android:theme="@style/soft_text"
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>

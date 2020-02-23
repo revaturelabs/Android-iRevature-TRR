@@ -68,30 +68,30 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
         final Resources resources = context.getResources();
 
-        holder.tvRequestDates.setText(resources.getText(R.string.swap_dates) + " " + requests.get(position).getDates());
-        holder.tvDateMade.setText(" "+requests.get(position).getDateMade());
+        holder.tvRequestDates.setText(" " + requests.get(position).getDates());
+        holder.tvDateMade.setText(" " + requests.get(position).getDateMade());
         holder.tvReason.setText(requests.get(position).getReasonForRequest());
 
         if(requests.get(position).getRoom1()!=null) {
             holder.tvRequestType.setText(R.string.request_made_on);
             if (requests.get(position).getRoom1().getBatch() == null) {
-                holder.tvRoom1Batch.setText(resources.getText(R.string.batch) + " " + noString);
+                holder.tvRoom1Batch.setText(" " + noString);
             } else {
-                holder.tvRoom1Batch.setText(resources.getText(R.string.batch) + " " + requests.get(position).getRoom1().getBatch());
+                holder.tvRoom1Batch.setText(" " + requests.get(position).getRoom1().getBatch());
             }
 
             if (requests.get(position).getRoom1().getRoomNumber() == null) {
-                holder.tvRoom1Room.setText(resources.getText(R.string.room_number) + " " + noString);
+                holder.tvRoom1Room.setText(" " + noString);
             } else {
-                holder.tvRoom1Room.setText(resources.getText(R.string.room_number) + " " + requests.get(position).getRoom1().getRoomNumber());
+                holder.tvRoom1Room.setText(" " + requests.get(position).getRoom1().getRoomNumber());
             }
 
-            holder.tvRoom1Size.setText(resources.getText(R.string.seats) + " " + requests.get(position).getRoom1().getCapacity());
+            holder.tvRoom1Size.setText(" " + requests.get(position).getRoom1().getCapacity());
 
             if (requests.get(position).getRoom1().getTrainer() == null) {
-                holder.tvRoom1Trainer.setText(resources.getText(R.string.trainer) + " " + noString);
+                holder.tvRoom1Trainer.setText(" " + noString);
             } else {
-                holder.tvRoom1Trainer.setText(resources.getText(R.string.trainer) + " " + requests.get(position).getRoom1().getTrainer());
+                holder.tvRoom1Trainer.setText(" " + requests.get(position).getRoom1().getTrainer());
             }
         } else if(requests.get(position).getRoom2()!=null){
             holder.cvRoom1.setVisibility(CardView.GONE);
@@ -100,23 +100,23 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         if(requests.get(position).getRoom2()!=null) {
             holder.tvRequestType.setText(R.string.swap_request_made_on);
             if (requests.get(position).getRoom2().getBatch() == null) {
-                holder.tvRoom2Batch.setText(resources.getText(R.string.batch) + " " + noString);
+                holder.tvRoom2Batch.setText(" " + noString);
             } else {
-                holder.tvRoom2Batch.setText(resources.getText(R.string.batch) + " " + requests.get(position).getRoom2().getBatch());
+                holder.tvRoom2Batch.setText(" " + requests.get(position).getRoom2().getBatch());
             }
 
             if (requests.get(position).getRoom2().getRoomNumber() == null) {
-                holder.tvRoom2Room.setText(resources.getText(R.string.room_number) + " " + noString);
+                holder.tvRoom2Room.setText(" " + noString);
             } else {
-                holder.tvRoom2Room.setText(resources.getText(R.string.room_number) + " " + requests.get(position).getRoom2().getRoomNumber());
+                holder.tvRoom2Room.setText(" " + requests.get(position).getRoom2().getRoomNumber());
             }
 
-            holder.tvRoom2Size.setText(resources.getText(R.string.seats) + " " + requests.get(position).getRoom2().getCapacity());
+            holder.tvRoom2Size.setText(" " + requests.get(position).getRoom2().getCapacity());
 
             if (requests.get(position).getRoom2().getTrainer() == null) {
-                holder.tvRoom2Trainer.setText(resources.getText(R.string.trainer) + " " +  noString);
+                holder.tvRoom2Trainer.setText(" " +  noString);
             } else {
-                holder.tvRoom2Trainer.setText(resources.getText(R.string.trainer) + " " + requests.get(position).getRoom2().getTrainer());
+                holder.tvRoom2Trainer.setText(" " + requests.get(position).getRoom2().getTrainer());
             }
         } else if(requests.get(position).getRoom1()!=null) {
             holder.cvRoom2.setVisibility(CardView.GONE);
