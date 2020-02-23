@@ -5,6 +5,17 @@
     android:orientation="vertical"
     tools:context="com.revature.roomrequests.requestlist.RequestListFragment">
 
+    <TextView
+        android:id="@+id/tv_main_location"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/card_request_date_margin"
+        android:textColor="@android:color/white"/>
+
     <LinearLayout
         android:id="@+id/requests_info_bar"
         android:layout_width="match_parent"
@@ -12,39 +23,51 @@
         android:background="@color/colorPrimary"
         android:divider="@color/dark_gray"
         android:gravity="end"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/card_request_date_margin"
         android:paddingTop="5dp"
         android:paddingRight="@dimen/card_request_date_margin"
         android:paddingBottom="@dimen/card_padding">
 
-        <TextView
-            android:id="@+id/tv_request_results"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/container_room_table_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            android:gravity="bottom|start"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
-        <TextView
-            android:id="@+id/tv_request_accepted_key"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/key_margin"
-            android:background="@color/room_available"
-            android:paddingLeft="@dimen/key_padding"
-            android:paddingRight="@dimen/key_padding"
-            android:text="@string/accepted_key" />
+            <TextView
+                android:id="@+id/tv_request_results"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_request_rejected_key"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/key_margin"
-            android:background="@color/room_unavailable"
-            android:paddingLeft="@dimen/key_padding"
-            android:paddingRight="@dimen/key_padding"
-            android:text="@string/rejected_key" />
+            <TextView
+                android:id="@+id/tv_request_accepted_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/key_margin"
+                android:background="@color/room_available"
+                android:paddingLeft="@dimen/key_padding"
+                android:paddingRight="@dimen/key_padding"
+                android:text="@string/accepted_key" />
+
+            <TextView
+                android:id="@+id/tv_request_rejected_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/key_margin"
+                android:background="@color/room_unavailable"
+                android:paddingLeft="@dimen/key_padding"
+                android:paddingRight="@dimen/key_padding"
+                android:text="@string/rejected_key" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

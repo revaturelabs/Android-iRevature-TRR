@@ -35,7 +35,6 @@ import com.revature.roomrequests.pojo.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tvLocation;
     TextView tvUsername;
     TextView tvUserRole;
     Location location;
@@ -60,20 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
         tvUsername = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_username);
         tvUserRole = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(R.id.tv_nav_userrole);
-        tvLocation = findViewById(R.id.tv_main_location);
-        tvLocation.setPaintFlags(tvLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
 
         tvUsername.setText(user.getUsername());
         tvUserRole.setText(user.getRole().toUpperCase());
-
-        tvLocation.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent = new Intent(getApplicationContext(), LocationSelectorActivity.class);
-                startActivity(intent);
-                return false;
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final NavController navController = Navigation.findNavController(this, R.id.host_main_fragment_container);
@@ -167,20 +156,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        String state = preferences.getString(LocationSelectorActivity.LOCATION_STATE_KEY, null);
-        String campus = preferences.getString(LocationSelectorActivity.LOCATION_CAMPUS_KEY, null);
-        String building = preferences.getString(LocationSelectorActivity.LOCATION_BUILDING_KEY, null);
-
-        if (state != null && campus != null && building != null) {
-            location = new Location(state, campus, building);
-            tvLocation.setText(location.toString());
-        } else {
-            Intent intent = new Intent(this, LocationSelectorActivity.class);
-            startActivity(intent);
-        }
-
     }
 
     @Override

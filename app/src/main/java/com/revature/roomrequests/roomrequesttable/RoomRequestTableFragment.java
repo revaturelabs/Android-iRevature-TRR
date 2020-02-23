@@ -2,8 +2,10 @@ package com.revature.roomrequests.roomrequesttable;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.app.DatePickerDialog;
+import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.google.android.material.snackbar.Snackbar;
 import com.revature.roomrequests.R;
 import com.revature.roomrequests.api.ApiService;
+import com.revature.roomrequests.locationselector.LocationSelectorActivity;
 import com.revature.roomrequests.pojo.Location;
 import com.revature.roomrequests.pojo.Room;
 
@@ -47,7 +50,7 @@ import java.util.Date;
  */
 public class RoomRequestTableFragment extends Fragment implements View.OnClickListener {
     
-    TextView tvStartDate,tvEndDate;
+    TextView tvStartDate,tvEndDate,tvLocation;
     ImageButton btnStartDate, btnEndDate;
     TextView tvNumberOfRooms, tvHelper;
     LinearLayout containerStartDate, containerEndDate;
@@ -67,6 +70,7 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
     Location location;
 
     RecyclerView recyclerView;
+    Context context;
 
     private ApiService apiService;
     final private String LOG_TAG = "ROOM REQUEST TABLE";
@@ -80,6 +84,19 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_request_table, container, false);
+
+        tvLocation = view.findViewById(R.id.tv_main_location);
+        tvLocation.setPaintFlags(tvLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tvLocation.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), LocationSelectorActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
+        tvLocation.setText(location.toString());
         
         tvStartDate = view.findViewById(R.id.tv_room_table_start_date);
         tvStartDate.setOnClickListener(this);
@@ -136,6 +153,21 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
     @Override
     public void onStart() {
         super.onStart();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String state = preferences.getString("location_state", null);
+        String campus = preferences.getString("location_campus", null);
+        String building = preferences.getString("location_building", null);
+
+        if (state != null && campus != null && building != null) {
+            location = new Location(state, campus, building);
+            tvLocation.setText(location.toString());
+        } else {
+            Intent intent = new Intent(getActivity(), LocationSelectorActivity.class);
+            startActivity(intent);
+        }
+
         if(startDate!=null) {
             tvStartDate.setText(startDate);
         }
@@ -322,13 +354,20 @@ public class RoomRequestTableFragment extends Fragment implements View.OnClickLi
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
+        this.context = context;
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         String state = preferences.getString("location_state", null);
         String campus = preferences.getString("location_campus", null);
         String building = preferences.getString("location_building", null);
 
-        location = new Location(state,campus,building);
+        if (state != null && campus != null && building != null) {
+            location = new Location(state, campus, building);
+        } else {
+            Intent intent = new Intent(getActivity(), LocationSelectorActivity.class);
+            startActivity(intent);
+        }
 
         apiService = new ApiService(context);
     }
