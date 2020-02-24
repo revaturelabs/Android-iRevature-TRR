@@ -134,16 +134,16 @@ public class RoomSwapFragment extends Fragment implements View.OnClickListener {
         
         if(room1!=null && room2!=null) {
 
-            tvBatch1.append(" "+room1.getBatch());
-            tvRoom1.append(" "+room1.getRoomNumber());
-            tvTrainer1.append(" "+room1.getTrainer());
-            tvDates1.append(" "+room1.getDates());
-            tvSeats1.append(" "+room1.getCapacity());
-            tvBatch2.append(" "+room2.getBatch());
-            tvRoom2.append(" "+room2.getRoomNumber());
-            tvTrainer2.append(" "+room2.getTrainer());
-            tvDates2.append(" "+room2.getDates());
-            tvSeats2.append(" "+room2.getCapacity());
+            tvBatch1.setText(" "+room1.getBatch());
+            tvRoom1.setText(" "+room1.getRoomNumber());
+            tvTrainer1.setText(" "+room1.getTrainer());
+            tvDates1.setText(" "+room1.getDates());
+            tvSeats1.setText(" "+room1.getCapacity());
+            tvBatch2.setText(" "+room2.getBatch());
+            tvRoom2.setText(" "+room2.getRoomNumber());
+            tvTrainer2.setText(" "+room2.getTrainer());
+            tvDates2.setText(" "+room2.getDates());
+            tvSeats2.setText(" "+room2.getCapacity());
         }
 
         startDateListener = new DatePickerDialog.OnDateSetListener() {

@@ -73,6 +73,7 @@
     <string name="request_submitted">Request Submitted</string>
     <string name="request_submit_message">Your request was successfully submitted.</string>
     <string name="request_dates">Requesting for:</string>
+    <string name="batch_picker_label">Batch: <font color="#FF0000">*</font> </string>
 
     <!--  nav drawer  -->
     <string name="room_request_title">Room Request</string>

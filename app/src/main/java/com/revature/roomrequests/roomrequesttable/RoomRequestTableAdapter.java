@@ -85,26 +85,26 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
         holder.itemView.setSelected(room1Pos==position);
 
         if(batches.get(position)!=null) {
-            holder.tvBatch.setText( resources.getString(R.string.batch) + " " + batches.get(position));
+            holder.tvBatch.setText(" " + batches.get(position));
         } else {
-            holder.tvBatch.setText(resources.getString(R.string.batch) + " " + NO_STRING);
+            holder.tvBatch.setText(" " + NO_STRING);
         }
-        holder.tvRoom.setText(resources.getString(R.string.room_number) + " " + rooms.get(position));
+        holder.tvRoom.setText(" " + rooms.get(position));
 
         if(trainers.get(position)!=null) {
-            holder.tvTrainer.setText(resources.getString(R.string.trainer) + " " + trainers.get(position));
+            holder.tvTrainer.setText(" " + trainers.get(position));
         } else {
-            holder.tvTrainer.setText(resources.getString(R.string.trainer) + " " + NO_STRING);
+            holder.tvTrainer.setText(" " + NO_STRING);
         }
         if(dates.get(position)!=null) {
-            holder.tvDates.setText(resources.getString(R.string.start_end) + " " + dates.get(position));
+            holder.tvDates.setText(" " + dates.get(position));
         } else {
-            holder.tvDates.setText(resources.getString(R.string.start_end) + " " + NO_STRING);
+            holder.tvDates.setText(" " + NO_STRING);
         }
         if(seats.get(position)!=null) {
-            holder.tvSeats.setText(resources.getString(R.string.seats) + " " + seats.get(position));
+            holder.tvSeats.setText(" " + seats.get(position));
         } else {
-            holder.tvSeats.setText(resources.getString(R.string.seats) + " " + NO_STRING);
+            holder.tvSeats.setText(" " + NO_STRING);
         }
         if(availabilities.get(position)){
             holder.cvRoom.setCardBackgroundColor(context.getResources().getColor(R.color.room_available));
