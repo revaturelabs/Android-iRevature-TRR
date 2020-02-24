@@ -78,7 +78,7 @@ public class RoomRequestTableAdapter extends RecyclerView.Adapter<RoomRequestTab
     public void onBindViewHolder(@NonNull RequestRoomViewHolder holder, final int position) {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        final String trainerName = preferences.getString("name","");
+        final String trainerName = preferences.getString("user_name","");
 
         Resources resources = context.getResources();
 
